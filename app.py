@@ -44,3 +44,5 @@ if __name__ == "__main__":
 # TODO: deploy to heroku
 # TODO: verify login by making a new method in class
 # TODO: loading page
+# TODO: photos and personal details
+# TODO: dynamic modification of marks
