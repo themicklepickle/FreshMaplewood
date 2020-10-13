@@ -27,6 +27,7 @@ def signin():
 
 @app.route("/marks")
 def marks():
+    global scrape
     scrape.start(notify=False)
     return render_template("index.html", courses=scrape.courses, aliases=scrape.aliases)
 
