@@ -21,9 +21,7 @@ def loading():
 def signin():
     session["username"] = ""
     session["password"] = ""
-    if "error" in session:
-        return render_template("signin.html", error=True)
-    return render_template("signin.html", error=False)
+    return render_template("signin.html", error=True if "error" in session else False)
 
 
 @app.route("/marks")
