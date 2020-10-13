@@ -24,13 +24,13 @@ def loading():
 def signin():
     global username
     global password
-    
+    global error
+
     username = ""
     password = ""
     if error:
         return render_template("signin.html", error=True)
     return render_template("signin.html", error=False)
-
 
 @app.route("/marks")
 def marks():
