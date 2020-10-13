@@ -1,7 +1,9 @@
 from flask import Flask, redirect, render_template, request
 from MaplewoodScraper import MaplewoodScraper
+import requests
 
-scrape = None
+username = ""
+password = ""
 
 app = Flask(__name__)
 
@@ -9,25 +11,24 @@ app = Flask(__name__)
 def index():
     return redirect("/signin")
 
-
 @app.route("/loading", methods=["POST"])
 def loading():
+    global username
+    global password
     username = request.form["inputUsername"]
     password = request.form["inputPassword"]
-    global scrape 
-    scrape = MaplewoodScraper(
-        username,
-        password
-    )
     return render_template("loading.html")
 
 @app.route("/signin")
 def signin():
     return render_template("signin.html")
 
+
 @app.route("/marks")
 def marks():
-    global scrape
+    # username = request.form["username"]
+    # password = request.form["password"]
+    scrape = MaplewoodScraper(username, password)
     scrape.start(notify=False)
     return render_template("index.html", courses=scrape.courses, aliases=scrape.aliases)
 
