@@ -28,7 +28,8 @@ def signin():
 def marks():
     scrape = MaplewoodScraper(session["username"], session["password"])
     if scrape.start(notify=False):
-        session.pop("error")
+        if "error" in session:
+            session.pop("error")
         return render_template("index.html", courses=scrape.courses, aliases=scrape.aliases)
     session["error"] = True
     return redirect("/signin")
