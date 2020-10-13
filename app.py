@@ -26,8 +26,6 @@ def signin():
 
 @app.route("/marks")
 def marks():
-    # username = request.form["username"]
-    # password = request.form["password"]
     scrape = MaplewoodScraper(username, password)
     scrape.start(notify=False)
     return render_template("index.html", courses=scrape.courses, aliases=scrape.aliases)
