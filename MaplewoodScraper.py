@@ -36,12 +36,14 @@ class MaplewoodScraper:
 
     def start(self, notify=True):
         self.startSession()
-        self.login()
+        if not self.login():
+            return False
         self.getMainPage()
         self.getCourses()
         self.getMarks()
         self.addMarkDetails()
         self.parseMarks()
+        return True
 
     def startSession(self):
         self.session = requests.Session()
@@ -51,11 +53,12 @@ class MaplewoodScraper:
 
     def login(self):
         userInfo = f"EntryType=StudentParent&username={self.username}&pwd={self.password}"
-        self.session.post(
+        response = self.session.post(
             self.mwURL+"/connectEd/viewer/login/VerUser.aspx",
             data=userInfo,
             headers={"Content-type": "application/x-www-form-urlencoded"}
         )
+        return True if response.history[0].headers.get('location').endswith('SvrMsg.aspx') else False
 
     def getMainPage(self):
         self.mainPage = self.session.get(

@@ -4,6 +4,7 @@ import requests
 
 username = ""
 password = ""
+error = False
 
 app = Flask(__name__)
 
@@ -23,17 +24,24 @@ def loading():
 def signin():
     global username
     global password
+    
     username = ""
     password = ""
-    return render_template("signin.html")
+    if error:
+        return render_template("signin.html", error=True)
+    return render_template("signin.html", error=False)
 
 
 @app.route("/marks")
 def marks():
-    scrape = MaplewoodScraper(username, password)
-    scrape.start(notify=False)
-    return render_template("index.html", courses=scrape.courses, aliases=scrape.aliases)
+    global error
 
+    scrape = MaplewoodScraper(username, password)
+    if scrape.start(notify=False):
+        error = False
+        return render_template("index.html", courses=scrape.courses, aliases=scrape.aliases)
+    error = True
+    return redirect("/signin")
 
 if __name__ == "__main__":
     app.run()
