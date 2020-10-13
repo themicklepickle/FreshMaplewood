@@ -58,7 +58,11 @@
         {% for course in courses %}
         <div class="row py-3 bg-info text-white border-bottom border-light align-items-center text-center">
             <div class="col-3">
+                {% if course["name"] in aliases %}
                 <h5 class="my-0">{{ aliases[course["name"]] }}</h5>
+                {% else %}
+                <h5 class="my-0">{{ course["name"] }}</h5>
+                {% else %}
             </div>
             <div class="col-3">
                 <h5 class="my-0">{{ course["teacher"] }}</h5>
