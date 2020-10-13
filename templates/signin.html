@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="static/index.css">
+    <link href="../static/signin.css" rel="stylesheet">
+
+    <title>Login - Fresh Maplewood</title>
+</head>
+
+<body class="text-center">
+    <form class="form-signin" action="/loading" method="POST">
+        <img class="mb-4" src="/static/mapleleaf.png" alt="" width="25%" height="25%">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="input" class="sr-only">Email address</label>
+        <input type="text" id="inputUsername" name="inputUsername" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
+        <p class="mt-3 mb-4 text-muted">Your information is never shared.</p>
+        <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Sign in</button>
+    </form>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
