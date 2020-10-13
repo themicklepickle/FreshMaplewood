@@ -21,6 +21,10 @@ def loading():
 
 @app.route("/signin")
 def signin():
+    global username
+    global password
+    username = ""
+    password = ""
     return render_template("signin.html")
 
 
@@ -36,7 +40,6 @@ if __name__ == "__main__":
 
 
 # TODO: highlight percentage/row when a mark is below a certain perctentage
-# TODO: signin page
 # TODO: show num assignments that are 100, mediocre and bad
 # TODO: show course average
 # TODO: deploy to heroku
