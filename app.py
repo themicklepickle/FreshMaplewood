@@ -1,12 +1,9 @@
-from flask import Flask, redirect, render_template, request, session
+from flask import Flask, redirect, render_template, request, session, escape
 from MaplewoodScraper import MaplewoodScraper
 import requests
 
 app = Flask(__name__)
-app.secret_key = "asdfkjh2i3u987ufiusjfdkjqwopr!@#$!@#%$#%@!#$!@#$%@!"
-
-session["error"] = False
-
+app.secret_key = "asdfkjh2i3u98@#%$#%@!#7ufiusjfdkjqwopr!@#$!$!@#$%@!"
 
 @app.route("/")
 def index():
@@ -24,16 +21,16 @@ def loading():
 def signin():
     session["username"] = ""
     session["password"] = ""
-    if session["error"]:
+    if "error" in session:
         return render_template("signin.html", error=True)
     return render_template("signin.html", error=False)
 
 
 @app.route("/marks")
 def marks():
-    scrape = MaplewoodScraper(username, password)
+    scrape = MaplewoodScraper(session["username"], session["password"])
     if scrape.start(notify=False):
-        session["error"] = False
+        session.pop("error")
         return render_template("index.html", courses=scrape.courses, aliases=scrape.aliases)
     session["error"] = True
     return redirect("/signin")
