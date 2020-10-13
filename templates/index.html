@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/index.css">
 
     <title>Cleaner Maplewood</title>
 </head>
@@ -81,11 +79,12 @@
                     <tr>
                         <th scope="col">{{ unit["name"] }}</th>
                         {% if unit["mark"] %}
-                        <th scope="col">{{ unit["mark"] / unit["denominator"] * 100 }}%</th>
+                        <th scope="col">{{ "%.2f"|format(unit["mark"] / unit["denominator"] * 100) }}%</th>
+                        <th scope="col">{{ "%.2f"|format(unit["mark"]) }}</th>
                         {% else %}
                         <th scope="col"></th>
+                        <th scope="col"></th>
                         {% endif %}
-                        <th scope="col">{{ unit["mark"] }}</th>
                         <th scope="col">{{ unit["denominator"] }}</th>
                         <th scope="col">{{ unit["weight"] }}</th>
                         <th scope="col"></th>
@@ -98,10 +97,11 @@
                             <th scope="col">{{ section["name"] }}</th>
                             {% if section["mark"] %}
                             <th scope="col">{{ "%.2f"|format(section["mark"] / section["denominator"] * 100) }}%</th>
+                            <th scope="col">{{ "%.2f"|format(section["mark"]) }}</th>
                             {% else %}
                             <th scope="col"></th>
+                            <th scope="col"></th>
                             {% endif %}
-                            <th scope="col">{{ section["mark"] }}</th>
                             <th scope="col">{{ section["denominator"] }}</th>
                             <th scope="col">{{ section["weight"] }}</th>
                             <th scope="col"></th>
@@ -147,6 +147,25 @@
         </div>
         {% endfor %}
         </div>
+
+        
+    </div>
+    <!-- Footer -->
+    <div class="container-fluid py-5 align-items-center text-center" style="background-image: linear-gradient(#46bda1, rgb(91, 192, 222))">
+        <div class="row py-1">
+            <div class="col">
+                <h4 class="text-light">
+                    Cleaner Maplewood
+                </h4>
+            </div>
+        </div>
+        <div class="row py-2">
+            <div class="col">
+                <h6 class="text-light">
+                    by Michael Xu
+                </h6>
+            </div>
+        </div>
     </div>
     
     
@@ -158,9 +177,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
+    <script src="../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>   
 </body>
 
 </html>
