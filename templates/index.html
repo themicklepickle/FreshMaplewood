@@ -36,7 +36,15 @@
             <div class="col-3">
                 <h4 class="my-0">Course</h4>
             </div>
-            <div class="col-3">
+            <div class="col-1">
+                <a class="text-white my-0" data-target="#courseMark,#markButton" data-toggle="collapse" role="button">
+                    <h4 class="my-0">Mark</h4>
+                </a>
+                <!-- <a class="text-white my-0" class="change-button">
+                    <h4 class="my-0">Mark</h4>
+                </a> -->
+            </div>
+            <div class="col-2">
                 <h4 class="my-0">Teacher</h4>
             </div>
             <div class="col-2">
@@ -59,12 +67,35 @@
         <div class="row py-3 bg-info text-white border-bottom border-light align-items-center text-center">
             <div class="col-3">
                 {% if course["name"] in aliases %}
-                <h5 class="my-0">{{ aliases[course["name"]] }}</h5>
+                <h5 class="my-0 text-center">{{ aliases[course["name"]] }}</h5>
                 {% else %}
                 <h5 class="my-0">{{ course["name"] }}</h5>
                 {% endif %}
             </div>
-            <div class="col-3">
+            <div class="col-1">
+                <div class="collapse" id="courseMark">
+                    <a class="text-white" data-toggle="collapse" data-target="#{{ course['code'] }}"
+                        aria-expanded="false" aria-controls="{{ course['code'] }}"
+                        {% if not course["lastUpdated"] %}disabled{% endif %}>
+                            {% if course["mark"] %}
+                            <h5 class="my-2">{{ course["mark"] }}%</h5>
+                            {% else %}
+                            <h5 class="my-2"></h5>
+                            {% endif %}
+                        </a>
+                </div>
+                <div class="collapse show my-0" id="markButton">
+                    <button class="btn btn-light text-info" type="button" data-toggle="collapse" data-target="#{{ course['code'] }}"
+                        aria-expanded="false" aria-controls="{{ course['code'] }}"
+                        {% if not course["lastUpdated"] %}disabled{% endif %}>Marks</button>
+                </div>
+            </div>
+            <!-- <div class="col-1 collapse" id="markButton">
+                <button class="btn btn-light text-info" type="button" data-toggle="collapse" data-target="#{{ course['code'] }}"
+                    aria-expanded="false" aria-controls="{{ course['code'] }}"
+                    {% if not course["lastUpdated"] %}disabled{% endif %}>Marks</button>
+            </div> -->
+            <div class="col-2">
                 <h5 class="my-0">{{ course["teacher"] }}</h5>
             </div>
             <div class="col-2">
@@ -80,10 +111,6 @@
                 <h5 class="my-0">{{ course["late"] }}</h5>
             </div>
             <div class="col-1">
-                <button class="btn btn-light text-info" type="button" 
-                    data-toggle="collapse" data-target="#{{ course['code'] }}" 
-                    aria-expanded="false" aria-controls="{{ course['code'] }}"
-                    {% if not course["lastUpdated"] %}disabled{% endif %}>Marks</button>
             </div>
         </div>
         <div class="collapse" id="{{ course['code'] }}">
@@ -192,6 +219,9 @@
         </div>
     </div>
     
+    <!-- <script>
+        $('#markButton').collapse("toggle")
+    </script> -->
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -201,7 +231,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
         crossorigin="anonymous"></script>
-    <script src="../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>   
+    <script src="../static/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>

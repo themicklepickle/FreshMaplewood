@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import json
 
 
 class MaplewoodScraper:
@@ -9,7 +8,7 @@ class MaplewoodScraper:
         self.password = password
 
         self.mainPage = None
-        self.marksPages = []
+        self.markPages = []
         self.allMarks = []
         self.courses = []
         self.activeCourses = []
@@ -40,7 +39,7 @@ class MaplewoodScraper:
             return False
         self.getMainPage()
         self.getCourses()
-        self.getMarks()
+        self.getMarkPages()
         self.addMarkDetails()
         self.parseMarks()
         return True
@@ -63,7 +62,7 @@ class MaplewoodScraper:
     def getMainPage(self):
         self.mainPage = self.session.get(
             self.mwURL +
-            "/connectEd/viewer/Viewer/main.aspx?T={EA8346E5-ED5C-4CA4-92BE-036F265DC620}&PageAccess=15"
+            "/connectEd/viewer/Viewer/main.aspx"
         ).text
 
     def getCourses(self):
@@ -100,7 +99,7 @@ class MaplewoodScraper:
             if course["active"]:
                 self.activeCourses.append(course)
 
-    def getMarks(self):
+    def getMarkPages(self):
         for course in self.courses:
             if course in self.activeCourses:
                 courseInfo = {
@@ -114,19 +113,26 @@ class MaplewoodScraper:
                     "stuLetters": "",
                     "orgID": -1
                 }
-                marksPage = self.session.post(
+                markPage = self.session.post(
                     self.mwURL+"/connectEd/viewer/Achieve/TopicBas/StuMrks.aspx/GetMarkbook",
                     json=courseInfo
                 ).json()["d"]
-                self.marksPages.append(BeautifulSoup(marksPage, features="lxml"))
+                self.markPages.append(BeautifulSoup(markPage, features="lxml"))
             else:
-                self.marksPages.append(None)
+                self.markPages.append(None)
             
     def addMarkDetails(self):
-        for marksPage in self.marksPages:
-            if marksPage:
-                rows = marksPage.find_all("tr")
-                
+        for i, markPage in enumerate(self.markPages):
+            if markPage:
+                termMark = markPage.find(
+                    "div", attrs={"style": "font-weight: bold; margin-bottom: 3px;"}).string[11:]
+                self.courses[i]["mark"] = termMark if termMark != " " else None
+            else:
+                self.courses[i]["mark"] = None
+
+            if markPage:
+                rows = markPage.find_all("tr")
+
                 course = []
                 for row in rows:
                     splitRows = [str(col.string) for col in row.find_all("td")]
@@ -143,6 +149,7 @@ class MaplewoodScraper:
                     else:
                         splitRows.append("header")
                     course.append(splitRows)
+                    # print(splitRows)
                 self.allMarks.append(course)
             else:
                 self.allMarks.append([])
@@ -235,7 +242,17 @@ class MaplewoodScraper:
                 if last == "section":
                     unit["sections"].append(section)
                     course["units"].append(unit)
-                if last == "assignment":
+                if last == "assignment" and unit["has sections"]:
                     section["assignments"].append(assignment)
                     unit["sections"].append(section)
                     course["units"].append(unit)
+                elif last == "assignment":
+                    unit["assignments"].append(assignment)
+                    course["units"].append(unit)
+                    
+
+if __name__ == "__main__":
+    username = input("Username: ")
+    password = input("Password: ")
+    scraper = MaplewoodScraper(username, password)
+    scraper.start()

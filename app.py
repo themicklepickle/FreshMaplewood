@@ -47,3 +47,5 @@ if __name__ == "__main__":
 # TODO: loading page
 # TODO: photos and personal details
 # TODO: dynamic modification of marks
+# TODO: remove None and replace with a blank space across the site
+# TODO: change collapse to accordion
