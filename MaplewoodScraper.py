@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import json
 
 
 class MaplewoodScraper:
@@ -30,10 +31,19 @@ class MaplewoodScraper:
             "Electro Assembly 1": "Electro Assembly 1",
             "Robotics applications": "Robotics Applications",
             "Introductory Robotics": "Introductory Robotics",
+            "Computer Science 2": "Computer Science 2",
+            "Files & File Structures 1": "File Structures 1",
+            "Second Language Programming 1": "C++ Language",
+            "Iterative Algorithms 1": "Algorithms 1",
+            "Object­oriented Programming 1": "OOP 1"
         }
         self.mwURL = "https://hosting.maplewood.com/AB/Private/WA/WA/Maplewood"
 
-    def start(self, notify=True):
+    def start(self, notify=True, test=False):
+        if test:
+            with open("test.json", "r") as f:
+                self.courses = json.load(f)
+            return True
         self.startSession()
         if not self.login():
             return False

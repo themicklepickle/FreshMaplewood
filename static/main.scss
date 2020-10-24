@@ -2,5 +2,53 @@ $theme-colors: (
   "info": #46bda1,
   "primary": #0ec7b7
 );
+$enable-responsive-font-sizes: true;
+$grid-columns: 50;
 
 @import "node_modules/bootstrap/scss/bootstrap";
+
+ html {
+  font-size: 0.5rem;
+}
+.material-icons {
+    transform: scale(0.5);
+}
+.signout {
+  transform: scale(0.75);
+}
+
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: 0.8rem;
+  }
+  .material-icons {
+    transform: scale(1);
+  }
+  .signout {
+  transform: scale(1.25);
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 1.1rem;
+  }
+  .material-icons {
+    transform: scale(1.5);
+  }
+  .signout {
+  transform: scale(1.75);
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  html {
+    font-size: 1.4rem;
+  }
+  .material-icons {
+    transform: scale(1.75);
+  }
+  .signout {
+  transform: scale(2.0);
+  }
+}
