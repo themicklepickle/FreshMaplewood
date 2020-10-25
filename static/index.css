@@ -9725,12 +9725,31 @@ a.text-dark:hover, a.text-dark:focus {
 html {
   font-size: 0.5rem; }
 
+body {
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards; }
+
 .material-icons {
   transform: scale(0.5); }
 
 .signout {
-  transform: scale(0.75); }
+  transform: scale(0.7); }
 
+.modal-dialog {
+  max-width: 70% !important;
+  margin: 0 auto; }
+
+.collapsing {
+  -webkit-transition: none;
+  -o-transition: none;
+  transition: none; }
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
 @media (min-width: 576px) {
   html {
     font-size: 0.8rem; }
@@ -9739,7 +9758,11 @@ html {
     transform: scale(1); }
 
   .signout {
-    transform: scale(1.25); } }
+    transform: scale(1.25); }
+
+  .modal-dialog {
+    max-width: 70% !important;
+    margin: 0 auto; } }
 @media (min-width: 768px) {
   html {
     font-size: 1.1rem; }
@@ -9748,15 +9771,36 @@ html {
     transform: scale(1.5); }
 
   .signout {
-    transform: scale(1.75); } }
+    transform: scale(1.75); }
+
+  .modal-dialog {
+    max-width: 70% !important;
+    margin: 0 auto; } }
 @media (min-width: 992px) {
   html {
     font-size: 1.4rem; }
 
   .material-icons {
-    transform: scale(1.75); }
+    transform: scale(1.6); }
 
   .signout {
-    transform: scale(2); } }
+    transform: scale(2); }
+
+  .modal-dialog {
+    max-width: 70% !important;
+    margin: 0 auto; } }
+@media (min-width: 1200px) {
+  html {
+    font-size: 1.4rem; }
+
+  .material-icons {
+    transform: scale(1.6); }
+
+  .signout {
+    transform: scale(2); }
+
+  .modal-dialog {
+    margin: 0 auto;
+    max-width: 70% !important; } }
 
 /*# sourceMappingURL=index.css.map */

@@ -7,14 +7,37 @@ $grid-columns: 50;
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
- html {
+html {
   font-size: 0.5rem;
 }
+body {
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
 .material-icons {
-    transform: scale(0.5);
+  transform: scale(0.5);
 }
 .signout {
-  transform: scale(0.75);
+  transform: scale(0.70);
+}
+.modal-dialog {
+  max-width: 70% !important;
+  margin: 0 auto;
+}
+.collapsing {
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 @include media-breakpoint-up(sm) {
@@ -27,7 +50,12 @@ $grid-columns: 50;
   .signout {
   transform: scale(1.25);
   }
+  .modal-dialog {
+    max-width: 70% !important;
+    margin: 0 auto;
+  }
 }
+
 
 @include media-breakpoint-up(md) {
   html {
@@ -39,6 +67,10 @@ $grid-columns: 50;
   .signout {
   transform: scale(1.75);
   }
+  .modal-dialog {
+    max-width: 70% !important;
+    margin: 0 auto;
+  }
 }
 
 @include media-breakpoint-up(lg) {
@@ -46,9 +78,30 @@ $grid-columns: 50;
     font-size: 1.4rem;
   }
   .material-icons {
-    transform: scale(1.75);
+    transform: scale(1.6);
   }
   .signout {
   transform: scale(2.0);
   }
+  .modal-dialog {
+    max-width: 70% !important;
+    margin: 0 auto;
+  }
 }
+
+@include media-breakpoint-up(xl) {
+  html {
+    font-size: 1.4rem;
+  }
+  .material-icons {
+    transform: scale(1.6);
+  }
+  .signout {
+  transform: scale(2.0);
+  }
+  .modal-dialog {
+    margin: 0 auto;
+    max-width: 70% !important;
+  }
+}
+

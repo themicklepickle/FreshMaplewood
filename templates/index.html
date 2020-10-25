@@ -10,51 +10,33 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <title>Fresh Maplewood</title>
-
-    <style>
-        body {
-            animation: fadeInAnimation ease 2s;
-            animation-iteration-count: 1;
-            animation-fill-mode: forwards;
-        }
-    
-        @keyframes fadeInAnimation {
-            0% {
-                opacity: 0;
-            }
-    
-            100% {
-                opacity: 1;
-            }
-        }
-    </style>
 </head>
 
-<body>
-    <div class="container-fluid bg-light">
+<body class="bg-light">
+    <div class="container-fluid">
         <!-- header (course | mark | updated | details) -->
         <div class="row py-3 text-white border-bottom border-dark align-items-center text-center" 
-            style="background-image: linear-gradient( rgb(91, 192, 222), #46bda1); border-bottom-width: 15px;">
+            style="background-image: linear-gradient( rgb(91, 192, 222), #46bda1); border-bottom-width: 30px;">
             <!-- details col (blank) -->
             <div class="col-4">
             </div>
             <!-- course -->
             <div class="col-20">
-                <h3 class="my-0">Course</h3>
+                <h4 class="my-0">Course</h4>
             </div>
             <!-- mark -->
             <div class="col-10">
                 <a class="text-white my-0" data-target="#courseMark,#markButton" data-toggle="collapse" role="button">
-                    <h3 class="my-0 mx-0">Mark</h3>
+                    <h4 class="my-0 mx-0">Mark</h4>
                 </a>
             </div>
             <!-- updated -->
             <div class="col-10">
-                <h3 class="my-0">Updated</h3>
+                <h4 class="my-0">Updated</h4>
             </div>
             <!-- sign out -->
             <div class="col-6">
-                <a class="text-white my-0 "href="/signin">
+                <a class="text-white my-0 " href="/signin">
                     <i class="material-icons signout">exit_to_app</i>
                 </a>
             </div>
@@ -68,40 +50,62 @@
             <!-- details button -->
             <div class="col-4"> 
                 <a data-toggle="modal" data-target="#{{ course['code'] }}details" role="button" aria-expanded="false"
-                    aria-controls="{{ course['code'] }}details">
+                    aria-controls="{{ course['code'] }}details"
+                    {% if not course["mark"] %}style="opacity: 0.65;"{% endif %}>
                     <i class="material-icons">info</i>
                 </a>
             </div>
             <!-- name -->
             <div class="col-20">
-                {% if course["name"] in aliases %}
-                <h5 class="my-0 text-center">{{ aliases[course["name"]] }}</h5>
-                {% else %}
-                <h5 class="my-0">{{ course["name"] }}</h5>
-                {% endif %}
+                <h5 class="my-0 text-center" {% if not course["mark"] %}style="opacity: 0.65;"{% endif %}>
+                    {% if course["name"] in aliases %}
+                    {{ aliases[course["name"]] }}
+                    {% else %}
+                    {{ course["name"] }}
+                    {% endif %}
+                </h5>
+                
             </div>
             <!-- mark button -->
             <div class="col-10">
+                <!-- mark shown -->
                 <div class="collapse" id="courseMark">
-                    <a class="text-white" data-toggle="collapse" data-target="#{{ course['code'] }}marks"
-                        aria-expanded="false" aria-controls="{{ course['code'] }}marks" role="button"
-                        {% if not course["lastUpdated"] %}disabled{% endif %}>
-                            {% if course["mark"] %}
-                            <h5 class="my-2">{{ course["mark"] }}%</h5>
-                            {% else %}
-                            <h5 class="my-2"></h5>
-                            {% endif %}
-                        </a>
-                </div>
-                <div class="collapse show my-0" id="markButton">
-                    <button class="btn btn-light text-info" type="button" data-toggle="collapse" data-target="#{{ course['code'] }}marks"
+                    <button class="btn btn-outline-info text-white" type="button" data-toggle="collapse" data-target="#{{ course['code'] }}marks"
                         aria-expanded="false" aria-controls="{{ course['code'] }}marks"
-                        {% if not course["lastUpdated"] %}disabled{% endif %}>Marks</button>
+                        {% if not course["lastUpdated"] %}disabled{% endif %}>
+                        <h5 class="my-0">
+                            {% if course["mark"] %}
+                            {{ course["mark"] }}%
+                            {% else %}
+                            N/A
+                            {% endif %}
+                        </h5>
+                    </button>
+                </div>
+                <!-- mark hidden -->
+                <div class="collapse show my-0" id="markButton">
+                    <button class="{% if course["mark"] %}btn btn-light text-info{% else %}btn btn-outline-info text-white{% endif %}" type="button" data-toggle="collapse" data-target="#{{ course['code'] }}marks"
+                        aria-expanded="false" aria-controls="{{ course['code'] }}marks"
+                        {% if not course["lastUpdated"] %}disabled{% endif %}>
+                        <h5 class="my-0">
+                            {% if course["mark"] %}
+                            Marks
+                            {% else %}
+                            N/A
+                            {% endif %}
+                        </h5>
+                    </button>
                 </div>
             </div>
             <!-- updated -->
             <div class="col-10">
-                <h5 class="my-0">{{ course["lastUpdated"] }}</h5>
+                <h5 class="my-0" {% if not course["lastUpdated"] %}style="opacity: 0.65;"{% endif %}>
+                    {% if course["lastUpdated"] %}
+                    {{ course["lastUpdated"] }}
+                    {% else %}
+                    N/A
+                    {% endif %}
+                </h5>
             </div>
             <!-- sign out column (blank) -->
             <div class="col-6">
@@ -109,105 +113,114 @@
         </div>
 
         <!-- details -->
-        <div class="modal fade" id="{{ course['code'] }}details" tabindex="-1" role="dialog" 
+        <div class="modal fade keyboard" id="{{ course['code'] }}details" tabindex="-1" role="dialog" 
             aria-labelledby="#{{ course['code'] }}details" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">{{ course['name'] }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <!-- modal header -->
+                    <div class="modal-header text-white" style="background-image: linear-gradient( rgb(91, 192, 222), #46bda1);">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <h5 class="modal-title" id="modalLabel">{{ course['name'] }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <p class="h6 pt-1" style="margin-left: -15px; opacity: 0.8;">{{ course["teacher"] }}</p>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <h5 class="my-0">Teacher: {{ course["teacher"] }}</h5>
-                        <h5 class="my-0">Absent: {{ course["absent"] }}</h5>
-                        <h5 class="my-0">Excused: {{ course["excused"] }}</h5>
-                        <h5 class="my-0">Late: {{ course["late"] }}</h5>
+                    <!-- modal body -->
+                    <div class="modal-body bg-info text-white">
+                        <div class="container-fluid">
+                            <div class="row text-center py-2">
+                                <div class="col">
+                                    <h5>Absent</h5>
+                                </div>
+                                <div class="col">
+                                    <h5>Excused</h5>
+                                </div>
+                                <div class="col">
+                                    <h5>Late</h5>
+                                </div>
+                            </div>
+                            <div class="row text-center py-2">
+                                <div class="col">
+                                    <h5>{{ course["absent"] }}</h5>
+                                </div>
+                                <div class="col">
+                                    <h5>{{ course["excused"] }}</h5>
+                                </div>
+                                <div class="col">
+                                    <h5>{{ course["late"] }}</h5>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- <div class="collapse" id="{{ course['code'] }}details">
-            <div class="row py-1 bg-secondary text-white border-bottom border-light align-items-center text-center">
-                <div class="col">
-                    <h5 class="my-0">{{ course["teacher"] }}</h5>
-                </div>
-                
-                <div class="col-2">
-                    <h5 class="my-0">Absent: {{ course["absent"] }}</h5>
-                </div>
-                <div class="col-2">
-                    <h5 class="my-0">Excused: {{ course["excused"] }}</h5>
-                </div>
-                <div class="col-2">
-                    <h5 class="my-0">Late: {{ course["late"] }}</h5>
-                </div>
-            </div>
-        </div> -->
-
-
         
         <!-- marks -->
         <div class="collapse" id="{{ course['code'] }}marks">
             <table class="table">
+                <!-- header -->
                 <thead class="bg-success text-white">
                     <tr>
-                        <th scope="col" style="width: 30%;">Category/Item</th>
-                        <th scope="col" style="width: 20%;">Percentage</th>
-                        <th scope="col" style="width: 10%;">Mark</th>
-                        <th scope="col" style="width: 10%;">Denominator</th>
-                        <th scope="col" style="width: 10%;">Weight</th>
-                        <th scope="col" style="width: 20%;">Date</th>
+                        <th scope="col" class="align-middle" style="width: 20%;">Category/Item</th>
+                        <th scope="col" class="align-middle" style="width: 20%;">Percentage</th>
+                        <th scope="col" class="align-middle" style="width: 30%;">Mark</th>
+                        <th scope="col" class="align-middle" style="width: 10%;">Weight</th>
+                        <th scope="col" class="align-middle" style="width: 20%;">Date</th>
                     </tr>
                 </thead>
+
                 {% for unit in course["units"] %}
+                <!-- unit header -->
                 <thead class="table-info">
                     <tr>
-                        <th scope="col">{{ unit["name"] }}</th>
+                        <th scope="col" class="align-middle">{{ unit["name"] }}</th>
                         {% if unit["mark"] %}
-                        <th scope="col">{{ "%.2f"|format(unit["mark"] / unit["denominator"] * 100) }}%</th>
-                        <th scope="col">{{ "%.2f"|format(unit["mark"]) }}</th>
+                        <th scope="col" class="align-middle">{{ "%.2f"|format(unit["mark"] / unit["denominator"] * 100) }}%</th>
+                        <th scope="col" class="align-middle">{{ "%.2f"|format(unit["mark"]) }} / {{ unit["denominator"] }}</th>
                         {% else %}
-                        <th scope="col"></th>
-                        <th scope="col"></th>
+                        <th scope="col" class="align-middle"></th>
+                        <th scope="col" class="align-middle"></th>
                         {% endif %}
-                        <th scope="col">{{ unit["denominator"] }}</th>
-                        <th scope="col">{{ unit["weight"] }}</th>
-                        <th scope="col"></th>
+                        <th scope="col" class="align-middle">{{ unit["weight"] }}</th>
+                        <th scope="col" class="align-middle"></th>
                     </tr>
                 </thead>
                 {% if unit["has sections"] %}
                     {% for section in unit["sections"] %}
+                    <!-- section header -->
                     <thead class="table-active">
                         <tr>
-                            <th scope="col">{{ section["name"] }}</th>
+                            <th scope="col" class="align-middle">{{ section["name"] }}</th>
                             {% if section["mark"] %}
-                            <th scope="col">{{ "%.2f"|format(section["mark"] / section["denominator"] * 100) }}%</th>
-                            <th scope="col">{{ "%.2f"|format(section["mark"]) }}</th>
+                            <th scope="col" class="align-middle">{{ "%.2f"|format(section["mark"] / section["denominator"] * 100) }}%</th>
+                            <th scope="col" class="align-middle">{{ "%.2f"|format(section["mark"]) }} / {{ section["denominator"] }}</th>
                             {% else %}
-                            <th scope="col"></th>
-                            <th scope="col"></th>
+                            <th scope="col" class="align-middle"></th>
+                            <th scope="col" class="align-middle"></th>
                             {% endif %}
-                            <th scope="col">{{ section["denominator"] }}</th>
-                            <th scope="col">{{ section["weight"] }}</th>
-                            <th scope="col"></th>
+                            <th scope="col" class="align-middle">{{ section["weight"] }}</th>
+                            <th scope="col" class="align-middle"></th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for assignment in section["assignments"] %}
+                        <!-- assignment -->
                         <tr>
-                            <td scope="col">{{ assignment["name"] }}</td>
+                            <td scope="col" class="align-middle">{{ assignment["name"] }}</td>
                             {% if assignment["mark"] %}
-                            <th scope="col">{{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%</th>
+                            <th scope="col" class="align-middle">{{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%</th>
+                            <td scope="col" class="align-middle">{{ assignment["mark"] }} / {{ assignment["denominator"] }}</td>
                             {% else %}
-                            <th scope="col"></th>
+                            <th scope="col" class="align-middle"></th>
+                            <th scope="col" class="align-middle"></th>
                             {% endif %}
-                            <td scope="col">{{ assignment["mark"] }}</td>
-                            <td scope="col">{{ assignment["denominator"] }}</td>
-                            <td scope="col">{{ assignment["weight"] }}</td>
-                            <td scope="col">{{ assignment["date"] }}</td>
+                            <td scope="col" class="align-middle">{{ assignment["weight"] }}</td>
+                            <td scope="col" class="align-middle">{{ assignment["date"] }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -215,17 +228,18 @@
                 {% else %}
                 <tbody>
                     {% for assignment in unit["assignments"] %}
+                    <!-- assignment -->
                     <tr>
-                        <td scope="col">{{ assignment["name"] }}</td>
+                        <td scope="col" class="align-middle">{{ assignment["name"] }}</td>
                         {% if assignment["mark"] %}
-                        <th scope="col">{{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%</th>
+                        <th scope="col" class="align-middle">{{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%</th>
+                        <td scope="col" class="align-middle">{{ assignment["mark"] }} / {{ assignment["denominator"] }}</td>
                         {% else %}
-                        <th scope="col"></th>
+                        <th scope="col" class="align-middle"></th>
+                        <th scope="col" class="align-middle"></th>
                         {% endif %}
-                        <td scope="col">{{ assignment["mark"] }}</td>
-                        <td scope="col">{{ assignment["denominator"] }}</td>
-                        <td scope="col">{{ assignment["weight"] }}</td>
-                        <td scope="col">{{ assignment["date"] }}</td>
+                        <td scope="col" class="align-middle">{{ assignment["weight"] }}</td>
+                        <td scope="col" class="align-middle">{{ assignment["date"] }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -235,16 +249,15 @@
         </div>
         {% endfor %}
         </div>
-
-        
     </div>
+
     <!-- Footer -->
-    <div class="d-none d-sm-block container-fluid py-5 align-items-center text-center" style="background-image: linear-gradient(#46bda1, rgb(91, 192, 222))">
+    <div class="container-fluid py-5 align-items-center text-center" style="background-image: linear-gradient(#46bda1, rgb(91, 192, 222))">
         <div class="row py-1">
             <div class="col">
-                <h3 class="text-light">
+                <h4 class="text-light">
                     Fresh Maplewood
-                </h3>
+                </h4>
             </div>
         </div>
         <div class="row py-2">
@@ -255,13 +268,7 @@
             </div>
         </div>
     </div>
-    
-    <!-- <script>
-        $('#markButton').collapse("toggle")
-    </script> -->
-    
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
