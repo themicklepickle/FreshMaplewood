@@ -84,7 +84,7 @@
                         {% if not course["updated"] %}disabled{% endif %}>
                         <h5 class="my-0">
                             {% if course["mark"] %}
-                            {{ course["mark"] }}%
+                            {{ "%.2f"|format(course["mark"]) }}%
                             {% else %}
                             N/A
                             {% endif %}
