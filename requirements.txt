@@ -14,3 +14,7 @@ requests==2.24.0
 soupsieve==2.0.1
 urllib3==1.25.10
 Werkzeug==1.0.1
+dateparser==0.7.6
+regex==2020.10.23
+tzlocal==2.1
+pytz==2019.3

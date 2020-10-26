@@ -1,5 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
+import dateparser
+from datetime import datetime
+import pytz
 import json
 
 
@@ -13,17 +16,20 @@ class MaplewoodScraper:
         self.allMarks = []
         self.courses = []
         self.activeCourses = []
+        self.inactiveCourses = []
+        self.programmingCourses = []
+        self.roboticsCourses = []
         self.coursesOld = None
         self.additions = None
         self.removals = None
         self.markChanges = None
         self.formattedChanges = ""
+        self.GPA = None
         
         self.aliases = {
             "English Language Arts 20-1 (AP Lang.)": "English 20 AP Lang.",
             "Mathematics 30-1 Pre-AP": "Math 30 Pre-AP",
             "Physics 20 AP": "Physics 20 AP",
-            "Computer Programming 25": "Programming 25",
             "Applied Science Project": "Applied Science Project",
             "Social Studies 20-1": "GH 20",
             "Chemistry 20": "Chemistry 20",
@@ -31,6 +37,7 @@ class MaplewoodScraper:
             "Electro Assembly 1": "Electro Assembly 1",
             "Robotics applications": "Robotics Applications",
             "Introductory Robotics": "Introductory Robotics",
+            "Computer Programming 25": "Programming 25",
             "Computer Science 2": "Computer Science 2",
             "Files & File Structures 1": "File Structures 1",
             "Second Language Programming 1": "C++ Language",
@@ -38,11 +45,28 @@ class MaplewoodScraper:
             "Object­oriented Programming 1": "OOP 1"
         }
         self.mwURL = "https://hosting.maplewood.com/AB/Private/WA/WA/Maplewood"
+        self.programmingCourseNames = [
+            "Computer Science 2",
+            "Files & File Structures 1",
+            "Second Language Programming 1",
+            "Iterative Algorithms 1",
+            "Object­oriented Programming 1",
+            "Computer Programming 25"
+        ]
+        self.roboticsCourseNames = [
+            "CAD1",
+            "Electro Assembly 1",
+            "Robotics applications",
+            "Introductory Robotics"
+        ]
 
     def start(self, notify=True, test=False):
         if test:
             with open("test.json", "r") as f:
                 self.courses = json.load(f)
+                self.sortCourses()
+                self.calculateGPA()
+                self.getTodayUpdates()
             return True
         self.startSession()
         if not self.login():
@@ -52,6 +76,9 @@ class MaplewoodScraper:
         self.getMarkPages()
         self.addMarkDetails()
         self.parseMarks()
+        self.sortCourses()
+        self.calculateGPA()
+        self.getTodayUpdates()
         return True
 
     def startSession(self):
@@ -93,7 +120,7 @@ class MaplewoodScraper:
                     "code": "".join(cols[0].split(" - ")[0].split(" ")),
                     "name": cols[0].split(" - ")[1],
                     "teacher": cols[1],
-                    "lastUpdated": cols[2] if cols[2] != "n.a." else None,
+                    "updated": cols[2] if cols[2] != "n.a." else None,
                     "absent": int(cols[3]) if cols[3] != "NA" else None,
                     "excused": int(cols[4]) if cols[3] != "NA" else None,
                     "late": int(cols[5]) if cols[3] != "NA" else None,
@@ -136,7 +163,7 @@ class MaplewoodScraper:
             if markPage:
                 termMark = markPage.find(
                     "div", attrs={"style": "font-weight: bold; margin-bottom: 3px;"}).string[11:]
-                self.courses[i]["mark"] = termMark if termMark != " " else None
+                self.courses[i]["mark"] = float(termMark) if termMark != " " else None
             else:
                 self.courses[i]["mark"] = None
 
@@ -259,7 +286,58 @@ class MaplewoodScraper:
                 elif last == "assignment":
                     unit["assignments"].append(assignment)
                     course["units"].append(unit)
-                    
+    
+    def compActive(self):
+        pass
+
+    def sortCourses(self):
+        for course in [course for course in self.courses if course["name"] in self.programmingCourseNames]:
+            self.courses.remove(course)
+            if course["active"]:
+                self.programmingCourses.insert(0, course)
+            else:
+                self.programmingCourses.append(course)
+
+        for course in [course for course in self.courses if course["name"] in self.roboticsCourseNames]:
+            self.courses.remove(course)
+            if course["active"]:
+                self.roboticsCourses.insert(0, course)
+            else:
+                self.roboticsCourses.append(course)
+        
+        self.inactiveCourses = [course for course in self.courses if not course["active"]]
+        for course in self.inactiveCourses:
+            self.courses.remove(course)
+        
+        self.courses += self.programmingCourses + self.roboticsCourses + self.inactiveCourses
+    
+    def calculateGPA(self):
+        marks = []
+        programmingMarks = []
+        roboticsMarks = []
+        for course in self.courses:
+            if course["mark"]:
+                if course["name"] in self.programmingCourseNames:
+                    programmingMarks.append(course["mark"])
+                elif course["name"] in self.roboticsCourseNames:
+                    roboticsMarks.append(course["mark"])
+                else:
+                    marks.append(course["mark"])
+        if len(programmingMarks) > 0:
+            marks.append(sum(programmingMarks) / len(programmingMarks))
+        if len(roboticsMarks) > 0:
+            marks.append(sum(roboticsMarks) / len(roboticsMarks))
+        self.GPA = sum(marks) / len(marks)
+
+    def getTodayUpdates(self):
+        for course in self.courses:
+            if course["updated"]:
+                dateUpdated = str(dateparser.parse(course["updated"])).split()[0]
+                dateToday = str(datetime.now(pytz.timezone("America/Denver"))).split()[0]
+                course["updated today"] = True if dateUpdated == dateToday else False
+            else:
+                course["updated today"] = False
+
 
 if __name__ == "__main__":
     username = input("Username: ")

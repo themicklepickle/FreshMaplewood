@@ -30,7 +30,7 @@ def marks():
     if scrape.start(notify=False):
         if "error" in session:
             session.pop("error")
-        return render_template("index.html", courses=scrape.courses, aliases=scrape.aliases)
+        return render_template("index.html", courses=scrape.courses, aliases=scrape.aliases, GPA=scrape.GPA)
     session["error"] = True
     return redirect("/signin")
 

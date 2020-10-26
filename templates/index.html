@@ -26,9 +26,19 @@
             </div>
             <!-- mark -->
             <div class="col-10">
-                <a class="text-white my-0" data-target="#courseMark,#markButton" data-toggle="collapse" role="button">
-                    <h4 class="my-0 mx-0">Mark</h4>
-                </a>
+                <!-- GPA -->
+                <div class="collapse" id="GPA">
+                    <a class="text-white my-0" data-target="#courseMark,#markButton,#markHeader,#GPA" data-toggle="collapse"
+                        role="button">
+                        <h4 class="my-0 mx-0">{{ "%.2f"|format(GPA) }}%</h4>
+                    </a>
+                </div>
+                <!-- marks header button -->
+                <div class="collapse show" id="markHeader">
+                    <a class="text-white my-0" data-target="#courseMark,#markButton,#markHeader,#GPA" data-toggle="collapse" role="button">
+                        <h4 class="my-0 mx-0">Mark</h4>
+                    </a>
+                </div>
             </div>
             <!-- updated -->
             <div class="col-10">
@@ -57,14 +67,13 @@
             </div>
             <!-- name -->
             <div class="col-20">
-                <h5 class="my-0 text-center" {% if not course["mark"] %}style="opacity: 0.65;"{% endif %}>
+                <h5 class="d-inline my-0 text-center" {% if not course["mark"] %}style="opacity: 0.65;"{% endif %}>
                     {% if course["name"] in aliases %}
                     {{ aliases[course["name"]] }}
                     {% else %}
                     {{ course["name"] }}
                     {% endif %}
                 </h5>
-                
             </div>
             <!-- mark button -->
             <div class="col-10">
@@ -72,7 +81,7 @@
                 <div class="collapse" id="courseMark">
                     <button class="btn btn-outline-info text-white" type="button" data-toggle="collapse" data-target="#{{ course['code'] }}marks"
                         aria-expanded="false" aria-controls="{{ course['code'] }}marks"
-                        {% if not course["lastUpdated"] %}disabled{% endif %}>
+                        {% if not course["updated"] %}disabled{% endif %}>
                         <h5 class="my-0">
                             {% if course["mark"] %}
                             {{ course["mark"] }}%
@@ -86,7 +95,7 @@
                 <div class="collapse show my-0" id="markButton">
                     <button class="{% if course["mark"] %}btn btn-light text-info{% else %}btn btn-outline-info text-white{% endif %}" type="button" data-toggle="collapse" data-target="#{{ course['code'] }}marks"
                         aria-expanded="false" aria-controls="{{ course['code'] }}marks"
-                        {% if not course["lastUpdated"] %}disabled{% endif %}>
+                        {% if not course["updated"] %}disabled{% endif %}>
                         <h5 class="my-0">
                             {% if course["mark"] %}
                             Marks
@@ -99,13 +108,20 @@
             </div>
             <!-- updated -->
             <div class="col-10">
-                <h5 class="my-0" {% if not course["lastUpdated"] %}style="opacity: 0.65;"{% endif %}>
-                    {% if course["lastUpdated"] %}
-                    {{ course["lastUpdated"] }}
-                    {% else %}
-                    N/A
-                    {% endif %}
-                </h5>
+                {% if course["updated today"] %}
+                <span class="d-inline-block align-middle mr-2">
+                    <i class="material-icons my-0">new_releases</i>
+                </span>
+                {% endif %}
+                <span class="d-inline-block align-middle mt-1">
+                    <h5 {% if not course["updated"] %}style="opacity: 0.65;"{% endif %}>
+                        {% if course["updated"] %}
+                        {{ course["updated"] }}
+                        {% else %}
+                        N/A
+                        {% endif %}
+                    </h5>
+                </span>
             </div>
             <!-- sign out column (blank) -->
             <div class="col-6">
@@ -166,9 +182,9 @@
                 <!-- header -->
                 <thead class="bg-success text-white">
                     <tr>
-                        <th scope="col" class="align-middle" style="width: 20%;">Category/Item</th>
+                        <th scope="col" class="align-middle" style="width: 30%;">Category/Item</th>
                         <th scope="col" class="align-middle" style="width: 20%;">Percentage</th>
-                        <th scope="col" class="align-middle" style="width: 30%;">Mark</th>
+                        <th scope="col" class="align-middle" style="width: 20%;">Mark</th>
                         <th scope="col" class="align-middle" style="width: 10%;">Weight</th>
                         <th scope="col" class="align-middle" style="width: 20%;">Date</th>
                     </tr>
@@ -267,7 +283,7 @@
                 </h6>
             </div>
         </div>
-    </div>
+    </div>  
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
