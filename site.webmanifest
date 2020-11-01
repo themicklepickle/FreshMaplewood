@@ -1,0 +1,20 @@
+{
+    "name": "Fresh Maplewood",
+    "short_name": "Fresh Maplewood",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png?v=E6waylrdrd",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png?v=E6waylrdrd",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#5a8684",
+    "background_color": "#5a8684",
+    "start_url": "https://fresh-maplewood.herokuapp.com/",
+    "display": "standalone"
+}
