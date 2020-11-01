@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="/static/index.css">
+    <link rel="stylesheet" href="/static/index/index.css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="/static/icons/apple-touch-icon.png?v=E6waylrdrd">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png?v=E6waylrdrd">
@@ -37,17 +37,18 @@
                     <div class="col-12">
                         <!-- GPA -->
                         <div class="collapse" id="GPA">
-                            <a class="text-secondary my-0 markHeader" data-target="#courseMark,#markButton,#markHeader,#GPA" data-toggle="collapse"
-                                role="button">
+                            <!-- my-0 -->
+                            <button class="markHeader btn btn-outline-primary text-secondary" type="button" data-toggle="collapse"
+                                data-target="#courseMark,#markButton,#markHeader,#GPA" aria-expanded="false">
                                 <h4 class="my-0 mx-0">{{ "%.2f"|format(GPA) }}%</h4>
-                            </a>
+                            </button>
                         </div>
                         <!-- marks header button -->
                         <div class="collapse show" id="markHeader">
-                            <a class="text-secondary my-0 markHeader" data-target="#courseMark,#markButton,#markHeader,#GPA" data-toggle="collapse"
-                                role="button">
+                            <button class="markHeader btn btn-outline-primary text-secondary" type="button" data-toggle="collapse"
+                                data-target="#courseMark,#markButton,#markHeader,#GPA" aria-expanded="false">
                                 <h4 class="my-0 mx-0">Mark</h4>
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <!-- updated -->

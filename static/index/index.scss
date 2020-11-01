@@ -44,8 +44,13 @@ body {
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
   padding: 0.3rem 1rem 0.3rem 1rem !important;
 }
-.courseMark:hover:enabled, .info:hover:enabled, .markHeader:hover:enabled {
+.markHeader {
+  background-color: transparent !important;
+  border: none;
+}
+.courseMark:hover:enabled, .info:hover:enabled, .markHeader:hover, .markHeader:active, .markHeader:focus:enabled {
   color: #97f7d4 !important;
+  background-color: transparent !important;
   text-decoration: none !important;
 }
 
