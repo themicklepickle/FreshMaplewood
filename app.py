@@ -27,7 +27,7 @@ def signin():
 @app.route("/marks")
 def marks():
     scrape = MaplewoodScraper(session["username"], session["password"])
-    if scrape.start(notify=False, test=1):
+    if scrape.start(notify=False):
         if "error" in session:
             session.pop("error")
         return render_template("index.html", courses=scrape.courses, aliases=scrape.aliases, GPA=scrape.GPA)
