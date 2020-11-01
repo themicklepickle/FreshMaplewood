@@ -23,11 +23,11 @@
                     <div class="col-4">
                     </div>
                     <!-- course -->
-                    <div class="col-18">
+                    <div class="col-19">
                         <h4 class="my-0">Course</h4>
                     </div>
                     <!-- mark -->
-                    <div class="col-10">
+                    <div class="col-9">
                         <!-- GPA -->
                         <div class="collapse" id="GPA">
                             <a class="text-secondary my-0 markHeader" data-target="#courseMark,#markButton,#markHeader,#GPA" data-toggle="collapse"
@@ -72,7 +72,7 @@
                         </a>
                     </div>
                     <!-- name -->
-                    <div class="col-18">
+                    <div class="col-19">
                         <h5 class="d-inline my-0 text-center" {% if not course["mark"] %}style="opacity: 0.65;" {% endif %}>
                             {% if course["name"] in aliases %}
                             {{ aliases[course["name"]] }}
@@ -82,7 +82,7 @@
                         </h5>
                     </div>
                     <!-- mark button -->
-                    <div class="col-10">
+                    <div class="col-9">
                         <!-- mark shown -->
                         <div class="collapse" id="courseMark">
                             <button class="courseMark btn btn-outline-primary text-secondary" type="button" data-toggle="modal"
