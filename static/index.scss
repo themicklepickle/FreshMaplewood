@@ -1,9 +1,11 @@
 $theme-colors: (
-  "info": #46bda1,
-  "primary": #0ec7b7
+  "primary": #5a8684,
+  "secondary": #bbfae3
 );
 $enable-responsive-font-sizes: true;
 $grid-columns: 50;
+@import url(http://fonts.googleapis.com/css?family=Tisa);
+$font-family-base: 'Tisa', sans-serif;
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
@@ -15,15 +17,28 @@ body {
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
-.material-icons {
+.header {
+  background-color: #2f585b; 
+  border-bottom-width: 0.25rem;
+}
+.info, .new-releases {
   transform: scale(0.5);
+  margin-right: 0px;
 }
 .signout {
   transform: scale(0.70);
 }
 .modal-dialog {
-  max-width: 70% !important;
+  max-width: 50rem !important;
   margin: 0 auto;
+}
+.inner-container {
+  max-width: 50rem;
+}
+.updated-today {
+  width: 2rem;
+  margin-right: 0px !important;
+  padding: 0px 0px 0px 0px !important;
 }
 .collapsing {
     -webkit-transition: none;
@@ -39,69 +54,87 @@ body {
     opacity: 1;
   }
 }
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+  padding: 0.3rem 1rem 0.3rem 1rem !important;
+}
+.courseMark:hover, .info:hover, .markHeader:hover {
+  color: #97f7d4 !important;
+  text-decoration: none !important;
+}
 
 @include media-breakpoint-up(sm) {
   html {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
   }
-  .material-icons {
-    transform: scale(1);
+  .info, .new-releases {
+    transform: scale(0.7);
   }
   .signout {
-  transform: scale(1.25);
+  transform: scale(0.8);
   }
   .modal-dialog {
-    max-width: 70% !important;
+    max-width: 50rem !important;
     margin: 0 auto;
+  }
+  .inner-container {
+    max-width: 50rem;
   }
 }
 
-
 @include media-breakpoint-up(md) {
   html {
-    font-size: 1.1rem;
+    font-size: 0.7rem;
   }
-  .material-icons {
-    transform: scale(1.5);
+  .info, .new-releases {
+    transform: scale(0.8);
   }
   .signout {
-  transform: scale(1.75);
+  transform: scale(0.9);
   }
   .modal-dialog {
-    max-width: 70% !important;
+    max-width: 50rem !important;
     margin: 0 auto;
+  }
+  .inner-container {
+    max-width: 50rem;
   }
 }
 
 @include media-breakpoint-up(lg) {
   html {
-    font-size: 1.4rem;
+    font-size: 0.9rem;
   }
-  .material-icons {
-    transform: scale(1.6);
+  .info, .new-releases {
+    transform: scale(1.0);
   }
   .signout {
-  transform: scale(2.0);
+  transform: scale(1.1);
   }
   .modal-dialog {
-    max-width: 70% !important;
+    max-width: 50rem !important;
     margin: 0 auto;
+  }
+  .inner-container {
+    max-width: 50rem;
   }
 }
 
 @include media-breakpoint-up(xl) {
   html {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
-  .material-icons {
-    transform: scale(1.6);
+  .info, .new-releases {
+    transform: scale(1.4);
   }
   .signout {
-  transform: scale(2.0);
+  transform: scale(1.5);
   }
   .modal-dialog {
+    max-width: 50rem !important;
     margin: 0 auto;
-    max-width: 70% !important;
+  }
+  .inner-container {
+    max-width: 50rem;
   }
 }
 

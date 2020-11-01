@@ -1,7 +1,9 @@
 $theme-colors: (
-  "info": #46bda1,
-  "primary": #0ec7b7
+  "primary": #5a8684,
+  "secondary": #bbfae3,
+  "danger": #ff9d9d
 );
+$input-placeholder-color: #ced4da;
 @import "node_modules/bootstrap/scss/bootstrap";
 
 html,

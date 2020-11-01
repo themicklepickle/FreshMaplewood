@@ -8,47 +8,52 @@
     <link rel="stylesheet" href="static/index.css">
     <link rel="icon" href="../static/mapleleaf.png" type="image/gif" sizes="16x16">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cardo:400,700|Oswald" rel="stylesheet">
 
     <title>Fresh Maplewood</title>
 </head>
 
-<body class="bg-light">
+<body style="background-color: #2f585b;">
     <div class="container-fluid">
         <!-- header (course | mark | updated | details) -->
-        <div class="row py-3 text-white border-bottom border-dark align-items-center text-center" 
-            style="background-image: linear-gradient( rgb(91, 192, 222), #46bda1); border-bottom-width: 30px;">
-            <!-- details col (blank) -->
-            <div class="col-4">
-            </div>
-            <!-- course -->
-            <div class="col-20">
-                <h4 class="my-0">Course</h4>
-            </div>
-            <!-- mark -->
-            <div class="col-10">
-                <!-- GPA -->
-                <div class="collapse" id="GPA">
-                    <a class="text-white my-0" data-target="#courseMark,#markButton,#markHeader,#GPA" data-toggle="collapse"
-                        role="button">
-                        <h4 class="my-0 mx-0">{{ "%.2f"|format(GPA) }}%</h4>
-                    </a>
+        <div class="row py-3 text-secondary align-items-center text-center py-0 header border-bottom">
+            <div class="container inner-container">
+                <div class="row align-items-center">
+                    <!-- details col (blank) -->
+                    <div class="col-4">
+                    </div>
+                    <!-- course -->
+                    <div class="col-20">
+                        <h4 class="my-0">Course</h4>
+                    </div>
+                    <!-- mark -->
+                    <div class="col-10">
+                        <!-- GPA -->
+                        <div class="collapse" id="GPA">
+                            <a class="text-secondary my-0 markHeader" data-target="#courseMark,#markButton,#markHeader,#GPA" data-toggle="collapse"
+                                role="button">
+                                <h4 class="my-0 mx-0">{{ "%.2f"|format(GPA) }}%</h4>
+                            </a>
+                        </div>
+                        <!-- marks header button -->
+                        <div class="collapse show" id="markHeader">
+                            <a class="text-secondary my-0 markHeader" data-target="#courseMark,#markButton,#markHeader,#GPA" data-toggle="collapse"
+                                role="button">
+                                <h4 class="my-0 mx-0">Mark</h4>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- updated -->
+                    <div class="col-10">
+                        <h4 class="my-0">Updated</h4>
+                    </div>
+                    <!-- sign out -->
+                    <div class="col-6">
+                        <a class="text-secondary my-0 " href="/signin">
+                            <i class="material-icons signout">exit_to_app</i>
+                        </a>
+                    </div>
                 </div>
-                <!-- marks header button -->
-                <div class="collapse show" id="markHeader">
-                    <a class="text-white my-0" data-target="#courseMark,#markButton,#markHeader,#GPA" data-toggle="collapse" role="button">
-                        <h4 class="my-0 mx-0">Mark</h4>
-                    </a>
-                </div>
-            </div>
-            <!-- updated -->
-            <div class="col-10">
-                <h4 class="my-0">Updated</h4>
-            </div>
-            <!-- sign out -->
-            <div class="col-6">
-                <a class="text-white my-0 " href="/signin">
-                    <i class="material-icons signout">exit_to_app</i>
-                </a>
             </div>
         </div>
 
@@ -56,75 +61,79 @@
         {% for course in courses %}
 
         <!-- course row -->
-        <div class="row py-3 bg-info text-white border-bottom border-light align-items-center text-center">
-            <!-- details button -->
-            <div class="col-4"> 
-                <a data-toggle="modal" data-target="#{{ course['code'] }}details" role="button" aria-expanded="false"
-                    aria-controls="{{ course['code'] }}details"
-                    {% if not course["mark"] %}style="opacity: 0.65;"{% endif %}>
-                    <i class="material-icons">info</i>
-                </a>
-            </div>
-            <!-- name -->
-            <div class="col-20">
-                <h5 class="d-inline my-0 text-center" {% if not course["mark"] %}style="opacity: 0.65;"{% endif %}>
-                    {% if course["name"] in aliases %}
-                    {{ aliases[course["name"]] }}
-                    {% else %}
-                    {{ course["name"] }}
-                    {% endif %}
-                </h5>
-            </div>
-            <!-- mark button -->
-            <div class="col-10">
-                <!-- mark shown -->
-                <div class="collapse" id="courseMark">
-                    <button class="btn btn-outline-info text-white" type="button" data-toggle="collapse" data-target="#{{ course['code'] }}marks"
-                        aria-expanded="false" aria-controls="{{ course['code'] }}marks"
-                        {% if not course["updated"] %}disabled{% endif %}>
-                        <h5 class="my-0">
-                            {% if course["mark"] %}
-                            {{ "%.2f"|format(course["mark"]) }}%
+        <div class="row py-3 bg-primary text-secondary border-bottom border-light align-items-center text-center">
+            <div class="container inner-container">
+                <div class="row align-items-center">
+                    <!-- details button -->
+                    <div class="col-4">
+                        <a data-toggle="modal" data-target="#{{ course['code'] }}details" role="button" aria-expanded="false"
+                            aria-controls="{{ course['code'] }}details" {% if not course["mark"] %}style="opacity: 0.65;" {% endif %}>
+                            <i class="material-icons info">info</i>
+                        </a>
+                    </div>
+                    <!-- name -->
+                    <div class="col-20">
+                        <h5 class="d-inline my-0 text-center" {% if not course["mark"] %}style="opacity: 0.65;" {% endif %}>
+                            {% if course["name"] in aliases %}
+                            {{ aliases[course["name"]] }}
                             {% else %}
-                            N/A
+                            {{ course["name"] }}
                             {% endif %}
                         </h5>
-                    </button>
-                </div>
-                <!-- mark hidden -->
-                <div class="collapse show my-0" id="markButton">
-                    <button class="{% if course["mark"] %}btn btn-light text-info{% else %}btn btn-outline-info text-white{% endif %}" type="button" data-toggle="collapse" data-target="#{{ course['code'] }}marks"
-                        aria-expanded="false" aria-controls="{{ course['code'] }}marks"
-                        {% if not course["updated"] %}disabled{% endif %}>
-                        <h5 class="my-0">
-                            {% if course["mark"] %}
-                            Marks
-                            {% else %}
-                            N/A
-                            {% endif %}
-                        </h5>
-                    </button>
-                </div>
-            </div>
-            <!-- updated -->
-            <div class="col-10">
-                {% if course["updated today"] %}
-                <span class="d-inline-block align-middle mr-2">
-                    <i class="material-icons my-0">new_releases</i>
-                </span>
-                {% endif %}
-                <span class="d-inline-block align-middle mt-1">
-                    <h5 {% if not course["updated"] %}style="opacity: 0.65;"{% endif %}>
-                        {% if course["updated"] %}
-                        {{ course["updated"] }}
-                        {% else %}
-                        N/A
+                    </div>
+                    <!-- mark button -->
+                    <div class="col-10">
+                        <!-- mark shown -->
+                        <div class="collapse" id="courseMark">
+                            <button class="courseMark btn btn-outline-primary text-secondary" type="button" data-toggle="modal"
+                                data-target="#{{ course['code'] }}marks" aria-expanded="false" aria-controls="{{ course['code'] }}marks"
+                                {% if not course["updated"] %}disabled{% endif %}>
+                                <h5 class="my-0">
+                                    {% if course["mark"] %}
+                                    {{ "%.2f"|format(course["mark"]) }}%
+                                    {% else %}
+                                    N/A
+                                    {% endif %}
+                                </h5>
+                            </button>
+                        </div>
+                        <!-- mark hidden -->
+                        <div class="collapse show my-0" id="markButton">
+                            <button
+                                class="{% if course["mark"] %}btn btn-secondary text-primary{% else %}btn btn-outline-primary text-secondary{% endif %}"
+                                type="button" data-toggle="modal" data-target="#{{ course['code'] }}marks" aria-expanded="false"
+                                aria-controls="{{ course['code'] }}marks" {% if not course["updated"] %}disabled{% endif %}>
+                                <h5 class="my-0">
+                                    {% if course["mark"] %}
+                                    Marks
+                                    {% else %}
+                                    N/A
+                                    {% endif %}
+                                </h5>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- updated -->
+                    <div class="col-10">
+                        {% if course["updated today"] %}
+                        <div class="d-inline-block align-middle updated-today">
+                            <i class="material-icons my-0 new-releases">new_releases</i>
+                        </div>
                         {% endif %}
-                    </h5>
-                </span>
-            </div>
-            <!-- sign out column (blank) -->
-            <div class="col-6">
+                        <div class="d-inline-block align-middle mt-1">
+                            <h5 {% if not course["updated"] %}style="opacity: 0.65;" {% endif %}>
+                                {% if course["updated"] %}
+                                {{ course["updated"] }}
+                                {% else %}
+                                N/A
+                                {% endif %}
+                            </h5>
+                        </div>
+                    </div>
+                    <!-- sign out column (blank) -->
+                    <div class="col-6">
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -132,9 +141,9 @@
         <div class="modal fade keyboard" id="{{ course['code'] }}details" tabindex="-1" role="dialog" 
             aria-labelledby="#{{ course['code'] }}details" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
+                <div class="modal-content rounded-0">
                     <!-- modal header -->
-                    <div class="modal-header text-white" style="background-image: linear-gradient( rgb(91, 192, 222), #46bda1);">
+                    <div class="modal-header text-secondary header rounded-0">
                         <div class="container-fluid">
                             <div class="row">
                                 <h5 class="modal-title" id="modalLabel">{{ course['name'] }}</h5>
@@ -146,7 +155,7 @@
                         </div>
                     </div>
                     <!-- modal body -->
-                    <div class="modal-body bg-info text-white">
+                    <div class="modal-body bg-primary text-secondary">
                         <div class="container-fluid">
                             <div class="row text-center py-2">
                                 <div class="col">
@@ -177,108 +186,150 @@
         </div>
         
         <!-- marks -->
-        <div class="collapse" id="{{ course['code'] }}marks">
-            <table class="table">
-                <!-- header -->
-                <thead class="bg-success text-white">
-                    <tr>
-                        <th scope="col" class="align-middle" style="width: 30%;">Category/Item</th>
-                        <th scope="col" class="align-middle" style="width: 20%;">Percentage</th>
-                        <th scope="col" class="align-middle" style="width: 20%;">Mark</th>
-                        <th scope="col" class="align-middle" style="width: 10%;">Weight</th>
-                        <th scope="col" class="align-middle" style="width: 20%;">Date</th>
-                    </tr>
-                </thead>
-
-                {% for unit in course["units"] %}
-                <!-- unit header -->
-                <thead class="table-info">
-                    <tr>
-                        <th scope="col" class="align-middle">{{ unit["name"] }}</th>
-                        {% if unit["mark"] %}
-                        <th scope="col" class="align-middle">{{ "%.2f"|format(unit["mark"] / unit["denominator"] * 100) }}%</th>
-                        <th scope="col" class="align-middle">{{ "%.2f"|format(unit["mark"]) }} / {{ unit["denominator"] }}</th>
-                        {% else %}
-                        <th scope="col" class="align-middle"></th>
-                        <th scope="col" class="align-middle"></th>
-                        {% endif %}
-                        <th scope="col" class="align-middle">{{ unit["weight"] }}</th>
-                        <th scope="col" class="align-middle"></th>
-                    </tr>
-                </thead>
-                {% if unit["has sections"] %}
-                    {% for section in unit["sections"] %}
-                    <!-- section header -->
-                    <thead class="table-active">
-                        <tr>
-                            <th scope="col" class="align-middle">{{ section["name"] }}</th>
-                            {% if section["mark"] %}
-                            <th scope="col" class="align-middle">{{ "%.2f"|format(section["mark"] / section["denominator"] * 100) }}%</th>
-                            <th scope="col" class="align-middle">{{ "%.2f"|format(section["mark"]) }} / {{ section["denominator"] }}</th>
+        <div class="modal fade keyboard" id="{{ course['code'] }}marks" tabindex="-1" role="dialog"
+            aria-labelledby="#{{ course['code'] }}marks" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg my-3 modal-dialog-scrollable" role="document">
+                <div class="modal-content rounded-0">
+                    <!-- modal header -->
+                    <div class="modal-header text-secondary header rounded-0" style="width: 100%;">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <div class="row">
+                                        <h5 class="modal-title" id="modalLabel">{{ course['name'] }}</h5>
+                                    </div>
+                                    <div class="row">
+                                        <p class="h6 pt-1" style="opacity: 0.8;">{{ course["teacher"] }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-15">
+                                    <h5 class="modal-title">
+                                    Mark: 
+                                    {% if course["mark"] %}
+                                    {{ "%.2f"|format(course["mark"]) }}%
+                                    {% else %}
+                                    N/A
+                                    {% endif %}
+                                    </h5>
+                                </div>
+                                <div class="col-5">
+                                    <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- modal body -->
+                    <div class="modal-body text-secondary">
+                        <table class="table">
+                            <!-- header -->
+                            <thead class="bg-primary text-secondary">
+                                <tr>
+                                    <th scope="col" class="align-middle" style="width: 30%;">Category/Item</th>
+                                    <th scope="col" class="align-middle" style="width: 20%;">Percentage</th>
+                                    <th scope="col" class="align-middle" style="width: 20%;">Mark</th>
+                                    <th scope="col" class="align-middle" style="width: 10%;">Weight</th>
+                                    <th scope="col" class="align-middle" style="width: 20%;">Date</th>
+                                </tr>
+                            </thead>
+                        
+                            {% for unit in course["units"] %}
+                            <!-- unit header -->
+                            <thead class="table-primary">
+                                <tr>
+                                    <th scope="col" class="align-middle">{{ unit["name"] }}</th>
+                                    {% if unit["mark"] %}
+                                    <th scope="col" class="align-middle">{{ "%.2f"|format(unit["mark"] / unit["denominator"] * 100) }}%</th>
+                                    <th scope="col" class="align-middle">{{ "%.2f"|format(unit["mark"]) }} / {{ unit["denominator"] }}</th>
+                                    {% else %}
+                                    <th scope="col" class="align-middle"></th>
+                                    <th scope="col" class="align-middle"></th>
+                                    {% endif %}
+                                    <th scope="col" class="align-middle">{{ unit["weight"] }}</th>
+                                    <th scope="col" class="align-middle"></th>
+                                </tr>
+                            </thead>
+                            {% if unit["has sections"] %}
+                            {% for section in unit["sections"] %}
+                            <!-- section header -->
+                            <thead class="table-active">
+                                <tr>
+                                    <th scope="col" class="align-middle">{{ section["name"] }}</th>
+                                    {% if section["mark"] %}
+                                    <th scope="col" class="align-middle">{{ "%.2f"|format(section["mark"] / section["denominator"] * 100) }}%
+                                    </th>
+                                    <th scope="col" class="align-middle">{{ "%.2f"|format(section["mark"]) }} / {{ section["denominator"] }}
+                                    </th>
+                                    {% else %}
+                                    <th scope="col" class="align-middle"></th>
+                                    <th scope="col" class="align-middle"></th>
+                                    {% endif %}
+                                    <th scope="col" class="align-middle">{{ section["weight"] }}</th>
+                                    <th scope="col" class="align-middle"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for assignment in section["assignments"] %}
+                                <!-- assignment -->
+                                <tr>
+                                    <td scope="row" class="align-middle">{{ assignment["name"] }}</td>
+                                    {% if assignment["mark"] %}
+                                    <th class="align-middle">
+                                        {{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%</th>
+                                    <td class="align-middle">{{ assignment["mark"] }} / {{ assignment["denominator"] }}</td>
+                                    {% else %}
+                                    <th class="align-middle"></th>
+                                    <th class="align-middle"></th>
+                                    {% endif %}
+                                    <td class="align-middle">{{ assignment["weight"] }}</td>
+                                    <td class="align-middle">{{ assignment["date"] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            {% endfor %}
                             {% else %}
-                            <th scope="col" class="align-middle"></th>
-                            <th scope="col" class="align-middle"></th>
+                            <tbody>
+                                {% for assignment in unit["assignments"] %}
+                                <!-- assignment -->
+                                <tr>
+                                    <td scope="row" class="align-middle">{{ assignment["name"] }}</td>
+                                    {% if assignment["mark"] %}
+                                    <th class="align-middle">
+                                        {{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%</th>
+                                    <td class="align-middle">{{ assignment["mark"] }} / {{ assignment["denominator"] }}</td>
+                                    {% else %}
+                                    <th class="align-middle"></th>
+                                    <th class="align-middle"></th>
+                                    {% endif %}
+                                    <td class="align-middle">{{ assignment["weight"] }}</td>
+                                    <td class="align-middle">{{ assignment["date"] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
                             {% endif %}
-                            <th scope="col" class="align-middle">{{ section["weight"] }}</th>
-                            <th scope="col" class="align-middle"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for assignment in section["assignments"] %}
-                        <!-- assignment -->
-                        <tr>
-                            <td scope="col" class="align-middle">{{ assignment["name"] }}</td>
-                            {% if assignment["mark"] %}
-                            <th scope="col" class="align-middle">{{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%</th>
-                            <td scope="col" class="align-middle">{{ assignment["mark"] }} / {{ assignment["denominator"] }}</td>
-                            {% else %}
-                            <th scope="col" class="align-middle"></th>
-                            <th scope="col" class="align-middle"></th>
-                            {% endif %}
-                            <td scope="col" class="align-middle">{{ assignment["weight"] }}</td>
-                            <td scope="col" class="align-middle">{{ assignment["date"] }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                    {% endfor %}
-                {% else %}
-                <tbody>
-                    {% for assignment in unit["assignments"] %}
-                    <!-- assignment -->
-                    <tr>
-                        <td scope="col" class="align-middle">{{ assignment["name"] }}</td>
-                        {% if assignment["mark"] %}
-                        <th scope="col" class="align-middle">{{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%</th>
-                        <td scope="col" class="align-middle">{{ assignment["mark"] }} / {{ assignment["denominator"] }}</td>
-                        {% else %}
-                        <th scope="col" class="align-middle"></th>
-                        <th scope="col" class="align-middle"></th>
-                        {% endif %}
-                        <td scope="col" class="align-middle">{{ assignment["weight"] }}</td>
-                        <td scope="col" class="align-middle">{{ assignment["date"] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                {% endif %}
-                {% endfor %}
-            </table>
-        </div>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>    
         {% endfor %}
-        </div>
     </div>
+    
 
     <!-- Footer -->
-    <div class="container-fluid py-5 align-items-center text-center" style="background-image: linear-gradient(#46bda1, rgb(91, 192, 222))">
+    <div class="container-fluid py-5 align-items-center text-center header">
         <div class="row py-1">
             <div class="col">
-                <h4 class="text-light">
+                <h4 class="text-secondary">
                     Fresh Maplewood
                 </h4>
             </div>
         </div>
         <div class="row py-2">
             <div class="col">
-                <h6 class="text-light">
+                <h6 class="text-secondary">
                     by Michael Xu
                 </h6>
             </div>

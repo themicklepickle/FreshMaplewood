@@ -11,18 +11,18 @@
     <title>Login - Fresh Maplewood</title>
 </head>
 
-<body class="text-center">
+<body class="text-center bg-primary">
     <form class="form-signin" action="/loading" method="POST">
         <img class="mb-4" src="/static/mapleleaf.png" alt="" width="25%" height="25%">
-        <h1 class="h3 mb-3 font-weight-normal text-info">Fresh Maplewood</h1>
+        <h1 class="h3 mb-3 font-weight-normal text-secondary">Fresh Maplewood</h1>
         <label for="input" class="sr-only">Username</label>
-        <input type="text" id="inputUsername" name="inputUsername" class="form-control" placeholder="Username" required autofocus>
+        <input type="text" id="inputUsername" name="inputUsername" class="form-control bg-primary text-secondary" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" id="inputPassword" name="inputPassword" class="form-control bg-primary text-secondary" placeholder="Password" required>
         {% if error %}
         <p class="mt-3 mb-4 text-danger">Invalid login. Please try again.</p>
         {% endif %}
-        <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-secondary btn-block mt-3 text-primary" type="submit">Sign in</button>
     </form>
 
     <!-- Optional JavaScript -->

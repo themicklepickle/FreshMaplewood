@@ -1,12 +1,13 @@
 $theme-colors: (
-  "info": #46bda1,
-  "primary": #0ec7b7
+  "primary": #5a8684,
+  "secondary": #bbfae3
 );
 @import "node_modules/bootstrap/scss/bootstrap";
 
 html,
-body {
-  height: 100%;
+body,
+container-fluid {
+  height: 100% !important;
 }
 body {
   display: -ms-flexbox;
