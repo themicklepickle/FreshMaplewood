@@ -9736,16 +9736,10 @@ body {
   border-bottom-width: 0.25rem; }
 
 .info, .new-releases {
-  transform: scale(0.5);
-  margin-right: 0px; }
+  transform: scale(0.6); }
 
 .signout {
-  transform: scale(0.5); }
-
-.updated-today {
-  width: 2.3rem;
-  margin-right: 0px !important;
-  padding: 0px 0px 0px 0px !important; }
+  transform: scale(0.7); }
 
 .collapsing {
   -webkit-transition: none;
@@ -9760,7 +9754,7 @@ body {
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
   padding: 0.3rem 1rem 0.3rem 1rem !important; }
 
-.courseMark:hover, .info:hover, .markHeader:hover {
+.courseMark:hover:enabled, .info:hover:enabled, .markHeader:hover:enabled {
   color: #97f7d4 !important;
   text-decoration: none !important; }
 

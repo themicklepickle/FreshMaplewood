@@ -19,15 +19,12 @@
         <div class="row py-3 text-secondary align-items-center text-center py-0 header border-bottom">
             <div class="container inner-container">
                 <div class="row align-items-center">
-                    <!-- details col (blank) -->
-                    <div class="col-3">
-                    </div>
                     <!-- course -->
-                    <div class="col-19">
+                    <div class="col-20">
                         <h4 class="my-0">Course</h4>
                     </div>
                     <!-- mark -->
-                    <div class="col-10">
+                    <div class="col-12">
                         <!-- GPA -->
                         <div class="collapse" id="GPA">
                             <a class="text-secondary my-0 markHeader" data-target="#courseMark,#markButton,#markHeader,#GPA" data-toggle="collapse"
@@ -64,25 +61,22 @@
         <div class="row py-3 bg-primary text-secondary border-bottom border-light align-items-center text-center">
             <div class="container inner-container">
                 <div class="row align-items-center">
-                    <!-- details button -->
-                    <div class="col-3">
-                        <a data-toggle="modal" data-target="#{{ course['code'] }}details" role="button" aria-expanded="false"
-                            aria-controls="{{ course['code'] }}details" {% if not course["mark"] %}style="opacity: 0.65;" {% endif %}>
-                            <i class="material-icons info">info</i>
-                        </a>
-                    </div>
                     <!-- name -->
-                    <div class="col-19">
-                        <h5 class="d-inline my-0 text-center" {% if not course["mark"] %}style="opacity: 0.65;" {% endif %}>
-                            {% if course["name"] in aliases %}
-                            {{ aliases[course["name"]] }}
-                            {% else %}
-                            {{ course["name"] }}
-                            {% endif %}
-                        </h5>
+                    <div class="col-20">
+                        <button class="courseMark btn btn-outline-primary text-secondary" type="button" data-toggle="modal"
+                            data-target="#{{ course['code'] }}details" aria-expanded="false" aria-controls="{{ course['code'] }}details"
+                            {% if not course["mark"] %}disabled{% endif %}>
+                            <h5 class="d-inline my-0 text-center">
+                                {% if course["name"] in aliases %}
+                                {{ aliases[course["name"]] }}
+                                {% else %}
+                                {{ course["name"] }}
+                                {% endif %}
+                            </h5>
+                        </button>
                     </div>
                     <!-- mark button -->
-                    <div class="col-10">
+                    <div class="col-12">
                         <!-- mark shown -->
                         <div class="collapse" id="courseMark">
                             <button class="courseMark btn btn-outline-primary text-secondary" type="button" data-toggle="modal"
@@ -115,12 +109,7 @@
                     </div>
                     <!-- updated -->
                     <div class="col-12">
-                        {% if course["updated today"] %}
-                        <div class="d-inline-block align-middle updated-today text-left">
-                            <i class="material-icons my-0 new-releases">new_releases</i>
-                        </div>
-                        {% endif %}
-                        <div class="d-inline-block align-middle mt-1">
+                        <div class="align-middle mt-1">
                             <h5 {% if not course["updated"] %}style="opacity: 0.65;" {% endif %}>
                                 {% if course["updated"] %}
                                 {{ course["updated"] }}
@@ -132,6 +121,9 @@
                     </div>
                     <!-- sign out column (blank) -->
                     <div class="col-6">
+                    {% if course["updated today"] %}
+                        <i class="material-icons my-0 new-releases">new_releases</i>
+                    {% endif %}
                     </div>
                 </div>
             </div>
