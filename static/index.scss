@@ -28,10 +28,10 @@ body {
 .signout {
   transform: scale(0.70);
 }
-.modal-dialog {
-  max-width: 50rem !important;
-  margin: 0 auto;
-}
+// .modal-dialog {
+//   max-width: 50rem !important;
+//   margin: 0 auto;
+// }
 // .inner-container {
 //   max-width: 50rem;
 // }
@@ -73,11 +73,11 @@ body {
   transform: scale(0.8);
   }
   .modal-dialog {
-    max-width: 50rem !important;
+    max-width: 60rem !important;
     margin: 0 auto;
   }
   .inner-container {
-    max-width: 50rem;
+    max-width: 60rem;
   }
 }
 

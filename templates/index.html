@@ -20,14 +20,14 @@
             <div class="container inner-container">
                 <div class="row align-items-center">
                     <!-- details col (blank) -->
-                    <div class="col-4">
+                    <div class="col-3">
                     </div>
                     <!-- course -->
                     <div class="col-19">
                         <h4 class="my-0">Course</h4>
                     </div>
                     <!-- mark -->
-                    <div class="col-9">
+                    <div class="col-10">
                         <!-- GPA -->
                         <div class="collapse" id="GPA">
                             <a class="text-secondary my-0 markHeader" data-target="#courseMark,#markButton,#markHeader,#GPA" data-toggle="collapse"
@@ -65,7 +65,7 @@
             <div class="container inner-container">
                 <div class="row align-items-center">
                     <!-- details button -->
-                    <div class="col-4">
+                    <div class="col-3">
                         <a data-toggle="modal" data-target="#{{ course['code'] }}details" role="button" aria-expanded="false"
                             aria-controls="{{ course['code'] }}details" {% if not course["mark"] %}style="opacity: 0.65;" {% endif %}>
                             <i class="material-icons info">info</i>
@@ -82,7 +82,7 @@
                         </h5>
                     </div>
                     <!-- mark button -->
-                    <div class="col-9">
+                    <div class="col-10">
                         <!-- mark shown -->
                         <div class="collapse" id="courseMark">
                             <button class="courseMark btn btn-outline-primary text-secondary" type="button" data-toggle="modal"
