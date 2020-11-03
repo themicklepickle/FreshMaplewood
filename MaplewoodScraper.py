@@ -222,7 +222,7 @@ class MaplewoodScraper:
     def newAssignment(self, course, unit, row):
         return {
             "name": row[0],
-            "mark": float(row[1]) if row[1] != "None" and row[1] != "EXC" and row[1] != "NHI" else None,
+            "mark": float(row[1]) if row[1] != "None" and row[1] != "EXC" and row[1] != "NHI" and row[1] != "ABS" else None,
             "denominator": float(row[4]) if row[4] != "None" else None,
             "weight": float(row[3]) if row[3] != "None" else None,
             "date": row[2],
