@@ -104,8 +104,7 @@
                         </div>
                         <!-- mark hidden -->
                         <div class="collapse show my-0" id="markButton">
-                            <button
-                                class="{% if course["mark"] %}btn btn-secondary text-primary{% else %}btn btn-outline-primary text-secondary{% endif %}"
+                            <button class="{% if course["mark"] %}btn btn-secondary text-primary{% else %}btn btn-outline-primary text-secondary{% endif %}"
                                 type="button" data-toggle="modal" data-target="#{{ course['code'] }}marks" aria-expanded="false"
                                 aria-controls="{{ course['code'] }}marks" {% if not course["updated"] %}disabled{% endif %}>
                                 <h5 class="my-0">
@@ -130,10 +129,13 @@
                             </h5>
                         </div>
                     </div>
-                    <!-- sign out column (blank) -->
+                    <!-- updated today -->
                     <div class="col-6">
                     {% if course["updated today"] %}
-                        <i class="material-icons my-0 new-releases">new_releases</i>
+                        <a data-toggle="modal" data-target="#{{ course['code'] }}updates" role="button" aria-expanded="false"
+                            aria-controls="{{ course['code'] }}updates">
+                            <i class="material-icons my-0 new-releases">new_releases</i>
+                        </a>
                     {% endif %}
                     </div>
                 </div>
@@ -275,7 +277,7 @@
                             <tbody>
                                 {% for assignment in section["assignments"] %}
                                 <!-- assignment -->
-                                <tr>
+                                <tr {% if assignment["updated today"] %}class="bg-secondary"{% endif %}>
                                     <td scope="row" class="align-middle">{{ assignment["name"] }}</td>
                                     {% if assignment["mark"] %}
                                     <th class="align-middle">
@@ -295,7 +297,7 @@
                             <tbody>
                                 {% for assignment in unit["assignments"] %}
                                 <!-- assignment -->
-                                <tr>
+                                <tr {% if assignment["updated today"] %}class="bg-secondary"{% endif %}>
                                     <td scope="row" class="align-middle">{{ assignment["name"] }}</td>
                                     {% if assignment["mark"] %}
                                     <th class="align-middle">
@@ -316,10 +318,142 @@
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
+
+        <!-- updates -->
+        {% if course["updated today"] %}
+        <div class="modal fade keyboard" id="{{ course['code'] }}updates" tabindex="-1" role="dialog"
+            aria-labelledby="#{{ course['code'] }}updates" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg my-3 modal-dialog-scrollable" role="document">
+                <div class="modal-content rounded-0">
+                    <!-- modal header -->
+                    <div class="modal-header text-secondary header rounded-0" style="width: 100%;">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <div class="row">
+                                        <h5 class="modal-title" id="modalLabel">{{ course['name'] }}</h5>
+                                    </div>
+                                    <div class="row">
+                                        <p class="h6 pt-1" style="opacity: 0.8;">{{ course["teacher"] }}</p>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <h5 class="modal-title">Today's Updates</h5>
+                                </div>
+                                <div class="col-5">
+                                    <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- modal body -->
+                    <div class="modal-body text-secondary">
+                        <table class="table">
+                            <!-- header -->
+                            <thead class="bg-primary text-secondary">
+                                <tr>
+                                    <th scope="col" class="align-middle" style="width: 30%;">Category/Item</th>
+                                    <th scope="col" class="align-middle" style="width: 20%;">Percentage</th>
+                                    <th scope="col" class="align-middle" style="width: 20%;">Mark</th>
+                                    <th scope="col" class="align-middle" style="width: 10%;">Weight</th>
+                                    <th scope="col" class="align-middle" style="width: 20%;">Date</th>
+                                </tr>
+                            </thead>
+                        
+                            {% for unit in course["units"] %}
+                            {% if unit["updated today"] %}
+                            <!-- unit header -->
+                            <thead class="table-primary">
+                                <tr>
+                                    <th scope="col" class="align-middle">{{ unit["name"] }}</th>
+                                    {% if unit["mark"] %}
+                                    <th scope="col" class="align-middle">{{ "%.2f"|format(unit["mark"] / unit["denominator"] * 100) }}%</th>
+                                    <th scope="col" class="align-middle">{{ "%.2f"|format(unit["mark"]) }} / {{ unit["denominator"] }}</th>
+                                    {% else %}
+                                    <th scope="col" class="align-middle"></th>
+                                    <th scope="col" class="align-middle"></th>
+                                    {% endif %}
+                                    <th scope="col" class="align-middle">{{ unit["weight"] }}</th>
+                                    <th scope="col" class="align-middle"></th>
+                                </tr>
+                            </thead>
+                            {% endif %}
+                            {% if unit["has sections"] %}
+                            {% for section in unit["sections"] %}
+                            {% if section["updated today"] %}
+                            <!-- section header -->
+                            <thead class="table-active">
+                                <tr>
+                                    <th scope="col" class="align-middle">{{ section["name"] }}</th>
+                                    {% if section["mark"] %}
+                                    <th scope="col" class="align-middle">{{ "%.2f"|format(section["mark"] / section["denominator"] * 100) }}%
+                                    </th>
+                                    <th scope="col" class="align-middle">{{ "%.2f"|format(section["mark"]) }} / {{ section["denominator"] }}
+                                    </th>
+                                    {% else %}
+                                    <th scope="col" class="align-middle"></th>
+                                    <th scope="col" class="align-middle"></th>
+                                    {% endif %}
+                                    <th scope="col" class="align-middle">{{ section["weight"] }}</th>
+                                    <th scope="col" class="align-middle"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for assignment in section["assignments"] %}
+                                {% if assignment["updated today"] %}
+                                <!-- assignment -->
+                                <tr>
+                                    <td scope="row" class="align-middle">{{ assignment["name"] }}</td>
+                                    {% if assignment["mark"] %}
+                                    <th class="align-middle">
+                                        {{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%</th>
+                                    <td class="align-middle">{{ assignment["mark"] }} / {{ assignment["denominator"] }}</td>
+                                    {% else %}
+                                    <th class="align-middle"></th>
+                                    <th class="align-middle"></th>
+                                    {% endif %}
+                                    <td class="align-middle">{{ assignment["weight"] }}</td>
+                                    <td class="align-middle">{{ assignment["date"] }}</td>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                            </tbody>
+                            {% endif %}
+                            {% endfor %}
+                            {% else %}
+                            <tbody>
+                                {% for assignment in unit["assignments"] %}
+                                {% if assignment["updated today"] %}
+                                <!-- assignment -->
+                                <tr>
+                                    <td scope="row" class="align-middle">{{ assignment["name"] }}</td>
+                                    {% if assignment["mark"] %}
+                                    <th class="align-middle">
+                                        {{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%</th>
+                                    <td class="align-middle">{{ assignment["mark"] }} / {{ assignment["denominator"] }}</td>
+                                    {% else %}
+                                    <th class="align-middle"></th>
+                                    <th class="align-middle"></th>
+                                    {% endif %}
+                                    <td class="align-middle">{{ assignment["weight"] }}</td>
+                                    <td class="align-middle">{{ assignment["date"] }}</td>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                            </tbody>
+                            {% endif %}
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
         {% endfor %}
     </div>
-    
 
     <!-- Footer -->
     <div class="container-fluid py-5 align-items-center text-center header">

@@ -77,6 +77,9 @@ class MaplewoodScraper:
         self.addMarkDetails()
         self.parseMarks()
         self.sortCourses()
+        # if self.username = "xu3628":
+        #     self.calculateWaterlooGPA
+        # else:
         self.calculateGPA()
         self.getTodayUpdates()
         return True
@@ -200,7 +203,8 @@ class MaplewoodScraper:
             "course": course["name"],
             "has sections": False,
             "assignments": [],
-            "sections": []
+            "sections": [],
+            "updated today": False
         }
     
     def newSection(self, course, unit, row):
@@ -211,7 +215,8 @@ class MaplewoodScraper:
             "weight": float(row[3]) if row[3] != "None" else None,
             "course": course["name"],
             "unit": unit["name"],
-            "assignments": []
+            "assignments": [],
+            "updated today": False
         }
     
     def newAssignment(self, course, unit, row):
@@ -223,6 +228,7 @@ class MaplewoodScraper:
             "date": row[2],
             "course": course["name"],
             "unit": unit["name"],
+            "updated today": False
         }
 
     def parseMarks(self):
@@ -330,17 +336,33 @@ class MaplewoodScraper:
         self.GPA = sum(marks) / len(marks)
 
     def getTodayUpdates(self):
+        dateToday = str(datetime.now(pytz.timezone("America/Denver"))).split()[0]
         for course in self.courses:
-            if course["updated"]:
-                dateUpdated = str(dateparser.parse(course["updated"])).split()[0]
-                dateToday = str(datetime.now(pytz.timezone("America/Denver"))).split()[0]
-                course["updated today"] = True if dateUpdated == dateToday else False
-            else:
-                course["updated today"] = False
+            if not course["updated"]:
+                continue
+            dateUpdated = str(dateparser.parse(course["updated"])).split()[0]
+            if dateUpdated != dateToday:
+                continue
+            course["updated today"] = True
+            for unit in course["units"]:
+                if unit["has sections"]:
+                    for section in unit["sections"]:
+                        for assignment in section["assignments"]:
+                            dateUpdated = str(dateparser.parse(assignment["date"])).split()[0]
+                            if dateUpdated == dateToday:
+                                assignment["updated today"] = True
+                                section["updated today"] = True
+                                unit["updated today"] = True
+                else:
+                    for assignment in unit["assignments"]:
+                        dateUpdated = str(dateparser.parse(assignment["date"])).split()[0]
+                        if dateUpdated == dateToday:
+                            assignment["updated today"] = True
+                            unit["updated today"] = True
 
 
 if __name__ == "__main__":
-    username = input("Username: ")
-    password = input("Password: ")
+    username = "xu3628" #input("Username: ")
+    password = "Lego1211" #input("Password: ")
     scraper = MaplewoodScraper(username, password)
     scraper.start()
