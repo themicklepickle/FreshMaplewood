@@ -77,10 +77,10 @@ class MaplewoodScraper:
         self.addMarkDetails()
         self.parseMarks()
         self.sortCourses()
-        # if self.username = "xu3628":
-        #     self.calculateWaterlooGPA
-        # else:
-        self.calculateGPA()
+        if self.username.lower() == "xu3628":
+            self.calculateWaterlooGPA
+        else:
+            self.calculateGPA()
         self.getTodayUpdates()
         return True
 
@@ -333,6 +333,16 @@ class MaplewoodScraper:
             marks.append(sum(programmingMarks) / len(programmingMarks))
         if len(roboticsMarks) > 0:
             marks.append(sum(roboticsMarks) / len(roboticsMarks))
+        self.GPA = sum(marks) / len(marks)
+    
+    def calculateWaterlooGPA(self):
+        waterlooSECourses = [
+            "English Language Arts 20-1 (AP Lang.)",
+            "Mathematics 30-1 Pre-AP",
+            "Physics 20 AP",
+            "Chemistry 20"
+        ]
+        marks = [course["mark"] for course in self.courses if course["mark"] and course["name"] in waterlooSECourses]
         self.GPA = sum(marks) / len(marks)
 
     def getTodayUpdates(self):
