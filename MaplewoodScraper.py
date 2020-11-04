@@ -78,7 +78,7 @@ class MaplewoodScraper:
         self.parseMarks()
         self.sortCourses()
         if self.username.lower() == "xu3628":
-            self.calculateWaterlooGPA
+            self.calculateWaterlooGPA()
         else:
             self.calculateGPA()
         self.getTodayUpdates()
