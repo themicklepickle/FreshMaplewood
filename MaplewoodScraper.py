@@ -25,6 +25,7 @@ class MaplewoodScraper:
         self.markChanges = None
         self.formattedChanges = ""
         self.GPA = None
+        self.waterlooGPA = None
         
         self.aliases = {
             "English Language Arts 20-1 (AP Lang.)": "English 20 AP Lang.",
@@ -77,10 +78,9 @@ class MaplewoodScraper:
         self.addMarkDetails()
         self.parseMarks()
         self.sortCourses()
+        self.calculateGPA()
         if self.username.lower() == "xu3628":
-            self.calculateWaterlooGPA()
-        else:
-            self.calculateGPA()
+            self.calculatewaterlooGPA()
         self.getTodayUpdates()
         return True
 
@@ -335,7 +335,7 @@ class MaplewoodScraper:
             marks.append(sum(roboticsMarks) / len(roboticsMarks))
         self.GPA = sum(marks) / len(marks)
     
-    def calculateWaterlooGPA(self):
+    def calculatewaterlooGPA(self):
         waterlooSECourses = [
             "English Language Arts 20-1 (AP Lang.)",
             "Mathematics 30-1 Pre-AP",
@@ -343,7 +343,7 @@ class MaplewoodScraper:
             "Chemistry 20"
         ]
         marks = [course["mark"] for course in self.courses if course["mark"] and course["name"] in waterlooSECourses]
-        self.GPA = sum(marks) / len(marks)
+        self.waterlooGPA = sum(marks) / len(marks)
 
     def getTodayUpdates(self):
         dateToday = str(datetime.now(pytz.timezone("America/Denver"))).split()[0]

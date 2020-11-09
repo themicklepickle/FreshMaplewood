@@ -37,23 +37,32 @@
                     <div class="col-12">
                         <!-- GPA -->
                         <div class="collapse" id="GPA">
-                            <!-- my-0 -->
                             <button class="markHeader btn btn-outline-primary text-secondary" type="button" data-toggle="collapse"
-                                data-target="#courseMark,#markButton,#markHeader,#GPA" aria-expanded="false">
+                                aria-expanded="false" data-target="#courseMark,#markButton,#markHeader,#GPA{% if waterlooGPA %},#waterlooGPA,#updatedHeader{% endif %}">
                                 <h4 class="my-0 mx-0">{{ "%.2f"|format(GPA) }}%</h4>
                             </button>
                         </div>
                         <!-- marks header button -->
                         <div class="collapse show" id="markHeader">
                             <button class="markHeader btn btn-outline-primary text-secondary" type="button" data-toggle="collapse"
-                                data-target="#courseMark,#markButton,#markHeader,#GPA" aria-expanded="false">
+                                aria-expanded="false" data-target="#courseMark,#markButton,#markHeader,#GPA{% if waterlooGPA %},#waterlooGPA,#updatedHeader{% endif %}">
                                 <h4 class="my-0 mx-0">Mark</h4>
                             </button>
                         </div>
                     </div>
                     <!-- updated -->
                     <div class="col-12">
+                        {% if waterlooGPA %}
+                        <div class="collapse" id="waterlooGPA">
+                            <h4 class="my-0 mx-0">{{ "%.2f"|format(waterlooGPA) }}%</h4>
+                        </div>
+                        <!-- marks header button -->
+                        <div class="collapse show" id="updatedHeader">
+                            <h4 class="my-0">Updated</h4>
+                        </div>
+                        {% else %}
                         <h4 class="my-0">Updated</h4>
+                        {% endif %}
                     </div>
                     <!-- sign out -->
                     <div class="col-6">
@@ -132,6 +141,7 @@
                     <!-- updated today -->
                     <div class="col-6">
                     {% if course["updated today"] %}
+                    {% if course%}
                         <a data-toggle="modal" data-target="#{{ course['code'] }}updates" role="button" aria-expanded="false"
                             aria-controls="{{ course['code'] }}updates">
                             <i class="material-icons my-0 new-releases">new_releases</i>
