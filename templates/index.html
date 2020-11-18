@@ -297,7 +297,17 @@
                                 {% for assignment in section["assignments"] %}
                                 <!-- assignment -->
                                 <tr {% if assignment["updated today"] %}class="bg-secondary" {% endif %}>
-                                    <td scope="row" class="align-middle">{{ assignment["name"] }}</td>
+                                    <td scope="row" class="align-middle">
+                                        {{ assignment["name"] }}
+                                        {% if assignment["comment"] %}
+                                        <a role="button" data-toggle="modal"
+                                            data-target="#{{ assignment["comment"]["commentID"] }}"
+                                            aria-expanded="false"
+                                            aria-controls="{{ assignment["comment"]["commentID"] }}">
+                                            <i class="material-icons my-0 align-middle ml-1 commentButton">comment</i>
+                                        </a>
+                                        {% endif %}
+                                    </td>
                                     {% if assignment["mark"] %}
                                     <th class="align-middle">
                                         {{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%</th>

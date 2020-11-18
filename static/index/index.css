@@ -9738,6 +9738,10 @@ body {
 .info, .new-releases {
   transform: scale(0.6); }
 
+.commentButton {
+  font-size: 0.5rem !important;
+  color: #5a8684; }
+
 .signout {
   transform: scale(0.7); }
 
@@ -9770,6 +9774,9 @@ body {
   .info, .new-releases {
     transform: scale(0.7); }
 
+  .commentButton {
+    font-size: 0.6rem !important; }
+
   .signout {
     transform: scale(0.8); }
 
@@ -9785,6 +9792,9 @@ body {
 
   .info, .new-releases {
     transform: scale(0.8); }
+
+  .commentButton {
+    font-size: 0.7rem !important; }
 
   .signout {
     transform: scale(0.9); }
@@ -9802,6 +9812,9 @@ body {
   .info, .new-releases {
     transform: scale(1); }
 
+  .commentButton {
+    font-size: 0.9rem !important; }
+
   .signout {
     transform: scale(1.1); }
 
@@ -9817,6 +9830,9 @@ body {
 
   .info, .new-releases {
     transform: scale(1.4); }
+
+  .commentButton {
+    font-size: 1.2rem !important; }
 
   .signout {
     transform: scale(1.5); }
