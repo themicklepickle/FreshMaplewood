@@ -26,7 +26,8 @@ class MaplewoodScraper:
         self.formattedChanges = ""
         self.GPA = None
         self.waterlooGPA = None
-        
+        self.comments = []
+
         self.aliases = {
             "English Language Arts 20-1 (AP Lang.)": "English 20 AP Lang.",
             "Mathematics 30-1 Pre-AP": "Math 30 Pre-AP",
@@ -160,13 +161,14 @@ class MaplewoodScraper:
                 self.markPages.append(BeautifulSoup(markPage, features="lxml"))
             else:
                 self.markPages.append(None)
-            
+
     def addMarkDetails(self):
         for i, markPage in enumerate(self.markPages):
             if markPage:
                 termMark = markPage.find(
                     "div", attrs={"style": "font-weight: bold; margin-bottom: 3px;"}).string[11:]
-                self.courses[i]["mark"] = float(termMark) if termMark != " " else None
+                self.courses[i]["mark"] = float(
+                    termMark) if termMark != " " else None
             else:
                 self.courses[i]["mark"] = None
 
@@ -176,6 +178,27 @@ class MaplewoodScraper:
                 course = []
                 for row in rows:
                     splitRows = [str(col.string) for col in row.find_all("td")]
+                    commentLink = row.find("img", attrs={
+                                           "onclick": "loadComment($(this).attr('commid'), $(this).attr('commtitle'), true);"
+                                           })
+                    if commentLink:
+                        commentInfo = {
+                            "commentID": commentLink.attrs["commid"],
+                            "isMarkbook": True
+                        }
+                        commentContent = self.session.post(
+                            self.mwURL+"/connectEd/viewer/Achieve/TopicBas/StuMrks.aspx/GetComment",
+                            json=commentInfo
+                        ).json()["d"]
+                        comment = {
+                            "commentID": commentLink.attrs["commid"],
+                            "commentTitle": commentLink.attrs["commtitle"],
+                            "commentContent": commentContent
+                        }
+                        splitRows.append(comment)
+                        self.comments.append(comment)
+                    else:
+                        splitRows.append(None)
                     rowName = row.find("span")
                     if rowName:
                         splitRows[0] = str(rowName.string)
@@ -193,38 +216,41 @@ class MaplewoodScraper:
                 self.allMarks.append(course)
             else:
                 self.allMarks.append([])
-    
+
     def newUnit(self, course, row):
         return {
             "name": row[0],
             "mark": float(row[1]) if row[1] != "None" else None,
             "denominator": float(row[4]) if row[4] != "None" else None,
             "weight": float(row[3]) if row[3] != "None" else None,
+            "comment": row[5],
             "course": course["name"],
             "has sections": False,
             "assignments": [],
             "sections": [],
             "updated today": False
         }
-    
+
     def newSection(self, course, unit, row):
         return {
             "name": row[0],
             "mark": float(row[1]) if row[1] != "None" else None,
             "denominator": float(row[4]) if row[4] != "None" else None,
             "weight": float(row[3]) if row[3] != "None" else None,
+            "comment": row[5],
             "course": course["name"],
             "unit": unit["name"],
             "assignments": [],
             "updated today": False
         }
-    
+
     def newAssignment(self, course, unit, row):
         return {
             "name": row[0],
             "mark": float(row[1]) if row[1] != "None" and row[1] != "EXC" and row[1] != "NHI" and row[1] != "ABS" else None,
             "denominator": float(row[4]) if row[4] != "None" else None,
             "weight": float(row[3]) if row[3] != "None" else None,
+            "comment": row[5],
             "date": row[2],
             "course": course["name"],
             "unit": unit["name"],
@@ -254,7 +280,7 @@ class MaplewoodScraper:
                             course["units"].append(unit)
                         unit = self.newUnit(course, row)
                         last = "unit"
-                    
+
                     if row[-1] == "section":
                         if last == "unit":
                             unit["has sections"] = True
@@ -274,12 +300,12 @@ class MaplewoodScraper:
                         if last == "assignment" and unit["has sections"]:
                             section["assignments"].append(assignment)
                         elif last == "assignment":
-                            unit["assignments"].append(assignment)                        
+                            unit["assignments"].append(assignment)
                         assignment = self.newAssignment(course, unit, row)
                         if unit["has sections"]:
                             assignment["section"] = section["name"]
                         last = "assignment"
-                
+
                 if last == "unit":
                     course["units"].append(unit)
                 if last == "section":
@@ -292,7 +318,7 @@ class MaplewoodScraper:
                 elif last == "assignment":
                     unit["assignments"].append(assignment)
                     course["units"].append(unit)
-    
+
     def compActive(self):
         pass
 
@@ -310,13 +336,15 @@ class MaplewoodScraper:
                 self.roboticsCourses.insert(0, course)
             else:
                 self.roboticsCourses.append(course)
-        
-        self.inactiveCourses = [course for course in self.courses if not course["active"]]
+
+        self.inactiveCourses = [
+            course for course in self.courses if not course["active"]]
         for course in self.inactiveCourses:
             self.courses.remove(course)
-        
-        self.courses += self.programmingCourses + self.roboticsCourses + self.inactiveCourses
-    
+
+        self.courses += self.programmingCourses + \
+            self.roboticsCourses + self.inactiveCourses
+
     def calculateGPA(self):
         marks = []
         programmingMarks = []
@@ -334,7 +362,7 @@ class MaplewoodScraper:
         if len(roboticsMarks) > 0:
             marks.append(sum(roboticsMarks) / len(roboticsMarks))
         self.GPA = sum(marks) / len(marks)
-    
+
     def calculatewaterlooGPA(self):
         waterlooSECourses = [
             "English Language Arts 20-1 (AP Lang.)",
@@ -342,11 +370,13 @@ class MaplewoodScraper:
             "Physics 20 AP",
             "Chemistry 20"
         ]
-        marks = [course["mark"] for course in self.courses if course["mark"] and course["name"] in waterlooSECourses]
+        marks = [course["mark"] for course in self.courses if course["mark"]
+                 and course["name"] in waterlooSECourses]
         self.waterlooGPA = sum(marks) / len(marks)
 
     def getTodayUpdates(self):
-        dateToday = str(datetime.now(pytz.timezone("America/Denver"))).split()[0]
+        dateToday = str(datetime.now(
+            pytz.timezone("America/Denver"))).split()[0]
         for course in self.courses:
             if not course["updated"]:
                 continue
@@ -358,21 +388,23 @@ class MaplewoodScraper:
                 if unit["has sections"]:
                     for section in unit["sections"]:
                         for assignment in section["assignments"]:
-                            dateUpdated = str(dateparser.parse(assignment["date"])).split()[0]
+                            dateUpdated = str(dateparser.parse(
+                                assignment["date"])).split()[0]
                             if dateUpdated == dateToday:
                                 assignment["updated today"] = True
                                 section["updated today"] = True
                                 unit["updated today"] = True
                 else:
                     for assignment in unit["assignments"]:
-                        dateUpdated = str(dateparser.parse(assignment["date"])).split()[0]
+                        dateUpdated = str(dateparser.parse(
+                            assignment["date"])).split()[0]
                         if dateUpdated == dateToday:
                             assignment["updated today"] = True
                             unit["updated today"] = True
 
 
 if __name__ == "__main__":
-    username = "xu3628" #input("Username: ")
-    password = "Lego1211" #input("Password: ")
+    username = "xu3628"  # input("Username: ")
+    password = "Lego1211"  # input("Password: ")
     scraper = MaplewoodScraper(username, password)
     scraper.start()
