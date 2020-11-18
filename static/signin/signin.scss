@@ -4,7 +4,7 @@ $theme-colors: (
   "danger": #ff9d9d
 );
 $input-placeholder-color: #ced4da;
-@import "node_modules/bootstrap/scss/bootstrap";
+@import "../node_modules/bootstrap/scss/bootstrap";
 
 html,
 body {
