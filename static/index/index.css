@@ -9739,8 +9739,7 @@ body {
   transform: scale(0.6); }
 
 .commentButton {
-  font-size: 0.5rem !important;
-  color: #5a8684; }
+  font-size: 0.5rem !important; }
 
 .signout {
   transform: scale(0.7); }
