@@ -62,7 +62,7 @@ class MaplewoodScraper:
             "Introductory Robotics"
         ]
 
-    def start(self, notify=True, test=False):
+    def start(self, test=False):
         if test:
             with open("test.json", "r") as f:
                 self.courses = json.load(f)
