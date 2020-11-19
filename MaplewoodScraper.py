@@ -102,8 +102,7 @@ class MaplewoodScraper:
 
     def getMainPage(self):
         self.mainPage = self.session.get(
-            self.mwURL +
-            "/connectEd/viewer/Viewer/main.aspx"
+            self.mwURL + "/connectEd/viewer/Viewer/main.aspx"
         ).text
 
     def getCourses(self):
@@ -118,6 +117,8 @@ class MaplewoodScraper:
             markbook = course.find("a")
             if markbook:
                 attributes = markbook.attrs["onclick"][13:-2].split(",")
+            else:
+                attributes = None
 
             self.courses.append(
                 {
@@ -212,7 +213,6 @@ class MaplewoodScraper:
                     else:
                         splitRows.append("header")
                     course.append(splitRows)
-                    # print(splitRows)
                 self.allMarks.append(course)
             else:
                 self.allMarks.append([])
@@ -276,6 +276,8 @@ class MaplewoodScraper:
         return assignment
 
     def parseMarks(self):
+        section = None
+        assignment = None
         for course, marks in zip(self.courses, self.allMarks):
             if course["active"]:
                 row = marks[1]
