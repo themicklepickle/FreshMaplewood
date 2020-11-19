@@ -324,8 +324,9 @@
                                     <td scope="row" class="align-middle">
                                         {{ assignment["name"] }}
                                         {% if assignment["comment"] %}
-                                        <a data-toggle="tooltip" data-placement="right" data-animation="false"
-                                            role="button" title="{{ assignment['comment']['commentContent'] }}">
+                                        <a data-toggle="popover" role="button"
+                                            title="{{ assignment['comment']['commentTitle'] }}"
+                                            data-content="{{ assignment['comment']['commentContent'] }}">
                                             <i class="material-icons my-0 align-middle ml-1 text-primary commentButton">
                                                 comment
                                             </i>
@@ -368,8 +369,9 @@
                                     <td scope="row" class="align-middle">
                                         {{ assignment["name"] }}
                                         {% if assignment["comment"] %}
-                                        <a data-toggle="tooltip" data-placement="right" data-animation="false"
-                                            role="button" title="{{ assignment['comment']['commentContent'] }}">
+                                        <a data-toggle="popover" role="button"
+                                            title="{{ assignment['comment']['commentTitle'] }}"
+                                            data-content="{{ assignment['comment']['commentContent'] }}">
                                             <i class="material-icons my-0 align-middle ml-1 text-primary commentButton">
                                                 comment
                                             </i>
@@ -529,8 +531,9 @@
                                     <td scope="row" class="align-middle">
                                         {{ assignment["name"] }}
                                         {% if assignment["comment"] %}
-                                        <a data-toggle="tooltip" data-placement="right" data-animation="false"
-                                            role="button" title="{{ assignment['comment']['commentContent'] }}">
+                                        <a data-toggle="popover" role="button"
+                                            title="{{ assignment['comment']['commentTitle'] }}"
+                                            data-content="{{ assignment['comment']['commentContent'] }}">
                                             <i class="material-icons my-0 align-middle ml-1 text-primary commentButton">
                                                 comment
                                             </i>
@@ -576,8 +579,9 @@
                                     <td scope="row" class="align-middle">
                                         {{ assignment["name"] }}
                                         {% if assignment["comment"] %}
-                                        <a data-toggle="tooltip" data-placement="right" data-animation="false"
-                                            role="button" title="{{ assignment['comment']['commentContent'] }}">
+                                        <a data-toggle="popover" role="button"
+                                            title="{{ assignment['comment']['commentTitle'] }}"
+                                            data-content="{{ assignment['comment']['commentContent'] }}">
                                             <i class="material-icons my-0 align-middle ml-1 text-primary commentButton">
                                                 comment
                                             </i>
