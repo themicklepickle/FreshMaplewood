@@ -259,17 +259,26 @@
                             <thead class="table-primary">
                                 <tr>
                                     <th scope="col" class="align-middle">{{ unit["name"] }}</th>
-                                    {% if unit["mark"] %}
-                                    <th scope="col" class="align-middle">
-                                        {{ "%.2f"|format(unit["mark"] / unit["denominator"] * 100) }}%</th>
-                                    <th scope="col" class="align-middle">{{ "%.2f"|format(unit["mark"]) }} /
-                                        {{ unit["denominator"] }}</th>
+                                    {% if unit["mark"] == "EXC" or unit["mark"] == "NHI" or unit["mark"] == "ABS" %}
+                                    <th class="align-middle">
+                                        {{ unit["mark"] }}%
+                                    </th>
+                                    <th class="align-middle">
+                                        {{ unit["mark"] }}
+                                    </th>
+                                    {% elif unit["mark"] %}
+                                    <th class="align-middle">
+                                        {{ "%.2f"|format(unit["mark"] / unit["denominator"] * 100) }}%
+                                    </th>
+                                    <th class="align-middle">
+                                        {{ "%.2f"|format(unit["mark"]) }} / {{ unit["denominator"] }}
+                                    </th>
                                     {% else %}
-                                    <th scope="col" class="align-middle"></th>
-                                    <th scope="col" class="align-middle"></th>
+                                    <th class="align-middle"></th>
+                                    <th class="align-middle"></th>
                                     {% endif %}
-                                    <th scope="col" class="align-middle">{{ unit["weight"] }}</th>
-                                    <th scope="col" class="align-middle"></th>
+                                    <th class="align-middle">{{ unit["weight"] }}</th>
+                                    <th class="align-middle"></th>
                                 </tr>
                             </thead>
                             {% if unit["has sections"] %}
@@ -278,19 +287,26 @@
                             <thead class="table-active">
                                 <tr>
                                     <th scope="col" class="align-middle">{{ section["name"] }}</th>
-                                    {% if section["mark"] %}
-                                    <th scope="col" class="align-middle">
+                                    {% if section["mark"] == "EXC" or section["mark"] == "NHI" or section["mark"] == "ABS" %}
+                                    <th class="align-middle">
+                                        {{ section["mark"] }}%
+                                    </th>
+                                    <td class="align-middle">
+                                        {{ section["mark"] }}
+                                    </td>
+                                    {% elif section["mark"] %}
+                                    <th class="align-middle">
                                         {{ "%.2f"|format(section["mark"] / section["denominator"] * 100) }}%
                                     </th>
-                                    <th scope="col" class="align-middle">{{ "%.2f"|format(section["mark"]) }} /
-                                        {{ section["denominator"] }}
-                                    </th>
+                                    <td class="align-middle">
+                                        {{ "%.2f"|format(section["mark"]) }} / {{ section["denominator"] }}
+                                    </td>
                                     {% else %}
-                                    <th scope="col" class="align-middle"></th>
-                                    <th scope="col" class="align-middle"></th>
+                                    <th class="align-middle"></th>
+                                    <th class="align-middle"></th>
                                     {% endif %}
-                                    <th scope="col" class="align-middle">{{ section["weight"] }}</th>
-                                    <th scope="col" class="align-middle"></th>
+                                    <th class="align-middle">{{ section["weight"] }}</th>
+                                    <th class="align-middle"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -308,10 +324,19 @@
                                         </a>
                                         {% endif %}
                                     </td>
-                                    {% if assignment["mark"] %}
+                                    {% if assignment["mark"] == "EXC" or assignment["mark"] == "NHI" or assignment["mark"] == "ABS" %}
                                     <th class="align-middle">
-                                        {{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%</th>
-                                    <td class="align-middle">{{ assignment["mark"] }} / {{ assignment["denominator"] }}
+                                        {{ assignment["mark"] }}%
+                                    </th>
+                                    <td class="align-middle">
+                                        {{ assignment["mark"] }}
+                                    </td>
+                                    {% elif assignment["mark"] %}
+                                    <th class="align-middle">
+                                        {{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%
+                                    </th>
+                                    <td class="align-middle">
+                                        {{ "%.2f"|format(assignment["mark"]) }} / {{ assignment["denominator"] }}
                                     </td>
                                     {% else %}
                                     <th class="align-middle"></th>
@@ -339,10 +364,19 @@
                                         </a>
                                         {% endif %}
                                     </td>
-                                    {% if assignment["mark"] %}
+                                    {% if assignment["mark"] == "EXC" or assignment["mark"] == "NHI" or assignment["mark"] == "ABS" %}
                                     <th class="align-middle">
-                                        {{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%</th>
-                                    <td class="align-middle">{{ assignment["mark"] }} / {{ assignment["denominator"] }}
+                                        {{ assignment["mark"] }}%
+                                    </th>
+                                    <td class="align-middle">
+                                        {{ assignment["mark"] }}
+                                    </td>
+                                    {% elif assignment["mark"] %}
+                                    <th class="align-middle">
+                                        {{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%
+                                    </th>
+                                    <td class="align-middle">
+                                        {{ "%.2f"|format(assignment["mark"]) }} / {{ assignment["denominator"] }}
                                     </td>
                                     {% else %}
                                     <th class="align-middle"></th>
