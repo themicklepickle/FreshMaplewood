@@ -217,7 +217,9 @@ class MaplewoodScraper:
             else:
                 self.allMarks.append([])
 
-    def newUnit(self, course, row):            "name": row[0],
+    def newUnit(self, course, row):
+        unit = {
+            "name": row[0],
             "denominator": float(row[4]) if row[4] != "None" else None,
             "weight": float(row[3]) if row[3] != "None" else None,
             "comment": row[5],
