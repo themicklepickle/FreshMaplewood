@@ -217,10 +217,7 @@ class MaplewoodScraper:
             else:
                 self.allMarks.append([])
 
-    def newUnit(self, course, row):
-        return {
-            "name": row[0],
-            "mark": float(row[1]) if row[1] != "None" else None,
+    def newUnit(self, course, row):            "name": row[0],
             "denominator": float(row[4]) if row[4] != "None" else None,
             "weight": float(row[3]) if row[3] != "None" else None,
             "comment": row[5],
@@ -230,11 +227,17 @@ class MaplewoodScraper:
             "sections": [],
             "updated today": False
         }
+        if row[1] == "None":
+            unit["mark"] = None
+        elif row[1] == "EXC" or row[1] == "NHI" or row[1] == "ABS":
+            unit["mark"] = row[1]
+        else:
+            unit["mark"] = float(row[1])
+        return unit
 
     def newSection(self, course, unit, row):
-        return {
+        section = {
             "name": row[0],
-            "mark": float(row[1]) if row[1] != "None" else None,
             "denominator": float(row[4]) if row[4] != "None" else None,
             "weight": float(row[3]) if row[3] != "None" else None,
             "comment": row[5],
@@ -243,11 +246,17 @@ class MaplewoodScraper:
             "assignments": [],
             "updated today": False
         }
+        if row[1] == "None":
+            section["mark"] = None
+        elif row[1] == "EXC" or row[1] == "NHI" or row[1] == "ABS":
+            section["mark"] = row[1]
+        else:
+            section["mark"] = float(row[1])
+        return section
 
     def newAssignment(self, course, unit, row):
-        return {
+        assignment = {
             "name": row[0],
-            "mark": float(row[1]) if row[1] != "None" and row[1] != "EXC" and row[1] != "NHI" and row[1] != "ABS" else None,
             "denominator": float(row[4]) if row[4] != "None" else None,
             "weight": float(row[3]) if row[3] != "None" else None,
             "comment": row[5],
@@ -256,6 +265,13 @@ class MaplewoodScraper:
             "unit": unit["name"],
             "updated today": False
         }
+        if row[1] == "None":
+            assignment["mark"] = None
+        elif row[1] == "EXC" or row[1] == "NHI" or row[1] == "ABS":
+            assignment["mark"] = row[1]
+        else:
+            assignment["mark"] = float(row[1])
+        return assignment
 
     def parseMarks(self):
         for course, marks in zip(self.courses, self.allMarks):
