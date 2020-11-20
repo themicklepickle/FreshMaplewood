@@ -23,7 +23,7 @@ def signin():
     session["username"] = ""
     session["password"] = ""
     return render_template(
-        "signin.html", 
+        "signin.html",
         error=True if "error" in session else False
     )
 
@@ -31,14 +31,14 @@ def signin():
 @app.route("/marks")
 def marks():
     scrape = MaplewoodScraper(session["username"], session["password"])
-    if scrape.start(notify=False):
+    if scrape.start():
         if "error" in session:
             session.pop("error")
         return render_template(
-            "index.html", 
-            courses=scrape.courses, 
-            aliases=scrape.aliases, 
-            GPA=scrape.GPA, 
+            "index.html",
+            courses=scrape.courses,
+            aliases=scrape.aliases,
+            GPA=scrape.GPA,
             waterlooGPA=scrape.waterlooGPA
         )
     session["error"] = True
