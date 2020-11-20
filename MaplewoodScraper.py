@@ -19,14 +19,9 @@ class MaplewoodScraper:
         self.inactiveCourses = []
         self.programmingCourses = []
         self.roboticsCourses = []
-        self.coursesOld = None
-        self.additions = None
-        self.removals = None
-        self.markChanges = None
-        self.formattedChanges = ""
+        self.comments = []
         self.GPA = None
         self.waterlooGPA = None
-        self.comments = []
 
         self.aliases = {
             "English Language Arts 20-1 (AP Lang.)": "English 20 AP Lang.",
