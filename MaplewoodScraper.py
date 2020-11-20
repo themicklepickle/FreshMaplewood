@@ -11,7 +11,6 @@ class MaplewoodScraper:
         self.username = username
         self.password = password
 
-        self.mainPage = None
         self.markPages = []
         self.allMarks = []
         self.courses = []
@@ -20,6 +19,8 @@ class MaplewoodScraper:
         self.programmingCourses = []
         self.roboticsCourses = []
         self.comments = []
+
+        self.mainPage = None
         self.GPA = None
         self.waterlooGPA = None
 
