@@ -337,7 +337,10 @@ class MaplewoodScraper:
     def sortCourses(self):
         # sort courses by alphabetical order
         def compare(course):
-            return course["name"]
+            if course["name"] in self.aliases:
+                return self.aliases[course["name"]]
+            else:
+                return course["name"]
         self.courses.sort(key=compare)
 
         # separate programming modules
