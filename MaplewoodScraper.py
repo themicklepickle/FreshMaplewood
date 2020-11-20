@@ -334,10 +334,13 @@ class MaplewoodScraper:
                     unit["assignments"].append(assignment)
                     course["units"].append(unit)
 
-    def compActive(self):
-        pass
-
     def sortCourses(self):
+        # sort courses by alphabetical order
+        def compare(course):
+            return course["name"]
+        self.courses.sort(compare)
+
+        # separate programming modules
         for course in [course for course in self.courses if course["name"] in self.programmingCourseNames]:
             self.courses.remove(course)
             if course["active"]:
@@ -345,6 +348,7 @@ class MaplewoodScraper:
             else:
                 self.programmingCourses.append(course)
 
+        # separate robotics modules
         for course in [course for course in self.courses if course["name"] in self.roboticsCourseNames]:
             self.courses.remove(course)
             if course["active"]:
@@ -352,11 +356,13 @@ class MaplewoodScraper:
             else:
                 self.roboticsCourses.append(course)
 
+        # separate inactive courses
         self.inactiveCourses = [
             course for course in self.courses if not course["active"]]
         for course in self.inactiveCourses:
             self.courses.remove(course)
 
+        # combine courses
         self.courses += self.programmingCourses + \
             self.roboticsCourses + self.inactiveCourses
 
