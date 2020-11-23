@@ -97,7 +97,7 @@ class MaplewoodScraper:
                 self.mwURL+"/connectEd/viewer/login/VerUser.aspx",
                 data=userInfo,
                 headers={"Content-type": "application/x-www-form-urlencoded"},
-                timeout=2
+                timeout=25
             )
         except requests.exceptions.Timeout:
             self.errorMessage = "Maplewood timed out. Please try again later."
