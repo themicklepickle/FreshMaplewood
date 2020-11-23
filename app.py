@@ -24,7 +24,8 @@ def signin():
     session["password"] = ""
     return render_template(
         "signin.html",
-        error=True if "error" in session else False
+        error=True if "error" in session else False,
+        errorMessage=session["errorMessage"] if "errorMessage" in session else
     )
 
 
@@ -34,6 +35,7 @@ def marks():
     if scrape.start():
         if "error" in session:
             session.pop("error")
+            session.pop("errorMessage")
         return render_template(
             "index.html",
             courses=scrape.courses,
@@ -42,6 +44,7 @@ def marks():
             waterlooGPA=scrape.waterlooGPA
         )
     session["error"] = True
+    session["errorMessage"] = scrape.errorMessage
     return redirect("/signin")
 
 
