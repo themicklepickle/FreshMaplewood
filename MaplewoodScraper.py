@@ -23,6 +23,7 @@ class MaplewoodScraper:
         self.mainPage = None
         self.GPA = None
         self.waterlooGPA = None
+        self.errorMessage = ""
 
         self.aliases = {
             "English Language Arts 20-1 (AP Lang.)": "English 20 AP Lang.",
@@ -91,13 +92,22 @@ class MaplewoodScraper:
 
     def login(self):
         userInfo = f"EntryType=StudentParent&username={self.username}&pwd={self.password}"
-        response = self.session.post(
-            self.mwURL+"/connectEd/viewer/login/VerUser.aspx",
-            data=userInfo,
-            headers={"Content-type": "application/x-www-form-urlencoded"},
-            timeout=25
-        )
-        return True if response.history[0].headers.get('location').endswith('SvrMsg.aspx') else False
+        try:
+            response = self.session.post(
+                self.mwURL+"/connectEd/viewer/login/VerUser.aspx",
+                data=userInfo,
+                headers={"Content-type": "application/x-www-form-urlencoded"},
+                timeout=2
+            )
+        except requests.exceptions.Timeout:
+            self.errorMessage = "Maplewood timed out. Please try again later."
+            return False
+        if response.history[0].headers.get('location').endswith('SvrMsg.aspx'):
+            self.errorMessage = ""
+            return True
+        else:
+            self.errorMessage = "Invalid login. Please try again."
+            return False
 
     def getMainPage(self):
         self.mainPage = self.session.get(
