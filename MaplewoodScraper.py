@@ -64,8 +64,10 @@ class MaplewoodScraper:
                 self.courses = json.load(f)
                 self.sortCourses()
                 self.calculateGPA()
+                self.calculatewaterlooGPA()
                 self.getTodayUpdates()
             return True
+
         self.startSession()
         if not self.login():
             return False
@@ -92,7 +94,8 @@ class MaplewoodScraper:
         response = self.session.post(
             self.mwURL+"/connectEd/viewer/login/VerUser.aspx",
             data=userInfo,
-            headers={"Content-type": "application/x-www-form-urlencoded"}
+            headers={"Content-type": "application/x-www-form-urlencoded"},
+            timeout=25
         )
         return True if response.history[0].headers.get('location').endswith('SvrMsg.aspx') else False
 
