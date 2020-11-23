@@ -100,13 +100,13 @@ class MaplewoodScraper:
                 timeout=25
             )
         except requests.exceptions.Timeout:
-            self.errorMessage = "Maplewood timed out. Please try again later."
+            self.errorMessage = "Maplewood servers timed out."
             return False
         if response.history[0].headers.get('location').endswith('SvrMsg.aspx'):
             self.errorMessage = ""
             return True
         else:
-            self.errorMessage = "Invalid login. Please try again."
+            self.errorMessage = "Invalid login."
             return False
 
     def getMainPage(self):
