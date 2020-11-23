@@ -25,7 +25,7 @@ def signin():
     return render_template(
         "signin.html",
         error=True if "error" in session else False,
-        errorMessage=session["errorMessage"] if "errorMessage" in session else
+        errorMessage=session["errorMessage"] if "errorMessage" in session else ""
     )
 
 
