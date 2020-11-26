@@ -1,3 +1,3 @@
 # FreshMaplewood
 
-[maplewo.michaelxu.tech](http://maplewood.michaelxu.tech/)
+[maplewood.michaelxu.tech](http://maplewood.michaelxu.tech/)
