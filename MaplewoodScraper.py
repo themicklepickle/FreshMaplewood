@@ -442,7 +442,7 @@ class MaplewoodScraper:
 
 
 if __name__ == "__main__":
-    username = "xu3628"  # input("Username: ")
-    password = "Lego1211"  # input("Password: ")
+    username = input("Username: ")
+    password = input("Password: ")
     scraper = MaplewoodScraper(username, password)
     scraper.start()
