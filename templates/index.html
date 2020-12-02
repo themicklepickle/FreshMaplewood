@@ -261,7 +261,7 @@
                                     <th scope="col" class="align-middle">
                                         {{ unit["name"] }}
                                     </th>
-                                    {% if unit["mark"] == "EXC" or unit["mark"] == "NHI" or unit["mark"] == "ABS" %}
+                                    {% if unit["mark"] is string %}
                                     <th class="align-middle">
                                         {{ unit["mark"] }}
                                     </th>
@@ -293,7 +293,7 @@
                                     <td scope="col" class="align-middle font-italic">
                                         {{ section["name"] }}
                                     </td>
-                                    {% if section["mark"] == "EXC" or section["mark"] == "NHI" or section["mark"] == "ABS" %}
+                                    {% if section["mark"] is string %}
                                     <td class="align-middle font-italic">
                                         {{ section["mark"] }}
                                     </td>
@@ -334,7 +334,7 @@
                                         </a>
                                         {% endif %}
                                     </td>
-                                    {% if assignment["mark"] == "EXC" or assignment["mark"] == "NHI" or assignment["mark"] == "ABS" %}
+                                    {% if assignment["mark"] is string %}
                                     <td class="align-middle font-weight-light">
                                         {{ assignment["mark"] }}
                                     </td>
@@ -380,7 +380,7 @@
                                         </a>
                                         {% endif %}
                                     </td>
-                                    {% if assignment["mark"] == "EXC" or assignment["mark"] == "NHI" or assignment["mark"] == "ABS" %}
+                                    {% if assignment["mark"] is string %}
                                     <td class="align-middle font-weight-light">
                                         {{ assignment["mark"] }}
                                     </td>
@@ -467,7 +467,7 @@
                                     <th scope="col" class="align-middle">
                                         {{ unit["name"] }}
                                     </th>
-                                    {% if unit["mark"] == "EXC" or unit["mark"] == "NHI" or unit["mark"] == "ABS" %}
+                                    {% if unit["mark"] is string %}
                                     <th class="align-middle">
                                         {{ unit["mark"] }}
                                     </th>
@@ -501,7 +501,7 @@
                                     <td scope="col" class="align-middle font-italic">
                                         {{ section["name"] }}
                                     </td>
-                                    {% if section["mark"] == "EXC" or section["mark"] == "NHI" or section["mark"] == "ABS" %}
+                                    {% if section["mark"] is string %}
                                     <td class="align-middle font-italic">
                                         {{ section["mark"] }}
                                     </td>
@@ -543,7 +543,7 @@
                                         </a>
                                         {% endif %}
                                     </td>
-                                    {% if assignment["mark"] == "EXC" or assignment["mark"] == "NHI" or assignment["mark"] == "ABS" %}
+                                    {% if assignment["mark"] is string %}
                                     <td class="align-middle font-weight-light">
                                         {{ assignment["mark"] }}
                                     </td>
@@ -592,7 +592,7 @@
                                         </a>
                                         {% endif %}
                                     </td>
-                                    {% if assignment["mark"] == "EXC" or assignment["mark"] == "NHI" or assignment["mark"] == "ABS" %}
+                                    {% if assignment["mark"] is string %}
                                     <td class="align-middle font-weight-light">
                                         {{ assignment["mark"] }}
                                     </td>
