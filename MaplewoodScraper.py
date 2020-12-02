@@ -240,7 +240,7 @@ class MaplewoodScraper:
         }
         if row[1] == "None":
             unit["mark"] = None
-        elif row[1] == "EXC" or row[1] == "NHI" or row[1] == "ABS":
+        elif row[1] in ["EXC", "NHI", "ABS", "COL"]:
             unit["mark"] = row[1]
         else:
             unit["mark"] = float(row[1])
@@ -259,7 +259,7 @@ class MaplewoodScraper:
         }
         if row[1] == "None":
             section["mark"] = None
-        elif row[1] == "EXC" or row[1] == "NHI" or row[1] == "ABS":
+        elif row[1] in ["EXC", "NHI", "ABS", "COL"]:
             section["mark"] = row[1]
         else:
             section["mark"] = float(row[1])
@@ -278,7 +278,7 @@ class MaplewoodScraper:
         }
         if row[1] == "None":
             assignment["mark"] = None
-        elif row[1] == "EXC" or row[1] == "NHI" or row[1] == "ABS":
+        elif row[1] in ["EXC", "NHI", "ABS", "COL"]:
             assignment["mark"] = row[1]
         else:
             assignment["mark"] = float(row[1])
