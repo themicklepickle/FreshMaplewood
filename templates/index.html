@@ -37,16 +37,16 @@
                     <div class="col-12">
                         <!-- GPA -->
                         <div class="collapse" id="GPA">
-                            <button class="markHeader btn btn-outline-primary text-secondary" type="button"
-                                data-toggle="collapse" aria-expanded="false"
+                            <button class="markHeader btn btn-outline-primary text-secondary" type="button" data-toggle="collapse"
+                                aria-expanded="false"
                                 data-target="#courseMark,#markButton,#markHeader,#GPA{% if waterlooGPA %},#waterlooGPA,#updatedHeader{% endif %}">
                                 <h4 class="my-0 mx-0">{{ "%.2f"|format(GPA) }}%</h4>
                             </button>
                         </div>
                         <!-- marks header button -->
                         <div class="collapse show" id="markHeader">
-                            <button class="markHeader btn btn-outline-primary text-secondary" type="button"
-                                data-toggle="collapse" aria-expanded="false"
+                            <button class="markHeader btn btn-outline-primary text-secondary" type="button" data-toggle="collapse"
+                                aria-expanded="false"
                                 data-target="#courseMark,#markButton,#markHeader,#GPA{% if waterlooGPA %},#waterlooGPA,#updatedHeader{% endif %}">
                                 <h4 class="my-0 mx-0">Mark</h4>
                             </button>
@@ -85,9 +85,9 @@
                 <div class="row align-items-center">
                     <!-- name -->
                     <div class="col-20">
-                        <button class="courseMark btn btn-outline-primary text-secondary" type="button"
-                            data-toggle="modal" data-target="#{{ course['code'] }}details" aria-expanded="false"
-                            aria-controls="{{ course['code'] }}details" {% if not course["mark"] %}disabled{% endif %}>
+                        <button class="courseMark btn btn-outline-primary text-secondary" type="button" data-toggle="modal"
+                            data-target="#{{ course['code'] }}details" aria-expanded="false" aria-controls="{{ course['code'] }}details" {% if not
+                            course["mark"] %}disabled{% endif %}>
                             <h5 class="d-inline my-0 text-center">
                                 {% if course["name"] in aliases %}
                                 {{ aliases[course["name"]] }}
@@ -101,10 +101,9 @@
                     <div class="col-12">
                         <!-- mark shown -->
                         <div class="collapse" id="courseMark">
-                            <button class="courseMark btn btn-outline-primary text-secondary" type="button"
-                                data-toggle="modal" data-target="#{{ course['code'] }}marks" aria-expanded="false"
-                                aria-controls="{{ course['code'] }}marks"
-                                {% if not course["updated"] %}disabled{% endif %}>
+                            <button class="courseMark btn btn-outline-primary text-secondary" type="button" data-toggle="modal"
+                                data-target="#{{ course['code'] }}marks" aria-expanded="false" aria-controls="{{ course['code'] }}marks" {% if not
+                                course["updated"] %}disabled{% endif %}>
                                 <h5 class="my-0">
                                     {% if course["mark"] %}
                                     {{ "%.2f"|format(course["mark"]) }}%
@@ -116,11 +115,9 @@
                         </div>
                         <!-- mark hidden -->
                         <div class="collapse show my-0" id="markButton">
-                            <button
-                                class="{% if course["mark"] %}btn btn-secondary text-primary{% else %}btn btn-outline-primary text-secondary{% endif %}"
-                                type="button" data-toggle="modal" data-target="#{{ course['code'] }}marks"
-                                aria-expanded="false" aria-controls="{{ course['code'] }}marks"
-                                {% if not course["updated"] %}disabled{% endif %}>
+                            <button class="{% if course[" mark"] %}btn btn-secondary text-primary{% else %}btn btn-outline-primary text-secondary{%
+                                endif %}" type="button" data-toggle="modal" data-target="#{{ course['code'] }}marks" aria-expanded="false"
+                                aria-controls="{{ course['code'] }}marks" {% if not course["updated"] %}disabled{% endif %}>
                                 <h5 class="my-0">
                                     {% if course["mark"] %}
                                     Marks
@@ -146,8 +143,8 @@
                     <!-- updated today -->
                     <div class="col-6">
                         {% if course["updated today"] %}
-                        <a data-toggle="modal" data-target="#{{ course['code'] }}updates" role="button"
-                            aria-expanded="false" aria-controls="{{ course['code'] }}updates">
+                        <a data-toggle="modal" data-target="#{{ course['code'] }}updates" role="button" aria-expanded="false"
+                            aria-controls="{{ course['code'] }}updates">
                             <i class="material-icons my-0 new-releases">new_releases</i>
                         </a>
                         {% endif %}
@@ -157,8 +154,8 @@
         </div>
 
         <!-- details -->
-        <div class="modal fade keyboard" id="{{ course['code'] }}details" tabindex="-1" role="dialog"
-            aria-labelledby="#{{ course['code'] }}details" aria-hidden="true">
+        <div class="modal fade keyboard" id="{{ course['code'] }}details" tabindex="-1" role="dialog" aria-labelledby="#{{ course['code'] }}details"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content rounded-0">
                     <!-- modal header -->
@@ -205,8 +202,8 @@
         </div>
 
         <!-- marks -->
-        <div class="modal fade keyboard" id="{{ course['code'] }}marks" tabindex="-1" role="dialog"
-            aria-labelledby="#{{ course['code'] }}marks" aria-hidden="true">
+        <div class="modal fade keyboard" id="{{ course['code'] }}marks" tabindex="-1" role="dialog" aria-labelledby="#{{ course['code'] }}marks"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg my-3 modal-dialog-scrollable" role="document">
                 <div class="modal-content rounded-0">
                     <!-- modal header -->
@@ -232,8 +229,7 @@
                                     </h5>
                                 </div>
                                 <div class="col-5">
-                                    <button type="button" class="close text-secondary" data-dismiss="modal"
-                                        aria-label="Close">
+                                    <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -273,7 +269,7 @@
                                         {{ "%.2f"|format(unit["mark"] / unit["denominator"] * 100) }}%
                                     </th>
                                     <th class="align-middle font-weight-normal">
-                                        {{ "%.2f"|format(unit["mark"]) }} / {{ unit["denominator"] }}
+                                        {{ "%.2f"|format(unit["mark"]) }} / {{ "%.2f"|format(unit["denominator"]) }}
                                     </th>
                                     {% else %}
                                     <th class="align-middle font-weight-normal"></th>
@@ -305,7 +301,7 @@
                                         {{ "%.2f"|format(section["mark"] / section["denominator"] * 100) }}%
                                     </td>
                                     <td class="align-middle font-italic font-weight-light">
-                                        {{ "%.2f"|format(section["mark"]) }} / {{ section["denominator"] }}
+                                        {{ "%.2f"|format(section["mark"]) }} / {{ "%.2f"|format(section["denominator"]) }}
                                     </td>
                                     {% else %}
                                     <td class="align-middle"></td>
@@ -324,8 +320,7 @@
                                     <td scope="row" class="align-middle">
                                         {{ assignment["name"] }}
                                         {% if assignment["comment"] %}
-                                        <a class="ml-1" role="button" tabindex="0" data-trigger="hover"
-                                            data-trigger="hover" data-toggle="popover"
+                                        <a class="ml-1" role="button" tabindex="0" data-trigger="hover" data-trigger="hover" data-toggle="popover"
                                             data-container="#{{ course['code'] }}_marks_body"
                                             data-content="{{ assignment['comment']['commentContent'] }}">
                                             <i class="material-icons my-0 mx-0 align-middle text-primary commentButton">
@@ -346,7 +341,7 @@
                                         {{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%
                                     </td>
                                     <td class="align-middle font-weight-light">
-                                        {{ "%.2f"|format(assignment["mark"]) }} / {{ assignment["denominator"] }}
+                                        {{ "%.2f"|format(assignment["mark"]) }} / {{ "%.2f"|format(assignment["denominator"]) }}
                                     </td>
                                     {% else %}
                                     <td class="align-middle"></td>
@@ -370,8 +365,7 @@
                                     <td scope="row" class="align-middle">
                                         {{ assignment["name"] }}
                                         {% if assignment["comment"] %}
-                                        <a class="ml-1" role="button" tabindex="0" data-trigger="hover"
-                                            data-trigger="hover" data-toggle="popover"
+                                        <a class="ml-1" role="button" tabindex="0" data-trigger="hover" data-trigger="hover" data-toggle="popover"
                                             data-container="#{{ course['code'] }}_marks_body"
                                             data-content="{{ assignment['comment']['commentContent'] }}">
                                             <i class="material-icons my-0 mx-0 align-middle text-primary commentButton">
@@ -392,7 +386,7 @@
                                         {{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%
                                     </td>
                                     <td class="align-middle font-weight-light">
-                                        {{ "%.2f"|format(assignment["mark"]) }} / {{ assignment["denominator"] }}
+                                        {{ "%.2f"|format(assignment["mark"]) }} / {{ "%.2f"|format(assignment["denominator"]) }}
                                     </td>
                                     {% else %}
                                     <td class="align-middle"></td>
@@ -417,8 +411,8 @@
 
         <!-- updates -->
         {% if course["updated today"] %}
-        <div class="modal fade keyboard" id="{{ course['code'] }}updates" tabindex="-1" role="dialog"
-            aria-labelledby="#{{ course['code'] }}updates" aria-hidden="true">
+        <div class="modal fade keyboard" id="{{ course['code'] }}updates" tabindex="-1" role="dialog" aria-labelledby="#{{ course['code'] }}updates"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg my-3 modal-dialog-scrollable" role="document">
                 <div class="modal-content rounded-0">
                     <!-- modal header -->
@@ -437,8 +431,7 @@
                                     <h5 class="modal-title">Today's Updates</h5>
                                 </div>
                                 <div class="col-5">
-                                    <button type="button" class="close text-secondary" data-dismiss="modal"
-                                        aria-label="Close">
+                                    <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -479,7 +472,7 @@
                                         {{ "%.2f"|format(unit["mark"] / unit["denominator"] * 100) }}%
                                     </th>
                                     <th class="align-middle font-weight-normal">
-                                        {{ "%.2f"|format(unit["mark"]) }} / {{ unit["denominator"] }}
+                                        {{ "%.2f"|format(unit["mark"]) }} / {{ "%.2f"|format(unit["denominator"]) }}
                                     </th>
                                     {% else %}
                                     <th class="align-middle font-weight-normal"></th>
@@ -513,7 +506,7 @@
                                         {{ "%.2f"|format(section["mark"] / section["denominator"] * 100) }}%
                                     </td>
                                     <td class="align-middle font-italic font-weight-light">
-                                        {{ "%.2f"|format(section["mark"]) }} / {{ section["denominator"] }}
+                                        {{ "%.2f"|format(section["mark"]) }} / {{ "%.2f"|format(section["denominator"]) }}
                                     </td>
                                     {% else %}
                                     <td class="align-middle"></td>
@@ -533,8 +526,7 @@
                                     <td scope="row" class="align-middle">
                                         {{ assignment["name"] }}
                                         {% if assignment["comment"] %}
-                                        <a class="ml-1" role="button" tabindex="0" data-trigger="hover"
-                                            data-trigger="hover" data-toggle="popover"
+                                        <a class="ml-1" role="button" tabindex="0" data-trigger="hover" data-trigger="hover" data-toggle="popover"
                                             data-container="#{{ course['code'] }}_marks_body"
                                             data-content="{{ assignment['comment']['commentContent'] }}">
                                             <i class="material-icons my-0 mx-0 align-middle text-primary commentButton">
@@ -555,7 +547,7 @@
                                         {{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%
                                     </td>
                                     <td class="align-middle font-weight-light">
-                                        {{ "%.2f"|format(assignment["mark"]) }} / {{ assignment["denominator"] }}
+                                        {{ "%.2f"|format(assignment["mark"]) }} / {{ "%.2f"|format(assignment["denominator"]) }}
                                     </td>
                                     {% else %}
                                     <td class="align-middle"></td>
@@ -582,8 +574,7 @@
                                     <td scope="row" class="align-middle">
                                         {{ assignment["name"] }}
                                         {% if assignment["comment"] %}
-                                        <a class="ml-1" role="button" tabindex="0" data-trigger="hover"
-                                            data-trigger="hover" data-toggle="popover"
+                                        <a class="ml-1" role="button" tabindex="0" data-trigger="hover" data-trigger="hover" data-toggle="popover"
                                             data-container="#{{ course['code'] }}_marks_body"
                                             data-content="{{ assignment['comment']['commentContent'] }}">
                                             <i class="material-icons my-0 mx-0 align-middle text-primary commentButton">
@@ -604,7 +595,7 @@
                                         {{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%
                                     </td>
                                     <td class="align-middle font-weight-light">
-                                        {{ "%.2f"|format(assignment["mark"]) }} / {{ assignment["denominator"] }}
+                                        {{ "%.2f"|format(assignment["mark"]) }} / {{ "%.2f"|format(assignment["denominator"]) }}
                                     </td>
                                     {% else %}
                                     <td class="align-middle"></td>
@@ -649,12 +640,10 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="../static/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(function () {
