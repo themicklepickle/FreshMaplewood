@@ -81,7 +81,7 @@
                 <div class="row align-items-center">
                     <!-- name -->
                     <div class="col-20">
-                        <button class="courseMark btn btn-outline-primary text-secondary" type="button" data-toggle="modal" data-target="#{{ course['code'] }}details" aria-expanded="false" aria-controls="{{ course['code'] }}details" {% if not course['mark'] %}disabled{% endif %}>
+                        <button class="courseMark btn btn-outline-primary text-secondary" type="button" data-toggle="modal" data-target="#{{ course['code'] }}_details" aria-expanded="false" aria-controls="{{ course['code'] }}_details" {% if not course['mark'] %}disabled{% endif %}>
                             <h5 class="d-inline my-0 text-center">
                                 {% if course['name'] in aliases %}
                                 {{ aliases[course['name']] }}
@@ -95,7 +95,7 @@
                     <div class="col-12">
                         <!-- mark shown -->
                         <div class="collapse" id="courseMark">
-                            <button class="courseMark btn btn-outline-primary text-secondary" type="button" data-toggle="modal" data-target="#{{ course['code'] }}marks" aria-expanded="false" aria-controls="{{ course['code'] }}marks" {% if not course['updated'] %}disabled{% endif %}>
+                            <button class="courseMark btn btn-outline-primary text-secondary" type="button" data-toggle="modal" data-target="#{{ course['code'] }}_marks" aria-expanded="false" aria-controls="{{ course['code'] }}_marks" {% if not course['updated'] %}disabled{% endif %}>
                                 <h5 class="my-0">
                                     {% if course['mark'] %}
                                     {{ '%.2f'|format(course['mark']) }}%
@@ -107,7 +107,7 @@
                         </div>
                         <!-- mark hidden -->
                         <div class="collapse show my-0" id="markButton">
-                            <button class="{% if course['mark'] %}btn btn-secondary text-primary{% else %}btn btn-outline-primary text-secondary{% endif %}" type="button" data-toggle="modal" data-target="#{{ course['code'] }}marks" aria-expanded="false" aria-controls="{{ course['code'] }}marks" {% if not course['updated'] %}disabled{% endif %}>
+                            <button class="{% if course['mark'] %}btn btn-secondary text-primary{% else %}btn btn-outline-primary text-secondary{% endif %}" type="button" data-toggle="modal" data-target="#{{ course['code'] }}_marks" aria-expanded="false" aria-controls="{{ course['code'] }}_marks" {% if not course['updated'] %}disabled{% endif %}>
                                 <h5 class="my-0">
                                     {% if course['mark'] %}
                                     Marks
@@ -133,7 +133,7 @@
                     <!-- updated today -->
                     <div class="col-6">
                         {% if course['updated today'] %}
-                        <a data-toggle="modal" data-target="#{{ course['code'] }}updates" role="button" aria-expanded="false" aria-controls="{{ course['code'] }}updates">
+                        <a data-toggle="modal" data-target="#{{ course['code'] }}_updates" role="button" aria-expanded="false" aria-controls="{{ course['code'] }}_updates">
                             <i class="material-icons my-0 new-releases">new_releases</i>
                         </a>
                         {% endif %}
@@ -143,7 +143,7 @@
         </div>
 
         <!-- details -->
-        <div class="modal fade keyboard" id="{{ course['code'] }}details" tabindex="-1" role="dialog" aria-labelledby="#{{ course['code'] }}details" aria-hidden="true">
+        <div class="modal fade keyboard" id="{{ course['code'] }}_details" tabindex="-1" role="dialog" aria-labelledby="#{{ course['code'] }}_details" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content rounded-0">
                     <!-- modal header -->
@@ -190,7 +190,7 @@
         </div>
 
         <!-- marks -->
-        <div class="modal fade keyboard" id="{{ course['code'] }}marks" tabindex="-1" role="dialog" aria-labelledby="#{{ course['code'] }}marks" aria-hidden="true">
+        <div class="modal fade keyboard" id="{{ course['code'] }}_marks" tabindex="-1" role="dialog" aria-labelledby="#{{ course['code'] }}_marks" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg my-3 modal-dialog-scrollable" role="document">
                 <div class="modal-content rounded-0">
                     <!-- modal header -->
