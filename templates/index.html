@@ -37,17 +37,13 @@
                     <div class="col-12">
                         <!-- GPA -->
                         <div class="collapse" id="GPA">
-                            <button class="markHeader btn btn-outline-primary text-secondary" type="button"
-                                data-toggle="collapse" aria-expanded="false"
-                                data-target="#courseMark,#markButton,#markHeader,#GPA{% if waterlooGPA %},#waterlooGPA,#updatedHeader{% endif %}">
-                                <h4 class="my-0 mx-0">{{ "%.2f"|format(GPA) }}%</h4>
+                            <button class="markHeader btn btn-outline-primary text-secondary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#courseMark,#markButton,#markHeader,#GPA{% if waterlooGPA %},#waterlooGPA,#updatedHeader{% endif %}">
+                                <h4 class="my-0 mx-0">{{ '%.2f'|format(GPA) }}%</h4>
                             </button>
                         </div>
                         <!-- marks header button -->
                         <div class="collapse show" id="markHeader">
-                            <button class="markHeader btn btn-outline-primary text-secondary" type="button"
-                                data-toggle="collapse" aria-expanded="false"
-                                data-target="#courseMark,#markButton,#markHeader,#GPA{% if waterlooGPA %},#waterlooGPA,#updatedHeader{% endif %}">
+                            <button class="markHeader btn btn-outline-primary text-secondary" type="button" data-toggle="collapse" aria-expanded="false" data-target="#courseMark,#markButton,#markHeader,#GPA{% if waterlooGPA %},#waterlooGPA,#updatedHeader{% endif %}">
                                 <h4 class="my-0 mx-0">Mark</h4>
                             </button>
                         </div>
@@ -56,7 +52,7 @@
                     <div class="col-12">
                         {% if waterlooGPA %}
                         <div class="collapse" id="waterlooGPA">
-                            <h4 class="my-0 mx-0">{{ "%.2f"|format(waterlooGPA) }}%</h4>
+                            <h4 class="my-0 mx-0">{{ '%.2f'|format(waterlooGPA) }}%</h4>
                         </div>
                         <!-- marks header button -->
                         <div class="collapse show" id="updatedHeader">
@@ -85,14 +81,12 @@
                 <div class="row align-items-center">
                     <!-- name -->
                     <div class="col-20">
-                        <button class="courseMark btn btn-outline-primary text-secondary" type="button"
-                            data-toggle="modal" data-target="#{{ course['code'] }}details" aria-expanded="false"
-                            aria-controls="{{ course['code'] }}details" {% if not course["mark"] %}disabled{% endif %}>
+                        <button class="courseMark btn btn-outline-primary text-secondary" type="button" data-toggle="modal" data-target="#{{ course['code'] }}details" aria-expanded="false" aria-controls="{{ course['code'] }}details" {% if not course['mark'] %}disabled{% endif %}>
                             <h5 class="d-inline my-0 text-center">
-                                {% if course["name"] in aliases %}
-                                {{ aliases[course["name"]] }}
+                                {% if course['name'] in aliases %}
+                                {{ aliases[course['name']] }}
                                 {% else %}
-                                {{ course["name"] }}
+                                {{ course['name'] }}
                                 {% endif %}
                             </h5>
                         </button>
@@ -101,13 +95,10 @@
                     <div class="col-12">
                         <!-- mark shown -->
                         <div class="collapse" id="courseMark">
-                            <button class="courseMark btn btn-outline-primary text-secondary" type="button"
-                                data-toggle="modal" data-target="#{{ course['code'] }}marks" aria-expanded="false"
-                                aria-controls="{{ course['code'] }}marks"
-                                {% if not course["updated"] %}disabled{% endif %}>
+                            <button class="courseMark btn btn-outline-primary text-secondary" type="button" data-toggle="modal" data-target="#{{ course['code'] }}marks" aria-expanded="false" aria-controls="{{ course['code'] }}marks" {% if not course['updated'] %}disabled{% endif %}>
                                 <h5 class="my-0">
-                                    {% if course["mark"] %}
-                                    {{ "%.2f"|format(course["mark"]) }}%
+                                    {% if course['mark'] %}
+                                    {{ '%.2f'|format(course['mark']) }}%
                                     {% else %}
                                     N/A
                                     {% endif %}
@@ -116,13 +107,9 @@
                         </div>
                         <!-- mark hidden -->
                         <div class="collapse show my-0" id="markButton">
-                            <button
-                                class="{% if course["mark"] %}btn btn-secondary text-primary{% else %}btn btn-outline-primary text-secondary{% endif %}"
-                                type="button" data-toggle="modal" data-target="#{{ course['code'] }}marks"
-                                aria-expanded="false" aria-controls="{{ course['code'] }}marks"
-                                {% if not course["updated"] %}disabled{% endif %}>
+                            <button class="{% if course['mark'] %}btn btn-secondary text-primary{% else %}btn btn-outline-primary text-secondary{% endif %}" type="button" data-toggle="modal" data-target="#{{ course['code'] }}marks" aria-expanded="false" aria-controls="{{ course['code'] }}marks" {% if not course['updated'] %}disabled{% endif %}>
                                 <h5 class="my-0">
-                                    {% if course["mark"] %}
+                                    {% if course['mark'] %}
                                     Marks
                                     {% else %}
                                     N/A
@@ -134,9 +121,9 @@
                     <!-- updated -->
                     <div class="col-12">
                         <div class="align-middle mt-1">
-                            <h5 {% if not course["updated"] %}style="opacity: 0.65;" {% endif %}>
-                                {% if course["updated"] %}
-                                {{ course["updated"] }}
+                            <h5 {% if not course['updated'] %}style="opacity: 0.65;" {% endif %}>
+                                {% if course['updated'] %}
+                                {{ course['updated'] }}
                                 {% else %}
                                 N/A
                                 {% endif %}
@@ -145,9 +132,8 @@
                     </div>
                     <!-- updated today -->
                     <div class="col-6">
-                        {% if course["updated today"] %}
-                        <a data-toggle="modal" data-target="#{{ course['code'] }}updates" role="button"
-                            aria-expanded="false" aria-controls="{{ course['code'] }}updates">
+                        {% if course['updated today'] %}
+                        <a data-toggle="modal" data-target="#{{ course['code'] }}updates" role="button" aria-expanded="false" aria-controls="{{ course['code'] }}updates">
                             <i class="material-icons my-0 new-releases">new_releases</i>
                         </a>
                         {% endif %}
@@ -157,8 +143,7 @@
         </div>
 
         <!-- details -->
-        <div class="modal fade keyboard" id="{{ course['code'] }}details" tabindex="-1" role="dialog"
-            aria-labelledby="#{{ course['code'] }}details" aria-hidden="true">
+        <div class="modal fade keyboard" id="{{ course['code'] }}details" tabindex="-1" role="dialog" aria-labelledby="#{{ course['code'] }}details" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content rounded-0">
                     <!-- modal header -->
@@ -170,7 +155,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <p class="h6 pt-1" style="margin-left: -15px; opacity: 0.8;">{{ course["teacher"] }}</p>
+                            <p class="h6 pt-1" style="margin-left: -15px; opacity: 0.8;">{{ course['teacher'] }}</p>
                         </div>
                     </div>
                     <!-- modal body -->
@@ -189,13 +174,13 @@
                             </div>
                             <div class="row text-center py-2">
                                 <div class="col">
-                                    <h5>{{ course["absent"] }}</h5>
+                                    <h5>{{ course['absent'] }}</h5>
                                 </div>
                                 <div class="col">
-                                    <h5>{{ course["excused"] }}</h5>
+                                    <h5>{{ course['excused'] }}</h5>
                                 </div>
                                 <div class="col">
-                                    <h5>{{ course["late"] }}</h5>
+                                    <h5>{{ course['late'] }}</h5>
                                 </div>
                             </div>
                         </div>
@@ -205,8 +190,7 @@
         </div>
 
         <!-- marks -->
-        <div class="modal fade keyboard" id="{{ course['code'] }}marks" tabindex="-1" role="dialog"
-            aria-labelledby="#{{ course['code'] }}marks" aria-hidden="true">
+        <div class="modal fade keyboard" id="{{ course['code'] }}marks" tabindex="-1" role="dialog" aria-labelledby="#{{ course['code'] }}marks" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg my-3 modal-dialog-scrollable" role="document">
                 <div class="modal-content rounded-0">
                     <!-- modal header -->
@@ -218,22 +202,21 @@
                                         <h5 class="modal-title" id="modalLabel">{{ course['name'] }}</h5>
                                     </div>
                                     <div class="row">
-                                        <p class="h6 pt-1" style="opacity: 0.8;">{{ course["teacher"] }}</p>
+                                        <p class="h6 pt-1" style="opacity: 0.8;">{{ course['teacher'] }}</p>
                                     </div>
                                 </div>
                                 <div class="col-15">
                                     <h5 class="modal-title">
                                         Mark:
-                                        {% if course["mark"] %}
-                                        {{ "%.2f"|format(course["mark"]) }}%
+                                        {% if course['mark'] %}
+                                        {{ '%.2f'|format(course['mark']) }}%
                                         {% else %}
                                         N/A
                                         {% endif %}
                                     </h5>
                                 </div>
                                 <div class="col-5">
-                                    <button type="button" class="close text-secondary" data-dismiss="modal"
-                                        aria-label="Close">
+                                    <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -247,116 +230,112 @@
                             <thead class="bg-primary text-secondary">
                                 <tr>
                                     <th scope="col" class="align-middle" style="width: 30%;">Category/Item</th>
-                                    <th scope="col" class="align-middle" style="width: 20%;">Percentage</th>
-                                    <th scope="col" class="align-middle" style="width: 20%;">Mark</th>
-                                    <th scope="col" class="align-middle" style="width: 10%;">Weight</th>
+                                    <th scope="col" class="align-middle text-center" style="width: 15%;">Percentage</th>
+                                    <th scope="col" class="align-middle text-center" style="width: 25%;">Mark</th>
+                                    <th scope="col" class="align-middle text-center" style="width: 10%;">Weight</th>
                                     <th scope="col" class="align-middle" style="width: 20%;">Date</th>
                                 </tr>
                             </thead>
 
-                            {% for unit in course["units"] %}
+                            {% for unit in course['units'] %}
                             <!-- unit header -->
                             <thead class="table-primary">
                                 <tr>
                                     <th scope="col" class="align-middle">
-                                        {{ unit["name"] }}
+                                        {{ unit['name'] }}
                                     </th>
-                                    {% if unit["mark"] is string %}
-                                    <th class="align-middle">
-                                        {{ unit["mark"] }}
+                                    {% if unit['mark'] is string %}
+                                    <th class="align-middle text-center">
+                                        {{ unit['mark'] }}
                                     </th>
-                                    <th class="align-middle font-weight-normal">
-                                        {{ unit["mark"] }}
+                                    <th class="align-middle text-center font-weight-normal">
+                                        {{ unit['mark'] }}
                                     </th>
-                                    {% elif unit["mark"] %}
-                                    <th class="align-middle">
-                                        {{ "%.2f"|format(unit["mark"] / unit["denominator"] * 100) }}%
+                                    {% elif unit['mark'] %}
+                                    <th class="align-middle text-center">
+                                        <input min="0" type="number" value={{ '%.2f' |format(unit['mark'] / unit['denominator'] * 100) }} class="percentage" />%
                                     </th>
-                                    <th class="align-middle font-weight-normal">
-                                        {{ "%.2f"|format(unit["mark"]) }} / {{ unit["denominator"] }}
+                                    <th class="align-middle text-center font-weight-normal"><input min="0" type="number" value={{ '%.2f' |format(unit['mark']) }} class="numerator" />/<input min="0" type="number" value={{ '%.2f' |format(unit['denominator']) }} class="denominator" />
                                     </th>
                                     {% else %}
-                                    <th class="align-middle font-weight-normal"></th>
-                                    <th class="align-middle font-weight-normal"></th>
+                                    <th class="align-middle text-center font-weight-normal"></th>
+                                    <th class="align-middle text-center font-weight-normal"></th>
                                     {% endif %}
-                                    <th class="align-middle font-weight-normal">
-                                        {{ unit["weight"] }}
+                                    <th class="align-middle text-center font-weight-normal">
+                                        <input min="0" type="number" value={{ '%.2f' |format(unit['weight']) }} class="weight" />
                                     </th>
                                     <th class="align-middle font-weight-normal"></th>
                                 </tr>
                             </thead>
-                            {% if unit["has sections"] %}
-                            {% for section in unit["sections"] %}
+                            {% if unit['has sections'] %}
+                            {% for section in unit['sections'] %}
                             <!-- section header -->
                             <thead class="table-active">
                                 <tr>
                                     <td scope="col" class="align-middle font-italic">
-                                        {{ section["name"] }}
+                                        {{ section['name'] }}
                                     </td>
-                                    {% if section["mark"] is string %}
-                                    <td class="align-middle font-italic">
-                                        {{ section["mark"] }}
+                                    {% if section['mark'] is string %}
+                                    <td class="align-middle text-center">
+                                        {{ section['mark'] }}
                                     </td>
-                                    <td class="align-middle font-italic font-weight-light">
-                                        {{ section["mark"] }}
+                                    <td class="align-middle text-center font-weight-light">
+                                        {{ section['mark'] }}
                                     </td>
-                                    {% elif section["mark"] %}
-                                    <td class="align-middle font-italic">
-                                        {{ "%.2f"|format(section["mark"] / section["denominator"] * 100) }}%
+                                    {% elif section['mark'] %}
+                                    <td class="align-middle text-center">
+                                        <input min="0" type="number" value={{ '%.2f' |format(section['mark'] / section['denominator'] * 100) }} class="percentage" />%
                                     </td>
-                                    <td class="align-middle font-italic font-weight-light">
-                                        {{ "%.2f"|format(section["mark"]) }} / {{ section["denominator"] }}
+                                    <td class="align-middle text-center font-weight-light">
+                                        <input min="0" type="number" value={{ '%.2f' |format(section['mark']) }} class="numerator" />/<input min="0" type="number" value={{ '%.2f' |format(section['denominator']) }} class="denominator" />
                                     </td>
                                     {% else %}
-                                    <td class="align-middle"></td>
-                                    <td class="align-middle"></td>
+                                    <td class="align-middle text-center"></td>
+                                    <td class="align-middle text-center"></td>
                                     {% endif %}
-                                    <td class="align-middle font-italic font-weight-light">
-                                        {{ section["weight"] }}
+                                    <td class="align-middle text-center font-weight-light">
+                                        <input min="0" type="number" value={{ '%.2f' |format(section['weight']) }} class="weight" />
                                     </td>
                                     <td class="align-middle"></td>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for assignment in section["assignments"] %}
+                                {% for assignment in section['assignments'] %}
                                 <!-- assignment -->
-                                <tr {% if assignment["updated today"] %}class="bg-secondary" {% endif %}>
+                                <tr {% if assignment['updated today'] %}class="bg-secondary" {% endif %}>
                                     <td scope="row" class="align-middle">
-                                        {{ assignment["name"] }}
-                                        {% if assignment["comment"] %}
-                                        <a class="ml-1" role="button" tabindex="0" data-trigger="hover"
-                                            data-trigger="hover" data-toggle="popover"
-                                            data-container="#{{ course['code'] }}_marks_body"
-                                            data-content="{{ assignment['comment']['commentContent'] }}">
+                                        {{ assignment['name'] }}
+                                        {% if assignment['comment'] %}
+                                        <a class="ml-1" role="button" tabindex="0" data-trigger="hover" data-trigger="hover" data-toggle="popover" data-container="#{{ course['code'] }}_marks_body" data-content="{{ assignment['comment']['commentContent'] }}">
                                             <i class="material-icons my-0 mx-0 align-middle text-primary commentButton">
                                                 comment
                                             </i>
                                         </a>
                                         {% endif %}
                                     </td>
-                                    {% if assignment["mark"] is string %}
-                                    <td class="align-middle font-weight-light">
-                                        {{ assignment["mark"] }}
+                                    {% if assignment['mark'] is string %}
+                                    <td class="align-middle text-center font-weight-light">
+                                        {{ assignment['mark'] }}
                                     </td>
-                                    <td class="align-middle font-weight-light">
-                                        {{ assignment["mark"] }}
+                                    <td class="align-middle text-center font-weight-light">
+                                        {{ assignment['mark'] }}
                                     </td>
-                                    {% elif assignment["mark"] %}
-                                    <td class="align-middle">
-                                        {{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%
+                                    {% elif assignment['mark'] %}
+                                    <td class="align-middle text-center">
+                                        <input min="0" type="number" value={{ '%.2f' |format(assignment['mark'] / assignment['denominator'] * 100) }} class="percentage" />%
                                     </td>
-                                    <td class="align-middle font-weight-light">
-                                        {{ "%.2f"|format(assignment["mark"]) }} / {{ assignment["denominator"] }}
+                                    <td class="align-middle text-center font-weight-light">
+                                        <input min="0" type="number" value={{ '%.2f' |format(assignment['mark']) }} class="numerator" />/<input min="0" type="number" value={{ '%.2f' |format(assignment['denominator']) }} class="denominator" />
                                     </td>
                                     {% else %}
-                                    <td class="align-middle"></td>
-                                    <td class="align-middle"></td>
+                                    <td class="align-middle text-center"></td>
+                                    <td class="align-middle text-center"></td>
                                     {% endif %}
-                                    <td class="align-middle font-weight-light">
-                                        {{ assignment["weight"] }}
+                                    <td class="align-middle text-center font-weight-light">
+                                        <input min="0" type="number" value={{ '%.2f' |format(assignment['weight']) }} class="weight" />
                                     </td>
                                     <td class="align-middle font-weight-light">
-                                        {{ assignment["date"] }}
+                                        {{ assignment['date'] }}
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -364,45 +343,42 @@
                             {% endfor %}
                             {% else %}
                             <tbody>
-                                {% for assignment in unit["assignments"] %}
+                                {% for assignment in unit['assignments'] %}
                                 <!-- assignment -->
-                                <tr {% if assignment["updated today"] %}class="bg-secondary" {% endif %}>
+                                <tr {% if assignment['updated today'] %}class="bg-secondary" {% endif %}>
                                     <td scope="row" class="align-middle">
-                                        {{ assignment["name"] }}
-                                        {% if assignment["comment"] %}
-                                        <a class="ml-1" role="button" tabindex="0" data-trigger="hover"
-                                            data-trigger="hover" data-toggle="popover"
-                                            data-container="#{{ course['code'] }}_marks_body"
-                                            data-content="{{ assignment['comment']['commentContent'] }}">
+                                        {{ assignment['name'] }}
+                                        {% if assignment['comment'] %}
+                                        <a class="ml-1" role="button" tabindex="0" data-trigger="hover" data-trigger="hover" data-toggle="popover" data-container="#{{ course['code'] }}_marks_body" data-content="{{ assignment['comment']['commentContent'] }}">
                                             <i class="material-icons my-0 mx-0 align-middle text-primary commentButton">
                                                 comment
                                             </i>
                                         </a>
                                         {% endif %}
                                     </td>
-                                    {% if assignment["mark"] is string %}
-                                    <td class="align-middle font-weight-light">
-                                        {{ assignment["mark"] }}
+                                    {% if assignment['mark'] is string %}
+                                    <td class="align-middle text-center font-weight-light">
+                                        {{ assignment['mark'] }}
                                     </td>
-                                    <td class="align-middle font-weight-light">
-                                        {{ assignment["mark"] }}
+                                    <td class="align-middle text-center font-weight-light">
+                                        {{ assignment['mark'] }}
                                     </td>
-                                    {% elif assignment["mark"] %}
-                                    <td class="align-middle">
-                                        {{ "%.2f"|format(assignment["mark"] / assignment["denominator"] * 100) }}%
+                                    {% elif assignment['mark'] %}
+                                    <td class="align-middle text-center">
+                                        <input min="0" type="number" value={{ '%.2f' |format(assignment['mark'] / assignment['denominator'] * 100) }} class="percentage" />%
                                     </td>
-                                    <td class="align-middle font-weight-light">
-                                        {{ "%.2f"|format(assignment["mark"]) }} / {{ assignment["denominator"] }}
+                                    <td class="align-middle text-center font-weight-light">
+                                        <input min="0" type="number" value={{ '%.2f' |format(assignment['mark']) }} class="numerator" />/<input min="0" type="number" value={{ '%.2f' |format(assignment['denominator']) }} class="denominator" />
                                     </td>
                                     {% else %}
-                                    <td class="align-middle"></td>
-                                    <td class="align-middle"></td>
+                                    <td class="align-middle text-center"></td>
+                                    <td class="align-middle text-center"></td>
                                     {% endif %}
-                                    <td class="align-middle font-weight-light">
-                                        {{ assignment["weight"] }}
+                                    <td class="align-middle text-center font-weight-light">
+                                        <input min="0" type="number" value={{ '%.2f' |format(assignment['weight']) }} class="weight" />
                                     </td>
                                     <td class="align-middle font-weight-light">
-                                        {{ assignment["date"] }}
+                                        {{ assignment['date'] }}
                                     </td>
                                 </tr>
                                 {% endfor %}
