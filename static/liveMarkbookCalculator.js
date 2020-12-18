@@ -70,7 +70,7 @@ const calculateMarks = courseCode => {
 
     $(`#${courseCode}_initial_mark`).attr('class', 'modal-title dimmed');
     $(`#${courseCode}_mark_arrow`).show();
-    $(`#${courseCode}_final_mark1`).text(finalMark + '%');
+    $(`#${courseCode}_final_mark`).text(finalMark + '%');
 
     calculatePercentages(courseCode); // calculate all the percentages
 
