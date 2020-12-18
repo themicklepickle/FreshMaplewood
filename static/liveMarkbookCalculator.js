@@ -40,18 +40,18 @@ const calculateLayer = layer => {
 /**
  * @desc Runs the whole markbook through the layer calculator and modifies the displayed markbook
  */
-const calculateMarks = () => {
-    let markbook = parseMarkbook();
+const calculateMarks = courseCode => {
+    let markbook = parseMarkbook(courseCode);
 
     for (let i = 0; i < markbook.length; i++) {
         let middle = markbook[i].children;
 
-        if ((isNaN(parseFloat(markbook[i].mark)) && markbook[i].mark !== '') || markbook[i].row.find('td:nth-child(2) > input').is(':hidden')) // Make sure top isn't already invalid or hidden
+        if ((isNaN(parseFloat(markbook[i].mark)) && markbook[i].mark !== '') || markbook[i].row.find('th:nth-child(3) > input:first').is(':hidden')) // Make sure top isn't already invalid or hidden
             continue;
 
         if (middle && middle.length) { // Make sure there is a middle layer to handle
             for (let j = 0; j < middle.length; j++) {
-                if ((isNaN(parseFloat(middle[j].mark)) && middle[j].mark !== '') || middle[j].row.find('td:nth-child(2) > input').is(':hidden')) // Make sure middle isn't already invalid or hidden
+                if ((isNaN(parseFloat(middle[j].mark)) && middle[j].mark !== '') || middle[j].row.find('td:nth-child(3) > input:first').is(':hidden')) // Make sure middle isn't already invalid or hidden
                     continue;
 
                 let bottom = middle[j].children;
@@ -65,14 +65,25 @@ const calculateMarks = () => {
         }
     }
 
-    let finalMark = +(calculateLayer(markbook) * 100).toFixed(3);
-    let finalMarkSelector = $('#markbookTable > div > div');
+    let finalMark = (calculateLayer(markbook) * 100).toFixed(2);
 
-    finalMarkSelector.text(`Term Mark: ${initialFinalMark} -> ${finalMark}`); // Display the final grade
-    if (!isNaN(initialFinalMark) && initialFinalMark !== finalMark) {
-        let difference = +parseFloat(finalMark - initialFinalMark).toFixed(3);
+    $('#' + courseCode + '_initial_mark').attr('class', 'modal-title dimmed');
+    $('#' + courseCode + '_mark_arrow').show();
+    $('#' + courseCode + '_final_mark').text(finalMark + '%');
 
     calculatePercentages(courseCode); // calculate all the percentages
+
+    if (!isNaN(initialMarks[courseCode]) && initialMarks[courseCode] !== finalMark) {
+        let difference = parseFloat(finalMark - initialMarks[courseCode]).toFixed(2);
+        let differenceSelector = $('#' + courseCode + '_difference');
+
+        if (difference > 0) {
+            differenceSelector.text(`+${difference}%`);
+            differenceSelector.attr('class', 'positiveDifference my-0');
+        } else {
+            differenceSelector.text(`${difference}%`);
+            differenceSelector.attr('class', 'negativeDifference my-0');
+        }
     }
 };
 
