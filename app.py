@@ -32,7 +32,7 @@ def signin():
 @app.route("/marks")
 def marks():
     scrape = MaplewoodScraper(session["username"], session["password"])
-    if scrape.start():
+    if scrape.start(test=1):
         if "error" in session:
             session.pop("error")
             session.pop("errorMessage")
