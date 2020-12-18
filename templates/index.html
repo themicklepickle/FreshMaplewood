@@ -239,24 +239,35 @@
                                     </th>
                                     {% if unit['mark'] == 'NHI' or unit['mark'] == 'INC' %}
                                     <th class="align-middle text-center">
-                                        {{ unit['mark'] }}
+                                        <span class="percentage">0%</span>
                                     </th>
-                                    <th class="align-middle text-center font-weight-normal">
-                                        {{ unit['mark'] }}
+                                    <th class="align-middle text-center font-weight-light">
+                                        <span class="textMarkSpan">{{ unit['mark'] }}</span><input step="any" min="0" type="number" value="0" class="textMarkInput" />/<input step="any" min="0" type="number" value={{ '%.2f' |format(unit['denominator']) }} class="denominator" />
                                     </th>
                                     {% elif unit['mark'] == 'EXC' or unit['mark'] == 'ABS' or unit['mark'] == 'COL' %}
+                                    <th class="align-middle text-center">
+                                        <span class="percentage"></span>
+                                    </th>
+                                    <th class="align-middle text-center font-weight-light">
+                                        <span class="textMarkSpan">{{ unit['mark'] }}</span><input step="any" min="0" type="number" value="" class="textMarkInput" />/<input step="any" min="0" type="number" value={{ '%.2f' |format(unit['denominator']) }} class="denominator" />
+                                    </th>
                                     {% elif unit['mark'] %}
                                     <th class="align-middle text-center">
-                                        <input min="0" type="number" value={{ '%.2f' |format(unit['mark'] / unit['denominator'] * 100) }} class="percentage" />%
+                                        <span class="percentage">{{ '%.2f' |format(unit['mark'] / unit['denominator'] * 100) }}%</span>
                                     </th>
-                                    <th class="align-middle text-center font-weight-normal"><input min="0" type="number" value={{ '%.2f' |format(unit['mark']) }} class="numerator" />/<input min="0" type="number" value={{ '%.2f' |format(unit['denominator']) }} class="denominator" />
+                                    <th class="align-middle text-center font-weight-normal">
+                                        <input step="any" min="0" type="number" value={{ '%.2f' |format(unit['mark']) }} class="numerator" />/<input step="any" min="0" type="number" value={{ '%.2f' |format(unit['denominator']) }} class="denominator" />
                                     </th>
                                     {% else %}
-                                    <th class="align-middle text-center font-weight-normal"></th>
-                                    <th class="align-middle text-center font-weight-normal"></th>
+                                    <th class="align-middle text-center">
+                                        <span class="percentage"></span>
+                                    </th>
+                                    <th class="align-middle text-center font-weight-normal">
+                                        <input step="any" min="0" type="number" value="" class="numerator" />/<input step="any" min="0" type="number" value={{ '%.2f' |format(unit['denominator']) }} class="denominator" />
+                                    </th>
                                     {% endif %}
                                     <th class="align-middle text-center font-weight-normal">
-                                        <input min="0" type="number" value={{ '%.2f' |format(unit['weight']) }} class="weight" />
+                                        <input step="any" min="0" type="number" value={{ '%.2f' |format(unit['weight']) }} class="weight" />
                                     </th>
                                     <th class="align-middle font-weight-normal"></th>
                                 </tr>
@@ -271,24 +282,35 @@
                                     </td>
                                     {% if section['mark'] == 'NHI' or section['mark'] == 'INC' %}
                                     <td class="align-middle text-center">
-                                        {{ section['mark'] }}
+                                        <span class="percentage">0%</span>
                                     </td>
                                     <td class="align-middle text-center font-weight-light">
+                                        <span class="textMarkSpan">{{ section['mark'] }}</span><input step="any" min="0" type="number" value="0" class="textMarkInput" />/<input step="any" min="0" type="number" value={{ '%.2f' |format(section['denominator']) }} class="denominator" />
+                                    </td>
                                     {% elif section['mark'] == 'EXC' or section['mark'] == 'ABS' or section['mark'] == 'COL' %}
+                                    <td class="align-middle text-center">
+                                        <span class="percentage"></span>
+                                    </td>
+                                    <td class="align-middle text-center font-weight-light">
+                                        <span class="textMarkSpan">{{ section['mark'] }}</span><input step="any" min="0" type="number" value="" class="textMarkInput" />/<input step="any" min="0" type="number" value={{ '%.2f' |format(section['denominator']) }} class="denominator" />
                                     </td>
                                     {% elif section['mark'] %}
                                     <td class="align-middle text-center">
-                                        <input min="0" type="number" value={{ '%.2f' |format(section['mark'] / section['denominator'] * 100) }} class="percentage" />%
+                                        <span class="percentage">{{ '%.2f' |format(section['mark'] / section['denominator'] * 100) }}%</span>
                                     </td>
-                                    <td class="align-middle text-center font-weight-light">
-                                        <input min="0" type="number" value={{ '%.2f' |format(section['mark']) }} class="numerator" />/<input min="0" type="number" value={{ '%.2f' |format(section['denominator']) }} class="denominator" />
+                                    <td class="align-middle text-center font-weight-normal">
+                                        <input step="any" min="0" type="number" value={{ '%.2f' |format(section['mark']) }} class="numerator" />/<input step="any" min="0" type="number" value={{ '%.2f' |format(section['denominator']) }} class="denominator" />
                                     </td>
                                     {% else %}
-                                    <td class="align-middle text-center"></td>
-                                    <td class="align-middle text-center"></td>
+                                    <td class="align-middle text-center">
+                                        <span class="percentage"></span>
+                                    </td>
+                                    <td class="align-middle text-center font-weight-normal">
+                                        <input step="any" min="0" type="number" value="" class="numerator" />/<input step="any" min="0" type="number" value={{ '%.2f' |format(section['denominator']) }} class="denominator" />
+                                    </td>
                                     {% endif %}
                                     <td class="align-middle text-center font-weight-light">
-                                        <input min="0" type="number" value={{ '%.2f' |format(section['weight']) }} class="weight" />
+                                        <input step="any" min="0" type="number" value={{ '%.2f' |format(section['weight']) }} class="weight" />
                                     </td>
                                     <td class="align-middle"></td>
                                 </tr>
@@ -308,26 +330,36 @@
                                         {% endif %}
                                     </td>
                                     {% if assignment['mark'] == 'NHI' or assignment['mark'] == 'INC' %}
+                                    <td class="align-middle text-center">
+                                        <span class="percentage">0%</span>
+                                    </td>
                                     <td class="align-middle text-center font-weight-light">
-                                        {{ assignment['mark'] }}
+                                        <span class="textMarkSpan">{{ assignment['mark'] }}</span><input step="any" min="0" type="number" value="0" class="textMarkInput" />/<input step="any" min="0" type="number" value={{ '%.2f' |format(assignment['denominator']) }} class="denominator" />
                                     </td>
                                     {% elif assignment['mark'] == 'EXC' or assignment['mark'] == 'ABS' or assignment['mark'] == 'COL' %}
+                                    <td class="align-middle text-center">
+                                        <span class="percentage"></span>
+                                    </td>
                                     <td class="align-middle text-center font-weight-light">
-                                        {{ assignment['mark'] }}
+                                        <span class="textMarkSpan">{{ assignment['mark'] }}</span><input step="any" min="0" type="number" value="" class="textMarkInput" />/<input step="any" min="0" type="number" value={{ '%.2f' |format(assignment['denominator']) }} class="denominator" />
                                     </td>
                                     {% elif assignment['mark'] %}
                                     <td class="align-middle text-center">
-                                        <input min="0" type="number" value={{ '%.2f' |format(assignment['mark'] / assignment['denominator'] * 100) }} class="percentage" />%
+                                        <span class="percentage">{{ '%.2f' |format(assignment['mark'] / assignment['denominator'] * 100) }}%</span>>
                                     </td>
-                                    <td class="align-middle text-center font-weight-light">
-                                        <input min="0" type="number" value={{ '%.2f' |format(assignment['mark']) }} class="numerator" />/<input min="0" type="number" value={{ '%.2f' |format(assignment['denominator']) }} class="denominator" />
+                                    <td class="align-middle text-center font-weight-normal">
+                                        <input step="any" min="0" type="number" value={{ '%.2f' |format(assignment['mark']) }} class="numerator" />/<input step="any" min="0" type="number" value={{ '%.2f' |format(assignment['denominator']) }} class="denominator" />
                                     </td>
                                     {% else %}
-                                    <td class="align-middle text-center"></td>
-                                    <td class="align-middle text-center"></td>
+                                    <td class="align-middle text-center">
+                                        <span class="percentage"></span>
+                                    </td>
+                                    <td class="align-middle text-center font-weight-normal">
+                                        <input step="any" min="0" type="number" value="" class="numerator" />/<input step="any" min="0" type="number" value={{ '%.2f' |format(assignment['denominator']) }} class="denominator" />
+                                    </td>
                                     {% endif %}
                                     <td class="align-middle text-center font-weight-light">
-                                        <input min="0" type="number" value={{ '%.2f' |format(assignment['weight']) }} class="weight" />
+                                        <input step="any" min="0" type="number" value={{ '%.2f' |format(assignment['weight']) }} class="weight" />
                                     </td>
                                     <td class="align-middle font-weight-light">
                                         {{ assignment['date'] }}
@@ -352,25 +384,36 @@
                                         {% endif %}
                                     </td>
                                     {% if assignment['mark'] == 'NHI' or assignment['mark'] == 'INC' %}
-                                    <td class="align-middle text-center font-weight-light">
-                                    {% elif assignment['mark'] == 'EXC' or assignment['mark'] == 'ABS' or assignment['mark'] == 'COL' %}
+                                    <td class="align-middle text-center">
+                                        <span class="percentage">0%</span>
                                     </td>
                                     <td class="align-middle text-center font-weight-light">
-                                        {{ assignment['mark'] }}
+                                        <span class="textMarkSpan">{{ assignment['mark'] }}</span><input step="any" min="0" type="number" value="0" class="textMarkInput" />/<input step="any" min="0" type="number" value={{ '%.2f' |format(assignment['denominator']) }} class="denominator" />
+                                    </td>
+                                    {% elif assignment['mark'] == 'EXC' or assignment['mark'] == 'ABS' or assignment['mark'] == 'COL' %}
+                                    <td class="align-middle text-center">
+                                        <span class="percentage"></span>
+                                    </td>
+                                    <td class="align-middle text-center font-weight-light">
+                                        <span class="textMarkSpan">{{ assignment['mark'] }}</span><input step="any" min="0" type="number" value="" class="textMarkInput" />/<input step="any" min="0" type="number" value={{ '%.2f' |format(assignment['denominator']) }} class="denominator" />
                                     </td>
                                     {% elif assignment['mark'] %}
                                     <td class="align-middle text-center">
-                                        <input min="0" type="number" value={{ '%.2f' |format(assignment['mark'] / assignment['denominator'] * 100) }} class="percentage" />%
+                                        <span class="percentage">{{ '%.2f' |format(assignment['mark'] / assignment['denominator'] * 100) }}%</span>>
                                     </td>
-                                    <td class="align-middle text-center font-weight-light">
-                                        <input min="0" type="number" value={{ '%.2f' |format(assignment['mark']) }} class="numerator" />/<input min="0" type="number" value={{ '%.2f' |format(assignment['denominator']) }} class="denominator" />
+                                    <td class="align-middle text-center font-weight-normal">
+                                        <input step="any" min="0" type="number" value={{ '%.2f' |format(assignment['mark']) }} class="numerator" />/<input step="any" min="0" type="number" value={{ '%.2f' |format(assignment['denominator']) }} class="denominator" />
                                     </td>
                                     {% else %}
-                                    <td class="align-middle text-center"></td>
-                                    <td class="align-middle text-center"></td>
+                                    <td class="align-middle text-center">
+                                        <span class="percentage"></span>
+                                    </td>
+                                    <td class="align-middle text-center font-weight-normal">
+                                        <input step="any" min="0" type="number" value="" class="numerator" />/<input step="any" min="0" type="number" value={{ '%.2f' |format(assignment['denominator']) }} class="denominator" />
+                                    </td>
                                     {% endif %}
                                     <td class="align-middle text-center font-weight-light">
-                                        <input min="0" type="number" value={{ '%.2f' |format(assignment['weight']) }} class="weight" />
+                                        <input step="any" min="0" type="number" value={{ '%.2f' |format(assignment['weight']) }} class="weight" />
                                     </td>
                                     <td class="align-middle font-weight-light">
                                         {{ assignment['date'] }}
@@ -388,7 +431,7 @@
 
         <!-- updates -->
         {% if course['updated today'] %}
-        <div class="modal fade keyboard" id="{{ course['code'] }}updates" tabindex="-1" role="dialog" aria-labelledby="#{{ course['code'] }}updates" aria-hidden="true">
+        <div class="modal fade keyboard" id="{{ course['code'] }}_updates" tabindex="-1" role="dialog" aria-labelledby="#{{ course['code'] }}_updates" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg my-3 modal-dialog-scrollable" role="document">
                 <div class="modal-content rounded-0">
                     <!-- modal header -->
