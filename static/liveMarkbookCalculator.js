@@ -68,9 +68,9 @@ const calculateMarks = courseCode => {
 
     let finalMark = (calculateLayer(markbook) * 100).toFixed(2);
 
-    $('#' + courseCode + '_initial_mark').attr('class', 'modal-title dimmed');
-    $('#' + courseCode + '_mark_arrow').show();
-    $('#' + courseCode + '_final_mark').text(finalMark + '%');
+    $(`#${courseCode}_initial_mark`).attr('class', 'modal-title dimmed');
+    $(`#${courseCode}_mark_arrow`).show();
+    $(`#${courseCode}_final_mark1`).text(finalMark + '%');
 
     calculatePercentages(courseCode); // calculate all the percentages
 
@@ -147,7 +147,7 @@ const parseMarkbook = courseCode => {
 };
 
 const calculatePercentages = courseCode => {
-    $('#' + courseCode + '_marks_body .percentage').each(function () {
+    $(`#${courseCode}_marks_body .percentage`).each(function () {
         const percentage = $(this);
         const numerator = parseFloat(percentage.closest('tr').find('.numerator').val());
         const denominator = parseFloat(percentage.closest('tr').find('.denominator').val());
@@ -156,7 +156,7 @@ const calculatePercentages = courseCode => {
             percentage.text((numerator / denominator * 100).toFixed(2) + '%');
         else
             percentage.text('');
-    }); // TODO: backticks for all
+    });
 };
 
 /**
@@ -164,7 +164,7 @@ const calculatePercentages = courseCode => {
  */
 const makeMarkbookEditable = () => {
     // bind to span
-    $(`.textMarkSpan`).each(function () {
+    $('.textMarkSpan').each(function () {
         const courseCode = $(this).closest('div').attr('id').split('_')[0];
         const input = $(this).parent().children('.textMarkInput');
         const span = $(this);
@@ -195,7 +195,7 @@ const getInitialMarks = () => {
             return;
 
         const courseCode = $(this).attr('id').split('_')[0];
-        const mark = parseFloat($('#' + courseCode + "_initial_mark").text()).toFixed(2);
+        const mark = parseFloat($(`#${courseCode}_initial_mark`).text()).toFixed(2);
 
         initialMarks[courseCode] = mark;
     });
@@ -203,7 +203,7 @@ const getInitialMarks = () => {
 
 const fixDecimals = () => {
     let prevVal;
-    $(`input`).each(function () {
+    $('input').each(function () {
         prevVal = parseFloat($(this).val());
         $(this).val(+prevVal.toFixed(2));
     });
