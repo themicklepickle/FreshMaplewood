@@ -27,10 +27,11 @@ const calculateLayer = layer => {
 
         /* Update the mark display */
         let row = layer[i].row;
+
         if (row) {
-            row.find('td:nth-child(2) > input').val(+mark.toFixed(2));
-            row.find('td:nth-child(4) > input').val(weight);
-            row.find('td:nth-child(5) > input').val(markDenom);
+            row.find('th:nth-child(3) > input:first, td:nth-child(3) > input:first').val(+mark.toFixed(2));
+            row.find('th:nth-child(3) > input:last, td:nth-child(3) > input:last').val(markDenom);
+            row.find('th:nth-child(4) > input, td:nth-child(4) > input').val(weight);
         }
     }
 
