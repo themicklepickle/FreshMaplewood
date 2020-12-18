@@ -80,34 +80,37 @@ const calculateMarks = () => {
  * @desc Iterates over the current markbook and parses the mark information into an array
  * @returns {Array} Holds the values of the current markbook
  */
-const parseMarkbook = () => {
+const parseMarkbook = courseCode => {
     let markbook = [];
-    $('#markbookTable table tbody > tr:gt(0)').each(function () { // Loop through each row except the first
+    $('#' + courseCode + '_marks_body tr:gt(0)').each(function () {
         const row = $(this);
-        const margin = row.find('td:first > span:first')[0].style['margin-left'];
+        const parentClass = row.parent().attr('class');
 
-        switch (margin) {
-            case '0px': {
+        switch (parentClass) {
+            // unit 
+            case 'table-primary': {
                 markbook.push({
-                    mark: row.find('td:nth-child(2) > input').val(),
-                    weight: row.find('td:nth-child(4) > input').val(),
-                    denominator: row.find('td:nth-child(5) > input').val(),
+                    mark: row.find('th:nth-child(3) > input:first').val(),
+                    denominator: row.find('th:nth-child(3) > input:last').val(),
+                    weight: row.find('th:nth-child(4) > input').val(),
                     children: [],
                     row: row
                 });
                 break;
             }
-            case '20px': {
+            // section
+            case 'table-active': {
                 markbook[markbook.length - 1].children.push({ // Push a middle row into the latest top level
-                    mark: row.find('td:nth-child(2) > input').val(),
+                    mark: row.find('td:nth-child(3) > input:first').val(),
+                    denominator: row.find('td:nth-child(3) > input:last').val(),
                     weight: row.find('td:nth-child(4) > input').val(),
-                    denominator: row.find('td:nth-child(5) > input').val(),
                     children: [],
                     row: row
                 });
                 break;
             }
-            case '40px': {
+            // assignment
+            case undefined: {
                 let top = markbook[markbook.length - 1].children;
                 let middle = !top[top.length - 1] ? top : top[top.length - 1].children;
 
@@ -116,15 +119,15 @@ const parseMarkbook = () => {
                 }
 
                 middle.push({
-                    mark: row.find('td:nth-child(2) > input').val(),
+                    mark: row.find('td:nth-child(3) > input:first').val(),
+                    denominator: row.find('td:nth-child(3) > input:last').val(),
                     weight: row.find('td:nth-child(4) > input').val(),
-                    denominator: row.find('td:nth-child(5) > input').val(),
                     row: row
                 });
                 break;
             }
             default: {
-                throw new Error('Unknown margin', margin);
+                throw new Error('Unknown class', parentClass);
             }
         }
     });
