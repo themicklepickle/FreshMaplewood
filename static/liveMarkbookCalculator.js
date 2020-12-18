@@ -72,10 +72,7 @@ const calculateMarks = () => {
     if (!isNaN(initialFinalMark) && initialFinalMark !== finalMark) {
         let difference = +parseFloat(finalMark - initialFinalMark).toFixed(3);
 
-        if (difference > 0)
-            finalMarkSelector.append(` <span style="color: #00c100;">+${difference}</span>`);
-        else
-            finalMarkSelector.append(` <span style="color: #c10000;">${difference}</span>`);
+    calculatePercentages(courseCode); // calculate all the percentages
     }
 };
 
@@ -132,6 +129,19 @@ const parseMarkbook = () => {
         }
     });
     return markbook;
+};
+
+const calculatePercentages = courseCode => {
+    $('#' + courseCode + '_marks_body .percentage').each(function () {
+        const percentage = $(this);
+        const numerator = parseFloat(percentage.closest('tr').find('.numerator').val());
+        const denominator = parseFloat(percentage.closest('tr').find('.denominator').val());
+
+        if (numerator && denominator)
+            percentage.text((numerator / denominator * 100).toFixed(2) + '%');
+        else
+            percentage.text('');
+    }); // TODO: backticks for all
 };
 
 /**
