@@ -183,7 +183,7 @@ const makeMarkbookEditable = () => {
 
         $(this).bind('input', function () {
             calculateMarks(courseCode);
-            $(this).parent().css('background-color', '#ffe499'); // Change color of cell to indicate it was modified
+            $(this).css('background-color', '#ffebb5');
         });
     });
 };
