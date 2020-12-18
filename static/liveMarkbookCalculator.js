@@ -1,4 +1,4 @@
-let initialFinalMark; // Stores the initial final grade
+let initialMarks = {};
 
 /**
  * @desc Takes in a mark layer and calculates the total mark based off weights and raw score
@@ -171,33 +171,18 @@ const makeMarkbookEditable = () => {
     });
 };
 
-/* Load Markbook Override (Pre-existing function used when a markbook is opened) */
-loadMarkbook = function (studentID, classID, termID, topicID, title, refresh, stuLetters, orgId) {
+const getInitialMarks = () => {
+    $('.modal').each(function () {
+        let modalType = $(this).attr('id').split('_')[1];
+        if (modalType !== 'marks')
+            return;
 
-    if (refresh) {
-        studentID = studentID_;
-        classID = classID_;
-        topicID = topicID_;
-        termID = termID_;
-        title = title_;
-        stuLetters = stuLetters_;
-        orgId = orgId_;
-    } else {
-        studentID_ = studentID;
-        classID_ = classID;
-        topicID_ = topicID;
-        title_ = title;
-        termID_ = termID;
-        stuLetters_ = stuLetters;
-        orgId_ = orgId;
-    }
+        const courseCode = $(this).attr('id').split('_')[0];
+        const mark = parseFloat($('#' + courseCode + "_initial_mark").text()).toFixed(2);
 
-    $('#MarkbookDialog').dialog('option', 'title', title);
-    $('#markbookTable').html('<div><img alt="Loading...." src="' + mwMrkBookDialogRootPath + 'viewer/clsmgr/images/ajax-loader2.gif" />&nbsp;Loading...</div>');
-    $('#MarkbookDialog').dialog('option', 'height', 'auto').dialog('open');
-
-    let fromDate = $('#mrkbkFromDate').datepicker().val();
-    let toDate = $('#mrkbkToDate').datepicker().val();
+        initialMarks[courseCode] = mark;
+    });
+};
 
 const fixDecimals = () => {
     let prevVal;
