@@ -199,32 +199,10 @@ loadMarkbook = function (studentID, classID, termID, topicID, title, refresh, st
     let fromDate = $('#mrkbkFromDate').datepicker().val();
     let toDate = $('#mrkbkToDate').datepicker().val();
 
-    $.ajax({
-        type: 'POST',
-        url: mwMrkBookDialogRootPath + 'viewer/Achieve/TopicBas/StuMrks.aspx/GetMarkbook',
-        data: JSON.stringify({
-            studentID: studentID,
-            classID: classID,
-            termID: termID,
-            topicID: topicID,
-            fromDate: fromDate,
-            toDate: toDate,
-            relPath: mwMrkBookDialogRootPath,
-            stuLetters: stuLetters || '',
-            orgID: orgId || -1
-        }),
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        success: function (msg) {
-            $('#MarkbookDialog').dialog('close');
-            $('#markbookTable').html(msg.d);
-            $('#MarkbookDialog').dialog('option', 'height', 'auto').dialog('open');
-            $('#markbookTable td[mrkTble!=\'1\']').addClass('tdAchievement');
-            makeMarkbookEditable();
-        },
-        error: function () {
-            $('#markbookTable').html('(error loading marbook)');
-            $('#MarkbookDialog').dialog('option', 'height', 'auto').dialog('open');
-        }
+const fixDecimals = () => {
+    let prevVal;
+    $(`input`).each(function () {
+        prevVal = parseFloat($(this).val());
+        $(this).val(+prevVal.toFixed(2));
     });
 };
