@@ -205,15 +205,8 @@
                                         <p class="h6 pt-1" style="opacity: 0.8;">{{ course['teacher'] }}</p>
                                     </div>
                                 </div>
-                                <div class="col-15">
-                                    <h5 class="modal-title">
-                                        Mark:
-                                        {% if course['mark'] %}
-                                        {{ '%.2f'|format(course['mark']) }}%
-                                        {% else %}
-                                        N/A
-                                        {% endif %}
-                                    </h5>
+                                <div class="col-18">
+                                    <h5 class="modal-title">Mark: {% if course['mark'] %}{{ '%.2f'|format(course['mark']) }}%{% else %}N/A{% endif %}</h5>
                                 </div>
                                 <div class="col-5">
                                     <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
