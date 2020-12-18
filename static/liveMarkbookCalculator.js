@@ -138,34 +138,26 @@ const parseMarkbook = () => {
  * @desc Converts the current open markbook to an editable format
  */
 const makeMarkbookEditable = () => {
-    $('#markbookTable table').prepend('<style type="text/css">input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-inner-spin-button {-webkit-appearance: none;margin: 0;} input[type="number"] {-moz-appearance: textfield; margin: 0; border: none; display: inline; font-family: Monaco, Courier, monospace; font-size: inherit; padding: 0; text-align: center; width: 30pt; background-color: inherit;}</style>');
-    initialFinalMark = parseFloat($('#markbookTable > div > div').text().substr(11)); // Grab everything after 'Term Mark: '
-    $('#markbookTable table tbody td:nth-child(n+2):nth-child(-n+5):not(:nth-child(3))').each(function () {
-        const value = $(this).text();
-        let inputHTML = `<input min="0" type="number" value="${value}" />`;
+    // bind to span
+    $(`.textMarkSpan`).each(function () {
+        const courseCode = $(this).closest('div').attr('id').split('_')[0];
+        const input = $(this).parent().children('.textMarkInput');
+        const span = $(this);
 
-        if (isNaN(parseFloat(value)) && value !== '') {
-            if (value === 'NHI' || value === 'INC')
-                inputHTML = `<span>${value}</span><input min="0" type="number" value="0" style="display: none;" />`;
-            else if (value === 'EXC' || value === 'ABS' || value === 'COL') // EXC and ABS
-                inputHTML = `<span>${value}</span><input min="0" type="number" value="" style="display: none;" />`;
-            else
-                return; // Ignore other values
-        }
+        $(span).bind('click', function () {
+            input.show();
+            input.attr('class', 'numerator');
+            calculateMarks(courseCode);
+            $(this).remove();
+        });
+    });
 
-        $(this).html(inputHTML);
-        const input = $(this).children('input');
-        const span = $(this).children('span');
+    // bind to regular inputs
+    $('input').each(function () {
+        const courseCode = $(this).closest('div').attr('id').split('_')[0];
 
-        if (span) {
-            $(span).bind('click', function () {
-                input.show();
-                calculateMarks();
-                $(this).remove();
-            });
-        }
-        $(input).bind('input', function () {
-            calculateMarks();
+        $(this).bind('input', function () {
+            calculateMarks(courseCode);
             $(this).parent().css('background-color', '#ffe499'); // Change color of cell to indicate it was modified
         });
     });
