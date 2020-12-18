@@ -41,7 +41,8 @@ def marks():
             courses=scrape.courses,
             aliases=scrape.aliases,
             GPA=scrape.GPA,
-            waterlooGPA=scrape.waterlooGPA
+            waterlooGPA=scrape.waterlooGPA,
+            courseCodes=scrape.courseCodes
         )
     session["error"] = True
     session["errorMessage"] = scrape.errorMessage
