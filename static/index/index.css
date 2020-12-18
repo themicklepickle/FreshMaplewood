@@ -9842,5 +9842,63 @@ body {
 
   .inner-container {
     max-width: 50rem; } }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; }
+
+input {
+  -moz-appearance: textfield;
+  margin: 0rem 0.2rem;
+  border: none;
+  display: inline;
+  font-size: inherit;
+  padding: 0;
+  text-decoration: inherit;
+  background-color: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  padding: 0rem 0.2rem;
+  width: 3.5rem;
+  border-radius: 0.3rem; }
+
+input:focus {
+  outline-color: #5a8684; }
+
+.numerator {
+  text-align: right; }
+
+.denominator {
+  text-align: left; }
+
+.percentage {
+  float: right; }
+
+.weight {
+  text-align: center; }
+
+.textMarkInput {
+  display: none; }
+
+.textMarkSpan {
+  display: inline-block;
+  text-align: right;
+  padding: 0rem 0.2rem;
+  margin: 0rem 0.2rem;
+  width: 3.5rem; }
+
+.positiveDifference {
+  color: #90ff3b; }
+
+.negativeDifference {
+  color: #ff8282; }
+
+.dimmed {
+  opacity: 0.6; }
+
+.arrow {
+  display: none;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem; }
 
 /*# sourceMappingURL=index.css.map */
