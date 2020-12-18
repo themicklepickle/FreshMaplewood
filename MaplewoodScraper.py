@@ -19,6 +19,7 @@ class MaplewoodScraper:
         self.programmingCourses = []
         self.roboticsCourses = []
         self.comments = []
+        self.courseCodes = []
 
         self.mainPage = None
         self.GPA = None
@@ -67,6 +68,7 @@ class MaplewoodScraper:
                 self.calculateGPA()
                 self.calculatewaterlooGPA()
                 self.getTodayUpdates()
+                self.getCourseCodes()
             return True
 
         self.startSession()
@@ -82,6 +84,7 @@ class MaplewoodScraper:
         if self.username.lower() == "xu3628":
             self.calculatewaterlooGPA()
         self.getTodayUpdates()
+        self.getCourseCodes()
         return True
 
     def startSession(self):
@@ -440,9 +443,15 @@ class MaplewoodScraper:
                             assignment["updated today"] = True
                             unit["updated today"] = True
 
+    def getCourseCodes(self):
+        for course in self.courses:
+            self.courseCodes.append(course["code"])
+
 
 if __name__ == "__main__":
     username = input("Username: ")
     password = input("Password: ")
     scraper = MaplewoodScraper(username, password)
     scraper.start()
+
+# TODO: make attribute to determine if the updated today array will be empty
