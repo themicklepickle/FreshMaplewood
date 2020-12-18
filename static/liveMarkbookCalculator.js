@@ -74,16 +74,22 @@ const calculateMarks = courseCode => {
 
     calculatePercentages(courseCode); // calculate all the percentages
 
-    if (!isNaN(initialMarks[courseCode]) && initialMarks[courseCode] !== finalMark) {
+    if (!isNaN(initialMarks[courseCode])) {
         let difference = parseFloat(finalMark - initialMarks[courseCode]).toFixed(2);
         let differenceSelector = $('#' + courseCode + '_difference');
 
         if (difference > 0) {
             differenceSelector.text(`+${difference}%`);
             differenceSelector.attr('class', 'positiveDifference my-0');
-        } else {
+        } else if (difference < 0) {
             differenceSelector.text(`${difference}%`);
             differenceSelector.attr('class', 'negativeDifference my-0');
+        } else {
+            differenceSelector.text('');
+            differenceSelector.attr('class', 'my-0');
+            $(`#${courseCode}_initial_mark`).attr('class', 'modal-title');
+            $(`#${courseCode}_mark_arrow`).hide();
+            $(`#${courseCode}_final_mark`).text('');
         }
     }
 };
