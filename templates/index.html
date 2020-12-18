@@ -255,17 +255,29 @@
                     <!-- modal header -->
                     <div class="modal-header text-secondary header rounded-0" style="width: 100%;">
                         <div class="container-fluid">
-                            <div class="row align-items-center">
+                            <div class="row">
                                 <div class="col">
                                     <div class="row">
                                         <h5 class="modal-title" id="modalLabel">{{ course['name'] }}</h5>
                                     </div>
                                     <div class="row">
-                                        <p class="h6 pt-1" style="opacity: 0.8;">{{ course['teacher'] }}</p>
+                                        <h6 class="pt-1" style="opacity: 0.8;">{{ course['teacher'] }}</h6>
                                     </div>
                                 </div>
-                                <div class="col-18">
-                                    <h5 class="modal-title">Mark: {% if course['mark'] %}{{ '%.2f'|format(course['mark']) }}%{% else %}N/A{% endif %}</h5>
+                                <div class="col-5 mr-0 pr-0">
+                                    <div class="row text-right">
+                                        <h5 class="modal-title">Mark: </h5>
+                                    </div>
+                                </div>
+                                <div class="col-13 ml-0 pl-0">
+                                    <div class="row text-left">
+                                        <h5 class="modal-title" id="{{ course['code'] }}_initial_mark">{% if course['mark'] %}{{ '%.2f'|format(course['mark']) }}%{% else %}N/A{% endif %} </h5>
+                                        <h5 class="modal-title dimmed arrow" id="{{ course['code'] }}_mark_arrow">→</h5>
+                                        <h5 class="modal-title" id="{{ course['code'] }}_final_mark"></h5>
+                                    </div>
+                                    <div class="row text-left">
+                                        <p class="my-0" id="{{ course['code'] }}_difference"></p>
+                                    </div>
                                 </div>
                                 <div class="col-5">
                                     <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
