@@ -177,6 +177,7 @@ const makeMarkbookEditable = () => {
 
         $(span).bind('click', function () {
             input.show();
+            input.focus();
             input.attr('class', 'numerator');
             calculateMarks(courseCode);
             $(this).remove();
